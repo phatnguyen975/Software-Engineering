@@ -5,7 +5,7 @@
 
 ## Course Description
 
-The course provides knowledge and techniques to students in developing web applications. Students will be presented the overview of web and internet, client-server model of the web applications as well as the detail steps in building a website. The course also presents the client-side and server-side technologies in developing web applications, the issues of and solutions to web security, the basic techniques and the tools in testing the web applications.
+This course aims to provide students with an overview of web application development, focusing on both Front-end and Back-end aspects. Key concepts include web design principles, client-server architecture, dynamic web development using HTML5, CSS3, JavaScript, NodeJS, Express, and databases (SQL/NoSQL). Additionally, it introduces updated topics on SSR (Server-Side Rendering) and CSR (Client-Side Rendering) architectures, front-end development with ReactJS using state management and API integration, as well as modern CSS frameworks such as Tailwind or Bootstrap. Students will practice building real-world web applications, enhancing teamwork and project presentation skills.
 
 ## Course Plan
 
