@@ -14,8 +14,8 @@ The course provides knowledge and techniques to students in developing web appli
 |  1   |     HTML     |
 |  2   |     CSS      |
 |  3   | Tailwind CSS |
-|  4   |              |
-|  5   |              |
+|  4   |  JavaScript  |
+|  5   |   ReactJS    |
 |  6   |              |
 |  7   |              |
 |  8   |              |

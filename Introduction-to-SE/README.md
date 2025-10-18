@@ -12,7 +12,7 @@ This course is to introduce to students basic concepts, principles, and practice
 | Week |                Topic                 |
 | :--: | :----------------------------------: |
 |  1   | Introduction to Software Engineering |
-|  2   |           Software Process           |
+|  2   |          Software Processes          |
 |  3   |     Software Project Management      |
 |  4   |        Software Requirements         |
 |  5   |          Software Modeling           |
