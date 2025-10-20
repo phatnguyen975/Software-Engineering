@@ -86,23 +86,23 @@ The RUP is a modern, hybrid process model that brings together elements from all
 
 **A system to control anti-lock braking in a car**
 
-- **Model:** The **waterfall model** or a formal, plan-driven process.
-- **Reason:** This is a safety-critical system where requirements are well-understood and unlikely to change, as they are determined by the physical hardware of the car. A plan-driven approach allows for a complete and analyzable specification to be developed, which is crucial for safety analysis before any implementation begins.
+- The **waterfall model** is most appropriate.
+- This is a safety-critical system where the requirements are well-understood and unlikely to change. A plan-driven approach with detailed upfront analysis and specification is essential to ensure safety and reliability.
 
 **A virtual reality system to support software maintenance**
 
-- **Model:** **Incremental development** with prototyping.
-- **Reason:** This is a highly interactive system where the requirements for the user interface and functionality are difficult to specify in advance. An incremental approach allows users to experiment with early versions and provide rapid feedback, which is essential for developing a usable and effective system.
+- **Incremental development** is the best choice.
+- The requirements for a VR system are difficult to predict, and the user interface is critical. An incremental approach allows for extensive user feedback and experimentation to refine the system.
 
 **A university accounting system that replaces an existing system**
 
-- **Model:** A hybrid approach, combining a **plan-driven model with incremental development**.
-- **Reason:** Many core requirements will be well-understood from the existing system, making a plan-driven approach suitable for these parts. However, the system is large, and new features or user interface requirements will evolve. For these parts, an incremental approach allows for flexibility and user feedback. The text notes that combining the best features of different models is sensible for large systems.
+- A **reuse-oriented** approach would be highly suitable.
+- The requirements are likely to be well-defined by the existing system. The new system could be built by integrating existing COTS (Commercial-off-the-shelf) systems for finance and accounting, which would be configured for the university's specific needs.
 
 **An interactive travel planning system that helps users plan journeys with the lowest environmental impact**
 
-- **Model:** **Incremental development** or an agile process.
-- **Reason:** This is an interactive system where requirements will likely change as users provide feedback. An incremental approach allows for rapid delivery of useful features (e.g., basic journey planning) and allows the system to evolve based on user priorities and feedback on new features like environmental impact calculations.
+- **Incremental development** is the most suitable model.
+- The user interface is a key part of the system, and an incremental approach allows for user testing and feedback from the early stages. The requirements may also change as users interact with the system and suggest new features.
 
 ### 2. Exercise 2
 
@@ -134,39 +134,27 @@ It is important to distinguish between user and system requirements because they
 - **User Requirements:** These are high-level, abstract statements written in natural language for the **customer, end-users, and client managers**. Their purpose is to define the system's expected services and constraints in a way that is understandable to readers without a technical background. This allows for agreement on the system's objectives at a high level.
 - **System Requirements:** These are more detailed and precise descriptions of the system's functions and operational constraints, intended for **system architects and software developers**. Their purpose is to provide a detailed specification that can serve as a basis for system design and implementation. This level of detail is often part of the contract between the system buyer and developers.
 
+Making this distinction ensures that the requirements can be understood and validated by the customer while also being detailed enough for developers to build the system.
+
 ### 5. Exercise 5
 
 > Describe the main activities in the software design process and the outputs of these activities. Using a diagram, show possible relationships between the outputs of these activities.
 
 According to the model in the chapter, the main design activities for an information system are:
 
-1. **Architectural design:** Identifying the overall structure of the system and its principal components.
-2. **Interface design:** Defining the interfaces between the system components.
-3. **Component design:** Designing the operation of individual components.
-4. **Database design:** Designing the system's data structures and how they are represented in a database.
+1. **Architectural design:** Identifies the overall structure of the system, its main components, their relationships, and their distribution. Output: System Architecture.
+2. **Interface design:** Defines the interfaces between system components. Output: Interface Specification.
+3. **Component design:** Takes each system component and designs how it will operate. Output: Component Specification.
+4. **Database design:** Designs the system's data structures and how they are represented in a database. Output: Database Specification.
 
-The outputs of these activities are:
-
-- System Architecture
-- Interface Specification
-- Component Specification
-- Database Specification
-
-The diagram below shows the relationships between these outputs. The System Architecture is the primary output that influences all others. The Interface and Component Specifications are dependent on the architecture, and the Component Specification is also dependent on the interfaces it must implement.
+This diagram shows that the System Architecture provides the overall structure, from which specific component and interface specifications are derived. Components then use these interfaces and access the database as defined in their respective specifications.
 
 ```text
-graph TD
-    A[System Architecture] --> B(Interface Specification);
-    A --> C(Component Specification);
-    A --> D(Database Specification);
-    B --> C;
-    C --> D;
+[System Architecture] -> specifies -> [Interface Specification]
+[System Architecture] -> contains -> [Component Specification]
+[Component Specification] -> uses -> [Interface Specification]
+[Component Specification] -> accesses -> [Database Specification]
 ```
-
-- The **System Architecture** defines the components, so it must be created before the **Interface, Component, and Database Specifications**.
-- The **Interface Specification** defines how components in the architecture interact, so it influences the detailed **Component Specification**.
-- The **Component Specification** details each component and must conform to its specified interface.
-- The **Database Specification** is also derived from the architecture and may be influenced by the data needs of individual components.
 
 ### 6. Exercise 6
 
