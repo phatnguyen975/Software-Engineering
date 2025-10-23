@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>23127449 - Nguyen Tan Phat</title>
+
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&display=swap");
+
+      @layer base {
+        body {
+          font-family: Changa One, sans-serif;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="bg-white">
+      <div
+        class="max-w-screen flex flex-wrap items-center justify-between mx-auto py-4 px-5 md:px-10 lg:px-20"
+      >
+        <a href="#" class="flex items-center space-x-3">
+          <img src="/images/logo.png" class="w-28 h-12" alt="Logo" />
+        </a>
+        <div class="flex md:order-2">
+          <button
+            type="button"
+            data-collapse-toggle="navbar-search"
+            aria-controls="navbar-search"
+            aria-expanded="false"
+            class="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 me-1"
+          >
+            <svg
+              class="w-5 h-5"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 20"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+              />
+            </svg>
+            <span class="sr-only">Search</span>
+          </button>
+          <div class="relative hidden md:block">
+            <input
+              type="text"
+              id="search-navbar"
+              class="block w-full py-2 pl-4 pr-9 text-sm font-sans text-gray-900 border border-gray-300 rounded-3xl bg-gray-50 focus:ring-cyan-600 focus:border-cyan-600"
+              placeholder="Search..."
+            />
+            <div
+              class="absolute inset-y-0 right-3 flex items-center ps-3 pointer-events-none"
+            >
+              <svg
+                class="size-4 text-lime-500"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                />
+              </svg>
+            </div>
+          </div>
+          <button
+            data-collapse-toggle="navbar-search"
+            type="button"
+            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            aria-controls="navbar-search"
+            aria-expanded="false"
+          >
+            <span class="sr-only">Open main menu</span>
+            <svg
+              class="w-5 h-5"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 17 14"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M1 1h15M1 7h15M1 13h15"
+              />
+            </svg>
+          </button>
+        </div>
+        <div
+          class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+          id="navbar-search"
+        >
+          <div class="relative mt-3 md:hidden">
+            <div
+              class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
+            >
+              <svg
+                class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                />
+              </svg>
+            </div>
+            <input
+              type="text"
+              id="search-navbar"
+              class="block w-full p-2 ps-10 text-sm font-sans text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-cyan-500 focus:border-cyan-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-cyan-500 dark:focus:border-cyan-500"
+              placeholder="Search..."
+            />
+          </div>
+          <ul
+            class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
+          >
+            <li>
+              <a
+                href="#"
+                class="block py-2 px-3 text-white bg-cyan-600 rounded-sm md:bg-transparent md:text-cyan-600 md:p-0 md:dark:text-cyan-500"
+                aria-current="page"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="#about"
+                class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-600 md:p-0 md:dark:hover:text-cyan-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >About</a
+              >
+            </li>
+            <li>
+              <a
+                href="#gallery"
+                class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-600 md:p-0 dark:text-white md:dark:hover:text-cyan-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >Gallery</a
+              >
+            </li>
+            <li>
+              <a
+                href="#blogs"
+                class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-600 md:p-0 dark:text-white md:dark:hover:text-cyan-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >Blogs</a
+              >
+            </li>
+            <li>
+              <a
+                href="#contacts"
+                class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-600 md:p-0 dark:text-white md:dark:hover:text-cyan-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >Contacts</a
+              >
+            </li>
+            <li>
+              <a
+                href="#login"
+                class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-600 md:p-0 dark:text-white md:dark:hover:text-cyan-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >Login</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <!-- About -->
+      <section
+        id="about"
+        class="max-w-screen pt-[50%] md:pt-[40%] lg:pt-[30%] bg-[url('/images/bg-banner.gif')] opacity-90 bg-repeat relative"
+      >
+        <img
+          src="/images/bg-banner-top-left.png"
+          alt="Banner Top-Left"
+          class="absolute max-sm:w-20 max-sm:left-5 max-md:w-40 max-md:left-10 top-0 left-20"
+        />
+        <img
+          src="/images/bg-banner-top-right.png"
+          alt="Banner Top-Right"
+          class="absolute max-sm:w-20 max-sm:right-5 max-md:w-40 max-md:right-10 top-0 right-20"
+        />
+
+        <div
+          id="default-carousel"
+          class="absolute top-0 w-full h-full"
+          data-carousel="slide"
+        >
+          <!-- Carousel wrapper -->
+          <div class="relative h-full w-full overflow-hidden rounded-lg">
+            <!-- Item 1 -->
+            <div
+              class="absolute top-[20%] hidden duration-700 ease-in-out"
+              data-carousel-item
+            >
+              <h1
+                class="text-2xl md:text-4xl lg:text-6xl text-white text-center"
+              >
+                Web Development <br />
+                for everyone
+              </h1>
+            </div>
+            <!-- Item 2 -->
+            <div
+              class="absolute top-[30%] hidden duration-700 ease-in-out"
+              data-carousel-item
+            >
+              <h1
+                class="text-2xl md:text-4xl lg:text-6xl text-white text-center"
+              >
+                23127449 - Nguyen Tan Phat
+              </h1>
+            </div>
+            <!-- Item 3 -->
+            <div
+              class="absolute top-[30%] hidden duration-700 ease-in-out"
+              data-carousel-item
+            >
+              <h1
+                class="text-2xl md:text-4xl lg:text-6xl text-white text-center"
+              >
+                CSC13008 - 23KTPM2
+              </h1>
+            </div>
+          </div>
+          <!-- Slider indicators -->
+          <div
+            class="absolute z-30 flex -translate-x-1/2 top-[60%] md:top-[65%] lg:top-[60%] left-1/2 space-x-3 rtl:space-x-reverse"
+          >
+            <button
+              type="button"
+              class="size-2 md:size-3 rounded-full"
+              aria-current="true"
+              aria-label="Slide 1"
+              data-carousel-slide-to="0"
+            ></button>
+            <button
+              type="button"
+              class="size-2 md:size-3 rounded-full"
+              aria-current="false"
+              aria-label="Slide 2"
+              data-carousel-slide-to="1"
+            ></button>
+            <button
+              type="button"
+              class="size-2 md:size-3 rounded-full"
+              aria-current="false"
+              aria-label="Slide 3"
+              data-carousel-slide-to="2"
+            ></button>
+          </div>
+
+          <button
+            type="button"
+            class="absolute z-50 bottom-[5%] md:bottom-[10%] lg:bottom-[18%] font-sans font-medium -translate-x-1/2 left-1/2 cursor-pointer text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-4 focus:ring-cyan-300 rounded-full max-sm:text-xs text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-cyan-600 dark:hover:bg-cyan-600 dark:focus:ring-cyan-800"
+          >
+            SEE MORE
+          </button>
+
+          <!-- Slider controls -->
+          <button
+            type="button"
+            class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+            data-carousel-prev
+          >
+            <span
+              class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none"
+            >
+              <svg
+                class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 6 10"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 1 1 5l4 4"
+                />
+              </svg>
+              <span class="sr-only">Previous</span>
+            </span>
+          </button>
+          <button
+            type="button"
+            class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+            data-carousel-next
+          >
+            <span
+              class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none"
+            >
+              <svg
+                class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 6 10"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m1 9 4-4-4-4"
+                />
+              </svg>
+              <span class="sr-only">Next</span>
+            </span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Gallery -->
+      <section
+        id="gallery"
+        class="min-h-100 grid justify-self-center sm:grid-cols-1 md:grid-cols-2 gap-10 lg:flex lg:justify-between items-center px-20 py-10 bg-white"
+      >
+        <div class="max-w-70 flex flex-col gap-3 justify-center items-center">
+          <div
+            class="bg-[url('/images/icon-1.png')] hover:bg-[url('/images/icon-1-active.png')] size-30"
+          ></div>
+          <h2 class="text-2xl">Coffee</h2>
+          <p class="font-sans text-center text-sm">
+            Coffee energizes the mind, warms the soul, and fuels creativity
+            daily.
+          </p>
+          <a href="#" class="text-cyan-600 font-sans font-medium">Read more</a>
+        </div>
+
+        <div class="max-w-70 flex flex-col gap-3 justify-center items-center">
+          <div
+            class="bg-[url('/images/icon-2.png')] hover:bg-[url('/images/icon-2-active.png')] size-30"
+          ></div>
+          <h2 class="text-2xl">Drinks</h2>
+          <p class="font-sans text-center text-sm">
+            Drinks refresh, rejuvenate, and bring people together in joyful
+            moments.
+          </p>
+          <a href="#" class="text-cyan-600 font-sans font-medium">Read more</a>
+        </div>
+
+        <div class="max-w-70 flex flex-col gap-3 justify-center items-center">
+          <div
+            class="bg-[url('/images/icon-3.png')] hover:bg-[url('/images/icon-3-active.png')] size-30"
+          ></div>
+          <h2 class="text-2xl">Cakes</h2>
+          <p class="font-sans text-center text-sm">
+            Cakes sweeten celebrations, delighting taste buds with layers of
+            joy.
+          </p>
+          <a href="#" class="text-cyan-600 font-sans font-medium">Read more</a>
+        </div>
+
+        <div class="max-w-70 flex flex-col gap-3 justify-center items-center">
+          <div
+            class="bg-[url('/images/icon-4.png')] hover:bg-[url('/images/icon-4-active.png')] size-30"
+          ></div>
+          <h2 class="text-2xl">Ice-creams</h2>
+          <p class="font-sans text-center text-sm">
+            Ice creams cool, delight, and bring sweet joy to everyone.
+          </p>
+          <a href="#" class="text-cyan-600 font-sans font-medium">Read more</a>
+        </div>
+      </section>
+
+      <!-- Blogs -->
+      <section
+        id="blogs"
+        class="min-h-100 grid grid-cols-1 gap-10 md:flex items-center lg:justify-between px-20 lg:px-30 py-10 bg-pink-100"
+      >
+        <div class="md:w-[60%] md:flex flex-col gap-3">
+          <h1 class="text-4xl">About Us</h1>
+          <div class="md:flex gap-3">
+            <img
+              src="/images/icon-about.png"
+              alt="Icon About"
+              class="float-left w-38 h-26 p-2"
+            />
+            <p class="font-sans text-justify">
+              Exploring the Web1 Project: A Student's Journey in Modern Web
+              Development. Welcome to the Web1 project, a student's exploration
+              into the world of web development. This website serves as a
+              hands-on practice platform, showcasing skiils in HTML5, CSS3,
+              JavaScript, Tailwindcss, HandlebarsJS, and Web API integration.
+              <a href="#" class="text-cyan-600 font-medium">Read more</a>
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="md:w-[40%] lg:w-[30%] border-3 shadow-lg border-dashed border-pink-500 p-5 bg-white rounded-lg"
+        >
+          <form class="flex flex-col gap-3">
+            <h1 class="text-3xl text-center">Newsletter Sign Up</h1>
+            <p class="font-sans">Please write an email to address:</p>
+            <input
+              type="email"
+              placeholder="yours@mail.com"
+              class="font-sans rounded-lg border border-slate-400 focus:ring-pink-500"
+            />
+            <div class="flex justify-end">
+              <button
+                class="flex items-center justify-center bg-black font-sans font-medium text-sm px-5 py-2 text-white rounded-lg cursor-pointer"
+              >
+                SIGN UP
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Contacts -->
+      <section
+        id="contacts"
+        class="min-h-100 flex flex-col items-center justify-center gap-10 px-20 py-10 bg-white"
+      >
+        <h1 class="text-center text-5xl">News</h1>
+
+        <div class="grid grid-cols-1 lg:flex gap-20">
+          <div class="max-w-90 flex gap-5">
+            <div
+              class="flex items-center justify-center text-center text-white text-3xl p-3 rounded-lg size-20 bg-lime-400"
+            >
+              Dec. 25.
+            </div>
+
+            <div class="flex flex-col gap-3">
+              <h1 class="text-2xl">Coffee Enthusiasts Rejoice</h1>
+              <p class="font-sans text-sm">
+                New Study Reveals Coffee's Suprising Benefits for Mental Health
+              </p>
+              <a href="#" class="font-sans font-medium text-cyan-600"
+                >Read more</a
+              >
+            </div>
+          </div>
+
+          <div class="max-w-90 flex gap-5">
+            <div
+              class="flex items-center justify-center text-center text-white text-3xl p-3 rounded-lg size-20 bg-lime-400"
+            >
+              Nov. 22.
+            </div>
+
+            <div class="flex flex-col gap-3">
+              <h1 class="text-2xl">Culinary Revolution</h1>
+              <p class="font-sans text-sm">
+                AI Chefs Redefine Gourmet Dining with Innovative Dishes
+              </p>
+              <a href="#" class="font-sans font-medium text-cyan-600"
+                >Read more</a
+              >
+            </div>
+          </div>
+
+          <div class="max-w-90 flex gap-5">
+            <div
+              class="flex items-center justify-center text-center text-white text-3xl p-3 rounded-lg size-20 bg-lime-400"
+            >
+              Oct. 10.
+            </div>
+
+            <div class="flex flex-col gap-3">
+              <h1 class="text-2xl">Our Cakes</h1>
+              <p class="font-sans text-sm">
+                Cake Artistry Reaches New Heights with 3D-Painted Edible
+                Masterpieces
+              </p>
+              <a href="#" class="font-sans font-medium text-cyan-600"
+                >Read more</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer
+      class="p-4 md:p-6 bg-[url('/images/bg-footer.gif')] opacity-80 flex items-center justify-center"
+    >
+      <div class="flex flex-col gap-3">
+        <ul class="grid grid-cols-3 text-center gap-5 sm:flex sm:gap-10">
+          <li>
+            <a href="#" class="text-pink-500">Home</a>
+          </li>
+          <li>
+            <a href="#" class="text-white hover:text-pink-500">About</a>
+          </li>
+          <li>
+            <a href="#gallery" class="text-white hover:text-pink-500"
+              >Gallery</a
+            >
+          </li>
+          <li>
+            <a href="#blogs" class="text-white hover:text-pink-500">BLogs</a>
+          </li>
+          <li>
+            <a href="#contacts" class="text-white hover:text-pink-500"
+              >Contacts</a
+            >
+          </li>
+          <li>
+            <a href="#login" class="text-white hover:text-pink-500">Login</a>
+          </li>
+        </ul>
+
+        <p class="text-xs sm:text-sm font-sans text-center text-gray-300">
+          Copyright &copy; 2025 by 23127449 - Nguyen Tan Phat
+        </p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+  </body>
+</html>
