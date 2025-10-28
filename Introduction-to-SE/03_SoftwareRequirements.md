@@ -13,7 +13,8 @@ This chapter introduces **requirements engineering (RE)**, the process of discov
 - **Non-functional Requirements:** Constraints on the services or functions offered, such as timing constraints, development process constraints, or standards. These often apply to the system as a whole and can be more critical than individual functional requirements. They are classified into:
   - **Product requirements** (e.g., performance, reliability, security, usability).
   - **Organizational requirements** (e.g., process standards, operational constraints).
-  - **External requirements** (e.g., regulatory, legislative, ethical constraints). Non-functional requirements should be stated quantitatively whenever possible so they can be objectively tested.
+  - **External requirements** (e.g., regulatory, legislative, ethical constraints).
+  - Non-functional requirements should be stated quantitatively whenever possible so they can be objectively tested.
 
 ## The Software Requirements Document (SRS)
 
@@ -82,8 +83,8 @@ The change management process involves problem analysis, change analysis and cos
 
 ### 2. Exercise 2
 
-> Discover ambiguities or omissions in the following statement of requirements for part of a ticket-issuing system:
-> An automated ticket-issuing system sells rail tickets. Users select their destination and input a credit card and a personal identification number. The rail ticket is issued and their credit card account charged. When the user presses the start button, a menu display of potential destinations is activated, along with a message to the user to select a destination. Once a destination has been selected, users are requested to input their credit card. Its validity is checked and the user is then requested to input a personal identifier. When the credit transaction has been validated, the ticket is issued.
+> Discover ambiguities or omissions in the following statement of requirements for part of a ticket-issuing system: \
+> "An automated ticket-issuing system sells rail tickets. Users select their destination and input a credit card and a personal identification number. The rail ticket is issued and their credit card account charged. When the user presses the start button, a menu display of potential destinations is activated, along with a message to the user to select a destination. Once a destination has been selected, users are requested to input their credit card. Its validity is checked and the user is then requested to input a personal identifier. When the credit transaction has been validated, the ticket is issued."
 
 Ambiguities and Omissions:
 
@@ -152,9 +153,10 @@ Ambiguities and Omissions:
 ### 5. Exercise 5
 
 > Using the technique suggested here, where natural language descriptions are presented in a standard format, write plausible user requirements for the following functions:
-> An unattended petrol (gas) pump system that includes a credit card reader. The customer swipes the card through the reader then specifies the amount of fuel required. The fuel is delivered and the customer’s account debited.
-> The cash-dispensing function in a bank ATM.
-> The spelling-check and correcting function in a word processor.
+>
+> - An unattended petrol (gas) pump system that includes a credit card reader. The customer swipes the card through the reader then specifies the amount of fuel required. The fuel is delivered and the customer’s account debited.
+> - The cash-dispensing function in a bank ATM.
+> - The spelling-check and correcting function in a word processor.
 
 - **An unattended petrol (gas) pump system:** The system shall allow a user to pay for fuel with a credit or debit card and dispense the specified amount of fuel. It must debit the customer's account correctly.
 - **The cash-dispensing function in a bank ATM:** The system shall allow a user with a valid bank card and PIN to withdraw a specified amount of cash, provided the amount does not exceed pre-defined limits and the user has sufficient funds in their account.
