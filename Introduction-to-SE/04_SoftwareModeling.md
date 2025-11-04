@@ -3,7 +3,7 @@
   <sub>November 04, 2025</sub>
 </div>
 
-This chapter introduces **system modeling**, the process of creating abstract models of a software system, usually using graphical notations like the Unifi**ed Modeling Language (UML)**. Models are used throughout the software process:
+This chapter introduces **system modeling**, the process of creating abstract models of a software system, usually using graphical notations like the **Unified Modeling Language (UML)**. Models are used throughout the software process:
 
 - During **requirements engineering** to understand existing systems and clarify requirements for new systems.
 - During **design** to explain the proposed system, discuss design proposals, and document the system for implementation.
@@ -81,7 +81,7 @@ Two possible errors from not understanding the context:
 Models of existing systems are used during requirements engineering to:
 
 - Help **clarify what the existing system does**.
-- Act as a **basis for discussing strengths and weaknesse**s, leading to requirements for the new system.
+- Act as a **basis for discussing strengths and weaknesses**, leading to requirements for the new system.
 - Help **understand the system's context and interfaces**.
 - Serve as a **baseline for planning migration** to a new system.
 
@@ -95,17 +95,35 @@ For a **new system**, the situation is different. If the model is used:
 
 ### 3. Exercise 3
 
+> You have been asked to develop a system that will help with planning large-scale events and parties such as weddings, graduation celebrations, birthday parties, etc. Using an activity diagram, model the process context for such a system that shows the activities involved in planning a party (booking a venue, organizing invitations, etc.) and the system elements that may be used at each stage.
+
 ### 4. Exercise 4
+
+> For the MHC-PMS, propose a set of use cases that illustrates the interactions between a doctor, who sees patients and prescribes medicine and treatments, and the MHC-PMS.
 
 ### 5. Exercise 5
 
+> Develop a sequence diagram showing the interactions involved when a student registers for a course in a university. Courses may have limited enrollment, so the registration process must include checks that places are available. Assume that the student accesses an electronic course catalog to find out about available courses.
+
 ### 6. Exercise 6
+
+> Look carefully at how messages and mailboxes are represented in the e-mail system that you use. Model the object classes that might be used in the system implementation to represent a mailbox and an e-mail message.
 
 ### 7. Exercise 7
 
+> Based on your experience with a bank ATM, draw an activity diagram that models the data processing involved when a customer withdraws cash from the machine.
+
 ### 8. Exercise 8
 
+> Draw a sequence diagram for the same system. Explain why you might want to develop both activity and sequence diagrams when modeling the behavior of a system.
+
 ### 9. Exercise 9
+
+> Draw state diagrams of the control software for:
+>
+> - An automatic washing machine that has different programs for different types of clothes.
+> - The software for a DVD player.
+> - A telephone answering system that records incoming messages and displays the number of accepted messages on an LED. The system should allow the telephone customer to dial in from any location, type a sequence of numbers (identified as tones), and play any recorded messages.
 
 ### 10. Exercise 10
 
