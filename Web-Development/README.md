@@ -9,16 +9,16 @@ This course aims to provide students with an overview of web application develop
 
 ## Course Plan
 
-| Week |    Topic     |
-| :--: | :----------: |
-|  1   |     HTML     |
-|  2   |     CSS      |
-|  3   | Tailwind CSS |
-|  4   |  JavaScript  |
-|  5   |   ReactJS    |
-|  6   |              |
-|  7   |              |
-|  8   |              |
-|  9   |              |
-|  10  |              |
-|  11  |              |
+| Week |       Topic        |
+| :--: | :----------------: |
+|  1   |        HTML        |
+|  2   |        CSS         |
+|  3   |    Tailwind CSS    |
+|  4   |     JavaScript     |
+|  5   |      ReactJS       |
+|  6   |      Supabase      |
+|  7   |    Midterm Exam    |
+|  8   | NodeJS - ExpressJS |
+|  9   |      REST API      |
+|  10  |                    |
+|  11  |                    |
