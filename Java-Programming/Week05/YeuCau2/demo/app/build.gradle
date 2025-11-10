@@ -1,0 +1,25 @@
+plugins {
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+group = 'org.example.demo'
+version = '1.0.0'
+
+application {
+    mainClass = 'org.example.demo.DemoApplication'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.20.1'
+    implementation 'com.google.code.gson:gson:2.13.2'
+}
