@@ -16,9 +16,9 @@ This course aims to provide students with an overview of web application develop
 |  3   |    Tailwind CSS    |
 |  4   |     JavaScript     |
 |  5   |      ReactJS       |
-|  6   |      Supabase      |
-|  7   |    Midterm Exam    |
-|  8   | NodeJS - ExpressJS |
-|  9   |      REST API      |
-|  10  |                    |
-|  11  |                    |
+|  6   |     React Form     |
+|  7   |      Supabase      |
+|  8   |    Midterm Exam    |
+|  9   | NodeJS + ExpressJS |
+|  10  |      REST API      |
+|  11  |     Final Exam     |
