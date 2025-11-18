@@ -203,7 +203,7 @@ Open source development is an approach where source code is published and volunt
 - `:DataCollector` sends message `requestValue()` to `:Instrument`.
 - `:Instrument` executes internal `readSensor()` logic.
 - `:Instrument` returns `value` to `:DataCollector`.
-- (Loop this for all instruments).
+- (**Loop** this for all instruments).
 - `:DataCollector` sends `formatMessage(values)` to self.
 - `:DataCollector` sends `transmit(data)` to `:Transmitter`.
 - `:Transmitter` returns `status` (success/fail).
@@ -269,7 +269,7 @@ Open source development is an approach where source code is published and volunt
 **Filling Station Pump State Diagram:**
 
 1. **Idle:** (Initial state). Screen displays "Insert Card".
-2. Validating Card: Triggered by `CardInserted`. Actions: Contact bank.
+2. **Validating Card:** Triggered by `CardInserted`. Actions: Contact bank.
 
 - Transition to `Idle` if `CardInvalid`.
 
@@ -291,15 +291,15 @@ Open source development is an approach where source code is published and volunt
 
 Configuration management (CM) is essential for teams because:
 
-**1. Interference Prevention:** Without CM, if Developer A and Developer B both edit the same file (e.g., `SearchAlgorithm.java`) simultaneously, the last person to save overwrites the other's work. CM systems (like Git or Subversion) detect these conflicts and force a merge.
-**2. Version Tracking:** If a new bug appears in the "stable" version of a product, the team needs to know exactly which changes were made recently. CM allows them to roll back to a previous version (e.g., Version 1.2) to restore functionality while fixing Version 1.3.
-**3. System Building:** A software product consists of hundreds of files. CM ensures that when the system is built (compiled/linked), the correct versions of all components are used. For example, ensuring the `Billing` module is using the compatible `TaxCalculator` library version.
+1. **Interference Prevention:** Without CM, if Developer A and Developer B both edit the same file (e.g., `SearchAlgorithm.java`) simultaneously, the last person to save overwrites the other's work. CM systems (like Git or Subversion) detect these conflicts and force a merge.
+2. **Version Tracking:** If a new bug appears in the "stable" version of a product, the team needs to know exactly which changes were made recently. CM allows them to roll back to a previous version (e.g., Version 1.2) to restore functionality while fixing Version 1.3.
+3. **System Building:** A software product consists of hundreds of files. CM ensures that when the system is built (compiled/linked), the correct versions of all components are used. For example, ensuring the `Billing` module is using the compatible `TaxCalculator` library version.
 
 ### 10. Exercise 10
 
 > A small company has developed a specialized product that it configures specially for each customer. New customers usually have specific requirements to be incorporated into their system, and they pay for these to be developed. The company has an opportunity to bid for a new contract, which would more than double its customer base. The new customer also wishes to have some involvement in the configuration of the system. Explain why, in these circumstances, it might be a good idea for the company owning the software to make it open source.
 
-**1. Reduced Maintenance Burden:** By open-sourcing, the company allows the new customer (and potentially others) to contribute to the development and maintenance. If the customer finds a bug or needs a specific configuration change, they can fix/implement it themselves rather than relying entirely on the original small team.
-**2. Trust and Transparency:** The new customer wants involvement. Open source provides total transparency, assuring the customer that the software won't disappear if the small company goes bust (escrow effect) and allowing them to audit the code for quality or security.
-**3. Faster Customization:** The customer can directly configure and adapt the code to their specific needs without the bottleneck of submitting change requests to the original developer.
-**4. Market Expansion:** As mentioned in the chapter, this shifts the business model from selling the software to selling support and consultancy. The open-source product might attract more users who wouldn't buy a proprietary black-box system, eventually leading to more support contracts for the small company.
+1. **Reduced Maintenance Burden:** By open-sourcing, the company allows the new customer (and potentially others) to contribute to the development and maintenance. If the customer finds a bug or needs a specific configuration change, they can fix/implement it themselves rather than relying entirely on the original small team.
+2. **Trust and Transparency:** The new customer wants involvement. Open source provides total transparency, assuring the customer that the software won't disappear if the small company goes bust (escrow effect) and allowing them to audit the code for quality or security.
+3. **Faster Customization:** The customer can directly configure and adapt the code to their specific needs without the bottleneck of submitting change requests to the original developer.
+4. **Market Expansion:** As mentioned in the chapter, this shifts the business model from selling the software to selling support and consultancy. The open-source product might attract more users who wouldn't buy a proprietary black-box system, eventually leading to more support contracts for the small company.
