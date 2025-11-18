@@ -79,8 +79,8 @@ These are generic architectures that describe the structure of systems in a spec
 
 You may have to design the system architecture before the requirements specification is complete for two main reasons:
 
-1. To structure the requirements: Architectural decomposition is often necessary to structure and organize the requirements specification. By identifying the main sub-systems, you can group related requirements, making the specification easier to understand and manage.
-2. To facilitate stakeholder communication: A high-level architectural model is a useful framework for discussion with system stakeholders. It provides a visual representation that stakeholders can understand, allowing them to provide feedback on the requirements and design proposals.
+1. **To structure the requirements:** Architectural decomposition is often necessary to structure and organize the requirements specification. By identifying the main sub-systems, you can group related requirements, making the specification easier to understand and manage.
+2. **To facilitate stakeholder communication:** A high-level architectural model is a useful framework for discussion with system stakeholders. It provides a visual representation that stakeholders can understand, allowing them to provide feedback on the requirements and design proposals.
 
 ### 2. Exercise 2
 
