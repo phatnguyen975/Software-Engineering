@@ -1,0 +1,286 @@
+package org.chatapp.client.ui.admin;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import org.chatapp.client.ui.admin.groups.GroupAdminsDialog;
+import org.chatapp.client.ui.admin.groups.GroupMembersDialog;
+
+public class GroupManagementPanel extends JPanel {
+    private DefaultTableModel tableModel;
+    private JTable groupTable;
+    private JPanel paginationPanel;
+    private JPopupMenu popupMenu;
+    
+    private final int PAGE_SIZE = 27;
+    private int currentPage = 1;
+    private int totalPages = 1;
+    private int totalGroups = 0;
+
+    private boolean loaded = false;
+
+    public GroupManagementPanel() {
+        setLayout(new BorderLayout());
+        initControlPanel();
+        initGroupTable();
+        initPopupMenu();
+        initPagination();
+    }
+
+    private void initControlPanel() {
+        JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 40, 10));
+
+        // Search Panel
+        JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
+        searchPanel.setOpaque(false);
+
+        JLabel searchLabel = new JLabel("Search:");
+        searchLabel.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        JTextField searchField = new JTextField(15);
+        searchField.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        searchField.setToolTipText("Search by group name");
+
+        searchPanel.add(searchLabel);
+        searchPanel.add(searchField);
+
+        // Sort Panel
+        JPanel sortPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
+        sortPanel.setOpaque(false);
+
+        JLabel sortLabel = new JLabel("Sort By:");
+        sortLabel.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        JComboBox<String> sortBy = new JComboBox<>(new String[] { "Group Name", "Created Date" });
+        sortBy.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        sortBy.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        sortPanel.add(sortLabel);
+        sortPanel.add(sortBy);
+
+        // Refresh Button
+        JButton refreshBtn = new JButton("Refresh");
+        refreshBtn.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        refreshBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        refreshBtn.setForeground(Color.WHITE);
+        refreshBtn.setBackground(new Color(0, 130, 180));
+        refreshBtn.setFocusPainted(false);
+
+        controlPanel.add(searchPanel);
+        controlPanel.add(sortPanel);
+        controlPanel.add(refreshBtn);
+
+        add(controlPanel, BorderLayout.NORTH);
+
+        refreshBtn.addActionListener(e -> fetchGroupData(currentPage));
+    }
+
+    private void initGroupTable() {
+        String[] columns = {
+                "Group ID", "Group Name", "Creator", "Members", "Created At"
+        };
+        tableModel = new DefaultTableModel(columns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
+
+        groupTable = new JTable(tableModel);
+        groupTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        groupTable.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+
+        JScrollPane scrollPane = new JScrollPane(groupTable);
+        add(scrollPane, BorderLayout.CENTER);
+
+        groupTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (e.isPopupTrigger()) {
+                    showPopupMenu(e);
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.isPopupTrigger()) {
+                    showPopupMenu(e);
+                }
+            }
+        });
+    }
+
+    private void initPopupMenu() {
+        popupMenu = new JPopupMenu();
+
+        JMenuItem viewAdminsItem = new JMenuItem("View Admins");
+        JMenuItem viewMembersItem = new JMenuItem("View Members");
+
+        popupMenu.add(viewAdminsItem);
+        popupMenu.add(viewMembersItem);
+
+        viewAdminsItem.addActionListener(e -> {
+            new GroupAdminsDialog((JFrame) SwingUtilities.getWindowAncestor(this)).showDialog();
+        });
+
+        viewMembersItem.addActionListener(e -> {
+            new GroupMembersDialog((JFrame) SwingUtilities.getWindowAncestor(this)).showDialog();
+        });
+    }
+
+    private void initPagination() {
+        paginationPanel = new JPanel(new BorderLayout());
+        paginationPanel.setBorder(new EmptyBorder(10, 30, 10, 30));
+        add(paginationPanel, BorderLayout.SOUTH);
+    }
+
+    private void showPopupMenu(MouseEvent e) {
+        int row = groupTable.rowAtPoint(e.getPoint());
+        if (row >= 0) {
+            groupTable.setRowSelectionInterval(row, row);
+            popupMenu.show(groupTable, e.getX(), e.getY());
+        }
+    }
+
+    private void reloadUserTable(List<String[]> data) {
+        tableModel.setRowCount(0);
+        for (String[] row : data) {
+            tableModel.addRow(row);
+        }
+    }
+
+    private void reloadPagination() {
+        paginationPanel.removeAll();
+
+        JPanel pageControlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
+
+        JButton prevBtn = new JButton("Prev");
+        prevBtn.setEnabled(currentPage > 1);
+        prevBtn.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        prevBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        if (currentPage > 1) {
+            prevBtn.setFont(new Font("Segoe UI", Font.BOLD, 12));
+            prevBtn.setForeground(Color.WHITE);
+            prevBtn.setBackground(new Color(0, 130, 180));
+        }
+        prevBtn.setFocusPainted(false);
+        prevBtn.addActionListener(e -> fetchGroupData(currentPage - 1));
+        pageControlPanel.add(prevBtn);
+
+        int maxBtns = 7;
+        int start = Math.max(1, currentPage - 3);
+        int end = Math.min(totalPages, start + maxBtns - 1);
+
+        for (int i = start; i <= end; i++) {
+            JButton pageBtn = new JButton(String.valueOf(i));
+            pageBtn.setEnabled(i != currentPage);
+            pageBtn.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+            pageBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+            int pageNumber = i;
+            pageBtn.addActionListener(e -> fetchGroupData(pageNumber));
+
+            pageControlPanel.add(pageBtn);
+        }
+
+        JButton nextBtn = new JButton("Next");
+        nextBtn.setEnabled(currentPage < totalPages);
+        nextBtn.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        nextBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        if (currentPage < totalPages) {
+            nextBtn.setFont(new Font("Segoe UI", Font.BOLD, 12));
+            nextBtn.setForeground(Color.WHITE);
+            nextBtn.setBackground(new Color(0, 130, 180));
+        }
+        nextBtn.setFocusPainted(false);
+        nextBtn.addActionListener(e -> fetchGroupData(currentPage + 1));
+        pageControlPanel.add(nextBtn);
+
+        JPanel totalGroupPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        JLabel totalGroupLabel = new JLabel("Total Groups:");
+        totalGroupLabel.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        JLabel totalGroupValue = new JLabel(String.valueOf(totalGroups));
+        totalGroupValue.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        totalGroupPanel.add(totalGroupLabel);
+        totalGroupPanel.add(totalGroupValue);
+
+        JPanel totalPagePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        JLabel totalPageLabel = new JLabel("Page:");
+        totalPageLabel.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        JLabel totalPageValue = new JLabel(currentPage + " / " + totalPages);
+        totalPageValue.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        totalPagePanel.add(totalPageLabel);
+        totalPagePanel.add(totalPageValue);
+
+        paginationPanel.add(totalGroupPanel, BorderLayout.WEST);
+        paginationPanel.add(pageControlPanel, BorderLayout.CENTER);
+        paginationPanel.add(totalPagePanel, BorderLayout.EAST);
+
+        paginationPanel.revalidate();
+        paginationPanel.repaint();
+    }
+
+    private List<String[]> generateDummyGroups() {
+        List<String[]> list = new ArrayList<>();
+        for (int i = 1; i <= 158; i++) {
+            list.add(new String[] {
+                "gid" + i,
+                "Group " + i,
+                "user" + i,
+                "1" + ((i % 28) + 1),
+                "2025-01-" + ((i % 28) + 1),
+            });
+        }
+        return list;
+    }
+
+    private void fetchGroupData(int page) {
+        // TODO: Replace with real DB query with LIMIT + OFFSET
+        // Example:
+        // SELECT * FROM users ORDER BY username ASC LIMIT PAGE_SIZE OFFSET (page-1)*PAGE_SIZE
+
+        List<String[]> allGroups = generateDummyGroups();
+        totalGroups = allGroups.size();
+        totalPages = (int) Math.ceil(totalGroups * 1.0 / PAGE_SIZE);
+
+        int start = (page - 1) * PAGE_SIZE;
+        int end = Math.min(start + PAGE_SIZE, totalGroups);
+
+        List<String[]> pageData = allGroups.subList(start, end);
+
+        currentPage = page;
+        reloadUserTable(pageData);
+        reloadPagination();
+    }
+
+    public void loadDataLazy() {
+        if (loaded) {
+            return;
+        }
+
+        currentPage = 1;
+        fetchGroupData(currentPage);
+
+        loaded = true;
+    }
+}
