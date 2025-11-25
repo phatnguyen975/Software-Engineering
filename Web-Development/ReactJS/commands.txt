@@ -1,0 +1,46 @@
+npm create vite@latest client
+=> React
+=> Javascript
+=> No
+=> run npm and start
+
+======== CLIENT =======
+cd client
+
+npm i tailwindcss @tailwindcss/vite
+npx flowbite-react@latest init
+npm install flowbite@2.5.2
+
+- File: vite.config.js
+
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+import flowbiteReact from "flowbite-react/plugin/vite";
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react(), tailwindcss(), flowbiteReact()],
+});
+
+- File: index.css
+  @import 'tailwindcss';
+  @plugin 'flowbite-react/plugin/tailwindcss';
+  @source '../.flowbite-react/class-list.json';
+
+- File: main.jsx
+  import "flowbite";
+  import "flowbite-react";
+  import "flowbite/dist/flowbite.min.css";
+  import "./index.css";
+
+npm i react-router-dom axios
+
+======== SERVER =======
+cd server
+npm i -D json-server
+npx json-server data.json
+
+======== VS Code Extensions =====
+html to JSX
+VS Code ES7+ React/Redux/React-Native/JS snippets

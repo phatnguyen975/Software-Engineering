@@ -39,7 +39,7 @@ const ProductList = () => {
     }
 
     return params.toString();
-  }, [category, sort, page]);
+  }, [category, sort, page, keyword]);
 
   const handleSortChange = (value) => {
     const next = new URLSearchParams(searchParams);
