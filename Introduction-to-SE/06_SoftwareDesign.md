@@ -149,7 +149,7 @@ Open source development is an approach where source code is published and volunt
 **Printer**
 
 - **Attributes:** `modelName`, `inkLevel`, `paperStatus`, `queueSize`
-- **Operations:** `print(document)`, `cancelJob()`, `getStatus()`, r`eset()`
+- **Operations:** `print(document)`, `cancelJob()`, `getStatus()`, `reset()`
 
 **Personal Stereo System**
 
