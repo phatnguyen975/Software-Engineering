@@ -16,7 +16,7 @@ const ProductDetails = () => {
     setError(null);
 
     try {
-      const res = await axiosInstance.get(`/products/${id}`);
+      const res = await axiosInstance.delete(`/products/${id}`);
       setProduct(res.data);
     } catch (error) {
       setError(error.message || "Error loading product");

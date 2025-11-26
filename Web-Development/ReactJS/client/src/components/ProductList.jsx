@@ -97,11 +97,11 @@ const ProductList = () => {
             ) : (
               <div className="flex flex-col gap-5">
                 <div className="flex justify-between items-center border-b border-gray-300 pb-3">
-                  <SortBar sort={sort} onSortChange={handleSortChange} />
+                  <SortBar value={sort} onChange={handleSortChange} />
                   <Pagination
                     page={page}
                     totalPages={totalPages}
-                    onPageChange={handlePageChange}
+                    onChange={handlePageChange}
                   />
                 </div>
                 <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
