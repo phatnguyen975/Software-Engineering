@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom";
 import StarRating from "../components/StarRating";
+import { useAppContext } from "../context/AppContext";
 
 const ProductCard = ({ product }) => {
+  const { addToCart } = useAppContext();
+
   return (
     <div className="border border-gray-300 rounded hover:shadow-lg transition flex flex-col">
       <Link to={`/products/${product.id}`} data-discover="true">
         <img className="w-full" src={product.imagePath} />
       </Link>
-      <div className="p-4 flex flex-col flex-grow">
+      <div className="p-4 flex flex-col grow">
         <h6 className="font-medium mb-2">
           <Link to={`/products/${product.id}`} data-discover="true">
             {product.name}
@@ -20,7 +23,10 @@ const ProductCard = ({ product }) => {
             ${product.oldPrice}
           </span>
         </div>
-        <button className="mt-auto bg-orange-500 text-white py-2 rounded hover:bg-orange-600">
+        <button
+          className="mt-auto bg-orange-500 text-white py-2 rounded hover:!bg-orange-600"
+          onClick={() => addToCart(product)}
+        >
           Add to Cart
         </button>
       </div>

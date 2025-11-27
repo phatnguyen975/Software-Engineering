@@ -5,7 +5,7 @@ import SideBar from "./SideBar";
 import SortBar from "./SortBar";
 import Pagination from "./Pagination";
 import ProductCard from "./ProductCard";
-import { axiosInstance } from "../libs/axios";
+import { axiosInstance } from "../lib/axios";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -76,7 +76,7 @@ const ProductList = () => {
       setTotalPages(res.data.pages);
     } catch (error) {
       setError(error.message || "Error loading products");
-      console, error("Error loading products:", error);
+      console.error("Error loading products:", error);
     } finally {
       setIsLoading(false);
     }

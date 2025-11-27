@@ -6,11 +6,14 @@ import "flowbite-react";
 import "flowbite/dist/flowbite.min.css";
 import "./index.css";
 import App from "./App.jsx";
+import { AppProvider } from "./context/AppContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <AppProvider>
+        <App />
+      </AppProvider>
     </BrowserRouter>
   </StrictMode>
 );

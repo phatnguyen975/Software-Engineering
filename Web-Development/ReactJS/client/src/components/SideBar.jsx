@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { axiosInstance } from "../libs/axios";
+import { axiosInstance } from "../lib/axios";
 import PageLoader from "./PageLoader";
 
 const SideBar = () => {
@@ -29,7 +29,7 @@ const SideBar = () => {
       setCategories(data);
     } catch (error) {
       setError(error.message || "Error loading categories");
-      console, error("Error loading categories:", error);
+      console.error("Error loading categories:", error);
     } finally {
       setIsLoading(false);
     }

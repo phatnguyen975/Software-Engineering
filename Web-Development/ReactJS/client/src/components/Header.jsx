@@ -1,10 +1,14 @@
-import { Link, useNavigate } from "react-router-dom";
-import { assets } from "../assets/assets";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ShoppingCart } from "lucide-react";
+import { assets } from "../assets/assets";
+import { useAppContext } from "../context/AppContext";
 
 const Header = ({ title = "" }) => {
   const [keyword, setKeyword] = useState("");
   const navigate = useNavigate();
+
+  const { totalItems } = useAppContext();
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -18,7 +22,7 @@ const Header = ({ title = "" }) => {
   return (
     <header className="bg-[url('/banner.jpg')] text-white bg-cover bg-center py-8">
       <nav className="container mx-auto bg-white border-gray-200 rounded-lg">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <div className="max-w-7xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link
             to="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
@@ -80,6 +84,17 @@ const Header = ({ title = "" }) => {
                 />
               </form>
             </div>
+            <button
+              className="relative text-orange-500 ml-3"
+              onClick={() => navigate("/cart")}
+            >
+              <ShoppingCart className="size-6" />
+              {totalItems > 0 && (
+                <div className="absolute -top-0.5 -right-1.5 flex items-center justify-center size-5 bg-orange-500 rounded-full text-white text-xs">
+                  {totalItems}
+                </div>
+              )}
+            </button>
           </div>
           <div
             className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"

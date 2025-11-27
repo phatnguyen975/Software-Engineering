@@ -1,7 +1,7 @@
 import Header from "../components/Header";
 import ProductDetails from "../components/ProductDetails";
 
-const Details = () => {
+const DetailsPage = () => {
   return (
     <>
       <Header title="Product Details" />
@@ -10,4 +10,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default DetailsPage;
