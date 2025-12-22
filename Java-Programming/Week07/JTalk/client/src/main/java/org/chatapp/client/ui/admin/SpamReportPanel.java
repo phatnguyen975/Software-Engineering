@@ -117,9 +117,8 @@ public class SpamReportPanel extends JPanel {
                 JOptionPane.showMessageDialog(this, "Select a report first");
                 return;
             }
-            String reportId = (String) tableModel.getValueAt(row, 0);
             // TODO: Open detailed view, allow admin to dismiss message or lock user
-            new ReviewReportDialog((JFrame) SwingUtilities.getWindowAncestor(this), reportId).showDialog();
+            new ReviewReportDialog((JFrame) SwingUtilities.getWindowAncestor(this)).showDialog();
             fetchReportData(currentPage);
         });
     }

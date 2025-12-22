@@ -29,11 +29,8 @@ public class ReviewReportDialog extends BaseDialog {
     private JTextArea messageValue;
     private JLabel statusValue;
 
-    private String reportId;
-
-    public ReviewReportDialog(JFrame parent, String reportId) {
+    public ReviewReportDialog(JFrame parent) {
         super(parent, "Review Report", 0.25, 0.38);
-        this.reportId = reportId;
     }
 
     @Override
@@ -154,9 +151,5 @@ public class ReviewReportDialog extends BaseDialog {
         // ----- Add to main layout -----
         contentPanel.add(mainPanel, BorderLayout.CENTER);
         contentPanel.add(buttonPanel, BorderLayout.SOUTH);
-    }
-
-    private void fetchReportInfo() {
-        // TODO: Fetch report information based on reportId
     }
 }
