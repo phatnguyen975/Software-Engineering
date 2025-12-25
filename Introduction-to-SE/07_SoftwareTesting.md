@@ -3,6 +3,82 @@
   <sub>December 09, 2025</sub>
 </div>
 
+This chapter covers the crucial process of software testing, which is intended to show that a program does what it is intended to do and to discover program defects before use. Testing is part of the broader Verification and Validation (V&V) process. Verification asks, "Are we building the product right?" while Validation asks, "Are we building the right product?".
+
+## Development Testing
+
+Development testing includes all testing activities carried out by the team developing the system. It typically occurs at three levels of granularity:
+
+- **Unit Testing:** Testing individual program units or object classes. It focuses on testing the functionality of objects or methods.
+- **Component Testing:** Testing integrated composite components. It focuses on testing component interfaces.
+- **System Testing:** Testing the integrated system as a whole. It focuses on testing component interactions.
+
+### 1. Unit Testing
+
+This involves testing individual components (methods or classes) in isolation.
+
+- **Object Class Testing:** When testing classes, you should design tests to provide coverage of all object features: test all operations, set/check all attributes, and simulate all events that cause state changes.
+- **Automated Testing:** Whenever possible, unit testing should be automated using frameworks like JUnit. An automated test consists of a setup part (initializing the system), a call part (calling the method to be tested), and an assertion part (comparing the result to the expectation).
+- **Mock Objects:** These are used to simulate external dependencies (like databases) to allow objects to be tested in isolation.
+
+### 2. Choosing Unit Test Cases
+
+Testing is expensive, so selecting effective test cases is critical. Two key strategies are:
+
+1. **Partition Testing:** This involves identifying groups of inputs (equivalence partitions) that have common characteristics and should be processed in the same way.
+
+- **Equivalence Partitions:** Input data and output results often fall into classes where the program behaves comparably for all members. You should identify these partitions and choose test cases from within them, specifically focusing on the boundaries.
+
+2. **Guideline-based Testing:** Using testing guidelines based on experience of common errors. Examples include testing with sequences of zero or one length, and forcing buffers to overflow.
+
+### 3. Component Testing
+
+This focuses on testing the interfaces between components as they are integrated. Interface errors are common and include **interface misuse**, **interface misunderstanding**, and **timing errors**.
+
+- **Guidelines for Interface Testing:** Include testing with extreme parameter values, testing with null pointers, deliberately causing component failure, and stress testing message-passing systems.
+
+### 4. System Testing
+
+This involves integrating components to create a version of the system and testing the integrated system. It checks that components are compatible and interact correctly.
+
+- **Use-case testing:** Since system testing focuses on interactions, use cases are effective for deriving test cases. They force interactions between multiple components/objects.
+- **Exhaustive testing** is impossible, so testing is based on a subset of cases, often prioritized by risk or usage frequency.
+
+## Test-Driven Development (TDD)
+
+TDD is an approach where you interleave testing and code development. You write the test before you write the code.
+
+**The TDD Process:**
+
+1. Identify a small increment of functionality.
+2. Write an automated test for this functionality.
+3. Run the test (it will fail initially).
+4. Implement the functionality and refactor.
+5. Re-run the test (it should pass).
+
+**Benefits:**
+
+- **Code Coverage:** Every code segment has at least one associated test.
+- **Regression Testing:** A test suite is developed incrementally, allowing regression tests to be run easily to check that changes haven't broken existing code.
+- **Simplified Debugging:** When a test fails, the problem is usually in the recently written code.
+- **System Documentation:** The tests act as a form of documentation.
+
+## Release Testing
+
+Release testing is the process of testing a particular release of a system intended for use outside the development team. Ideally, this is done by a separate team (black-box testing).
+
+- **Requirements-based Testing:** A systematic approach where you consider each requirement and derive a set of tests to demonstrate that the system satisfies it.
+- **Scenario Testing:** Using typical usage scenarios (stories) to develop test cases. This tests combinations of requirements and how the system performs in realistic situations.
+- **Performance Testing:** Testing for emergent properties like performance and reliability. This often involves **stress testing**, where the load on the system is increased until it fails. This helps understand failure behavior and discover defects that only appear under heavy load.
+
+## User Testing
+
+User testing is the stage where users or customers provide input and advice on system testing.
+
+- **Alpha Testing:** Users work with the development team at the developer's site to test the software as it is being developed.
+- **Beta Testing:** A release is made available to a larger group of users to experiment with in their own environment.
+- **Acceptance Testing:** A formal process where the customer tests the system to decide whether it should be accepted. It involves six stages: defining acceptance criteria, planning, deriving tests, running tests, negotiating results, and accepting or rejecting the system.
+
 ## Exercises
 
 ### 1. Exercise 1
