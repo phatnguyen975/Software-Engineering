@@ -18,7 +18,7 @@ The course is designed to strengthen basic programming knowledge with Java (basi
 |  5   |            Java IO             |
 |  6   |      Generic, Collection       |
 |  7   |             Swing              |
-|  8   |         Database JDBC          |
+|  8   |        JDBC, Hibernate         |
 |  9   |   Multithreaded Programming    |
 |  10  |      Network Programming       |
 |  11  | Junit, Java Ant, Message Queue |
