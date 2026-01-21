@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>Software Engineering</h1>
+  <h1>Software Engineering Courses</h1>
   <sub>October 10, 2025</sub>
 </div>
 
@@ -12,3 +12,7 @@ This repository contains all materials, projects, and notes related to my **Soft
 - [Introduction to Software Engineering](./Introduction-to-SE/README.md)
 - [Java Programming](./Java-Programming/README.md)
 - [Web Development](./Web-Development/README.md)
+- [DevOps](./DevOps/README.md)
+- [Cloud Computing](./Cloud-Computing/README.md)
+- [Mobile Development](./Mobile-Development/README.md)
+- [Software Design](./Software-Design/README.md)
