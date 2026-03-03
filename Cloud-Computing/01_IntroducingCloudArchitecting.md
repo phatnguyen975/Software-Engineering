@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>Introduction to Cloud Architecture</h1>
+  <h1>Introducing Cloud Architecting</h1>
   <sub>March 03, 2026</sub>
 </div>
 
