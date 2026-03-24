@@ -1,4 +1,7 @@
-# AWS Academy Cloud Architecting - Module 06: Adding a Database Layer Practice Quiz
+<div align="center">
+  <h1>Adding a Database Layer</h1>
+  <sub>March 04, 2026</sub>
+</div>
 
 **Question 1: Which statement that compares a database service that AWS manages with a database on an Amazon EC2 instance is true?**
 
