@@ -503,14 +503,14 @@ Performance in the cloud is not about having the biggest server; it’s about ha
 
 #### Data-Driven Architecture Selection
 
-- **Analyze Access Patterns**: Before selecting a database, you must understand if your app is read-heavy, write-heavy, or requires complex joins.
-- **Match the Tool to the Task**: Use the "Purpose-built" mindset. Don't use a Relational DB for a Graph problem just because you are familiar with SQL.
-- **Evaluate Trade-offs**: Understand how your choices impact the customer experience. For example, choosing "Eventual Consistency" in DynamoDB improves performance but might show slightly stale data to the user.
+- **Analyze Access Patterns:** Before selecting a database, you must understand if your app is read-heavy, write-heavy, or requires complex joins.
+- **Match the Tool to the Task:** Use the "Purpose-built" mindset. Don't use a Relational DB for a Graph problem just because you are familiar with SQL.
+- **Evaluate Trade-offs:** Understand how your choices impact the customer experience. For example, choosing "Eventual Consistency" in DynamoDB improves performance but might show slightly stale data to the user.
 
 #### Benchmarking and Evolution
 
-- **Data-Driven Choices**: Use actual workload data to drive your architectural decisions rather than guesswork.
-- **Continuous Improvement**: Cloud technology evolves. Periodically re-evaluate if new services (like Aurora Serverless v2) can perform better than your current fixed-size instances.
+- **Data-Driven Choices:** Use actual workload data to drive your architectural decisions rather than guesswork.
+- **Continuous Improvement:** Cloud technology evolves. Periodically re-evaluate if new services (like Aurora Serverless v2) can perform better than your current fixed-size instances.
 
 ### Pillar: Security
 
@@ -518,14 +518,14 @@ Security for a database is non-negotiable. It involves multiple layers of protec
 
 #### Data Protection at Rest
 
-- **Secure Key Management**: Use **AWS Key Management Service (KMS)** to manage the lifecycle of your encryption keys.
-- **Enforce Encryption**: Ensure every database instance and its associated snapshots are encrypted. This protects the data even if the underlying storage media is compromised.
+- **Secure Key Management:** Use **AWS Key Management Service (KMS)** to manage the lifecycle of your encryption keys.
+- **Enforce Encryption:** Ensure every database instance and its associated snapshots are encrypted. This protects the data even if the underlying storage media is compromised.
 
 #### Network and Access Control
 
-- **VPC Isolation**: Always place databases in private subnets with no direct route to the internet.
-- **Identity and Access Management (IAM)**: Assign specific permissions for managing RDS/DynamoDB resources. Use the "Principle of Least Privilege."
-- **Security Groups**: Tighten rules to only allow traffic from the specific Security Group of your application servers on the exact database port (e.g., 3306 for MySQL).
+- **VPC Isolation:** Always place databases in private subnets with no direct route to the internet.
+- **Identity and Access Management (IAM):** Assign specific permissions for managing RDS/DynamoDB resources. Use the "Principle of Least Privilege."
+- **Security Groups:** Tighten rules to only allow traffic from the specific Security Group of your application servers on the exact database port (e.g., 3306 for MySQL).
 
 ### Pillar: Cost Optimization
 
@@ -533,22 +533,22 @@ A Senior Architect’s goal is to meet technical requirements with the **lowest 
 
 #### Right-Sizing
 
-- **Select Based on Data**: Use monitoring tools (like CloudWatch) to see actual CPU and Memory utilization. If your instance is constantly at 10% CPU, you are over-paying and should downsize.
-- **Resource Type and Number**: Choose the correct instance family (e.g., Use `T` instances for dev/test and `R` instances for memory-heavy production).
+- **Select Based on Data:** Use monitoring tools (like CloudWatch) to see actual CPU and Memory utilization. If your instance is constantly at 10% CPU, you are over-paying and should downsize.
+- **Resource Type and Number:** Choose the correct instance family (e.g., Use `T` instances for dev/test and `R` instances for memory-heavy production).
 
 #### Advanced Cost Strategies (Senior Insights)
 
-- **Reserved Instances (RI)**: For production databases that run 24/7, committing to a 1-year or 3-year term can save you up to 60% compared to On-Demand pricing.
-- **Stop/Start for Dev**: Automatically shut down development databases during non-business hours to stop paying for compute time.
-- **Graviton Instances**: Migrate to AWS Graviton-based instances (e.g., `m6g`, `r6g`) to get better performance at a lower price point than Intel-based instances.
+- **Reserved Instances (RI):** For production databases that run 24/7, committing to a 1-year or 3-year term can save you up to 60% compared to On-Demand pricing.
+- **Stop/Start for Dev:** Automatically shut down development databases during non-business hours to stop paying for compute time.
+- **Graviton Instances:** Migrate to AWS Graviton-based instances (e.g., `m6g`, `r6g`) to get better performance at a lower price point than Intel-based instances.
 
 ### Summary: The Architect’s Balance
 
 An optimized database layer is a balance of these three pillars:
 
-1. **Performance**: Choosing the right engine and scaling strategy based on access patterns.
-2. **Security**: Implementing KMS and VPC isolation to protect the "crown jewels" of the company.
-3. **Cost**: Continuously monitoring and right-sizing to ensure every dollar spent provides maximum value.
+1. **Performance:** Choosing the right engine and scaling strategy based on access patterns.
+2. **Security:** Implementing KMS and VPC isolation to protect the "crown jewels" of the company.
+3. **Cost:** Continuously monitoring and right-sizing to ensure every dollar spent provides maximum value.
 
 #### Final Takeaway
 
