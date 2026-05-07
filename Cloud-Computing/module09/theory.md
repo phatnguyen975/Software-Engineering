@@ -166,10 +166,12 @@ Protecting data at rest is about maintaining the CIA triad: **Confidentiality**,
 
 ### Symmetric vs. Asymmetric Encryption
 
-- **Symmetric Encryption:** \* Uses a single key for both encryption and decryption.
+- **Symmetric Encryption:**
+  - Uses a single key for both encryption and decryption.
   - **Architectural Advantage:** Fast, low computational overhead, and highly efficient for large data sets.
   - **Use Case:** Internal organization data where speed is a priority.
-- **Asymmetric Encryption:** \* Uses a mathematically related Public/Private key pair.
+- **Asymmetric Encryption:**
+  - Uses a mathematically related Public/Private key pair.
   - **Architectural Advantage:** More secure for external sharing; provides "Non-repudiation" (proving who sent the data).
   - **Use Case:** Sharing data with outside third parties or digital signatures.
 
