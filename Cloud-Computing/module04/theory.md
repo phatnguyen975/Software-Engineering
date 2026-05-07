@@ -62,7 +62,7 @@ When recommending S3, architects focus on three key performance and reliability 
 
 Amazon S3 is a versatile tool in a Cloud Architect's arsenal, primarily utilized for the following four pillars:
 
-- **Media Hosting & Distributiong:** S3 handles massive spikes in demand for video, music, and image files, often integrated with **Amazon CloudFront** for low-latency global delivery.
+- **Media Hosting & Distribution:** S3 handles massive spikes in demand for video, music, and image files, often integrated with **Amazon CloudFront** for low-latency global delivery.
 - **Static Website Hosting:** You can host high-scale websites (HTML, CSS, JS, images) without managing any servers.
 - **Data Lakes & Analytics:** S3 serves as the primary "landing zone" for raw data. Services like **Amazon Athena** (SQL queries) or **Amazon QuickSight** (BI) can harvest insights directly from S3.
 - **Backup & Disaster Recovery (DR):** Due to its 99.999999999% (11 nines) durability, it is the industry standard for backups and long-term archiving.
