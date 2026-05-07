@@ -7,7 +7,7 @@
 
 ### Conceptual Definition
 
-At its core, a **cache** is a transient, high-speed data storage layer that holds a subset of data—typically transient in nature—so that future requests for that data are served significantly faster than is possible by accessing the data’s primary storage location.
+At its core, a **cache** is a transient, high-speed data storage layer that holds a subset of data - typically transient in nature - so that future requests for that data are served significantly faster than is possible by accessing the data's primary storage location.
 
 - **Primary Medium:** While primary storage often relies on disk-based systems (SSDs/HDDs), caching layers almost exclusively utilize **Random Access Memory (RAM)**.
 - **Latency Difference:** Accessing data from RAM is measured in nanoseconds or microseconds, whereas disk access (even on high-performance NVMe SSDs) is measured in milliseconds. This is the fundamental "Architectural Win" of caching.
@@ -18,7 +18,7 @@ To visualize the impact, consider a DIY project at home:
 
 - **The Hardware Store (Primary Storage):** Contains every tool imaginable but requires a 30-minute round trip.
 - **The Tool Shed (Cache):** Located in your backyard (2-minute walk). It doesn't hold everything, but it holds the hammer and nails you are using _right now_.
-- **Architectural Goal:** Maximize the "Cache Hit Ratio"—the percentage of time you find what you need in the shed without driving to the store.
+- **Architectural Goal:** Maximize the "Cache Hit Ratio" - the percentage of time you find what you need in the shed without driving to the store.
 
 ### What Should You Cache? (The Selection Criteria)
 
