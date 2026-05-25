@@ -9,16 +9,16 @@ This course provides an introduction to the principles of analyzing and designin
 
 ## Course Plan
 
-| Week | Topic |
-| :--: | :---: |
-|  1   |       |
-|  2   |       |
-|  3   |       |
-|  4   |       |
-|  5   |       |
-|  6   |       |
-|  7   |       |
-|  8   |       |
-|  9   |       |
-|  10  |       |
-|  11  |       |
+| Week |                         Topic                          |
+| :--: | :----------------------------------------------------: |
+|  1   |   Introduction to Sofware Design + Design Qualities    |
+|  2   |               Software Design Principles               |
+|  3   |                     UML + C4 Model                     |
+|  4   |                    Design Patterns                     |
+|  5   |                 Software Architecture                  |
+|  6   | Fundamental Concepts and Consistency in System Design  |
+|  7   |      Advanced Concepts in Database Systems Design      |
+|  8   | Database Selection, Sharding, and Storage Optimization |
+|  9   |    System Scalability and Performance Optimization     |
+|  10  |         Fault Tolerance and Disaster Recovery          |
+|  11  |    Security, Access Control, and Locking Mechanisms    |

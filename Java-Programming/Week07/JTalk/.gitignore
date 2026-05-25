@@ -1,9 +1,0 @@
-.vscode/
-.gradle/
-.settings/
-
-.env
-*.class
-
-build/
-bin/

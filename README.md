@@ -16,3 +16,5 @@ This repository contains all materials, projects, and notes related to my **Soft
 - [Cloud Computing](./Cloud-Computing/README.md)
 - [Mobile Development](./Mobile-Development/README.md)
 - [Software Design](./Software-Design/README.md)
+- [Software Architecture](./Software-Architecture/README.md)
+- [Software Testing](./Software-Testing/README.md)
