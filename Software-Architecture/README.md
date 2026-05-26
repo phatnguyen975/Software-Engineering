@@ -1,6 +1,6 @@
 <div align="center">
   <h1>Software Architecture</h1>
-  <sub>January 12, 2026</sub>
+  <sub>May 25, 2026</sub>
 </div>
 
 ## Course Description
