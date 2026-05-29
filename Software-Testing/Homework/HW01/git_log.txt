@@ -1,0 +1,90 @@
+commit 474879823fa30176392de7e3a0030d30fd3410b7
+Author: Phat Nguyen <phatnguyen9725@gmail.com>
+Date:   Fri May 29 18:05:29 2026 +0700
+
+    docs: add AI-03 and AI-05 report
+
+ [AI-03] AI Disclosure Form.pdf   | Bin 0 -> 122554 bytes
+ [AI-05] AI Privacy Checklist.pdf | Bin 0 -> 101632 bytes
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit f3e43f965d74377a0be38bf2549b29d6abd47b30
+Author: Phat Nguyen <phatnguyen9725@gmail.com>
+Date:   Fri May 29 16:53:37 2026 +0700
+
+    docs: add AI-02 and pdf for main report
+
+ [AI-02] AI Audit Report.pdf | Bin 0 -> 156885 bytes
+ main_report.md              |  25 ++++++++++++++++++++-----
+ main_report.pdf             | Bin 0 -> 1012530 bytes
+ 3 files changed, 20 insertions(+), 5 deletions(-)
+
+commit 36b7cf60d488cc1faa1c0bc3b61434af6d3a840c
+Author: Phat Nguyen <phatnguyen9725@gmail.com>
+Date:   Fri May 29 04:05:51 2026 +0700
+
+    docs: add evidences for AI audit report
+
+ evidences/output/output01.md |  64 +++++++
+ evidences/output/output02.md |  83 +++++++++
+ evidences/output/output03.md |  24 +++
+ evidences/output/output04.md |  16 ++
+ evidences/output/output05.md |  30 ++++
+ evidences/prompt/prompt01.md |  28 +++
+ evidences/prompt/prompt02.md |  21 +++
+ evidences/prompt/prompt03.md |  23 +++
+ evidences/prompt/prompt04.md |  40 +++++
+ evidences/prompt/prompt05.md |  23 +++
+ main_report.md               | 123 ++++++++++---
+ prompt_log.md                | 411 +++++++++++++++++++++++++++++++++++++++++++
+ 12 files changed, 861 insertions(+), 25 deletions(-)
+
+commit 84a2c78ab6a8de83aa88bf61e126de6123503959
+Author: Phat Nguyen <phatnguyen9725@gmail.com>
+Date:   Thu May 28 13:31:24 2026 +0700
+
+    docs: add assets for req01 and req03
+
+ assets/ai_generated_mindmap.png    | Bin 0 -> 1146209 bytes
+ assets/corrected_mindmap.png       | Bin 0 -> 1222098 bytes
+ assets/req01/req01_job01.png       | Bin 0 -> 819157 bytes
+ assets/req01/req01_job02.png       | Bin 0 -> 881910 bytes
+ assets/req01/req01_job03.png       | Bin 0 -> 855158 bytes
+ assets/req01/req01_job04.png       | Bin 0 -> 388092 bytes
+ assets/req01/req01_job05.png       | Bin 0 -> 819260 bytes
+ assets/req01/req01_job06.png       | Bin 0 -> 818318 bytes
+ assets/req01/req01_job07.png       | Bin 0 -> 795968 bytes
+ assets/req01/req01_job08.png       | Bin 0 -> 848146 bytes
+ assets/req01/req01_job09.png       | Bin 0 -> 813987 bytes
+ assets/req01/req01_job10.png       | Bin 0 -> 735513 bytes
+ assets/req03/req03_lifan_hv148.jpg | Bin 0 -> 3990481 bytes
+ main_report.md                     |  54 ++++++++++++++++++++++++++++++-------
+ req03_test_cases.xlsx              | Bin 0 -> 16251 bytes
+ 15 files changed, 45 insertions(+), 9 deletions(-)
+
+commit 5bde257d0399843bd22a90e3e1b9a8cd2f45e9f5
+Author: Phat Nguyen <phatnguyen9725@gmail.com>
+Date:   Thu May 28 13:00:31 2026 +0700
+
+    docs: done requirement 3 in main report
+
+ main_report.md | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
+
+commit 1ead96914d29a88ce3362fa87fa69e56727aa9a0
+Author: Phat Nguyen <phatnguyen9725@gmail.com>
+Date:   Thu May 28 02:05:34 2026 +0700
+
+    docs: done requirement 2 in main report
+
+ main_report.md | 31 +++++++++++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
+
+commit 67456622d0410b9bbb37cc719662b3a13df20ce4
+Author: Phat Nguyen <phatnguyen9725@gmail.com>
+Date:   Wed May 27 18:14:40 2026 +0700
+
+    docs: done requirement 1 in main report
+
+ main_report.md | 459 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 459 insertions(+)
