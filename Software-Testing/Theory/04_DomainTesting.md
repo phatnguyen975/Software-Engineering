@@ -127,11 +127,11 @@ If an input condition specifies a numerical or sequential range of values (e.g.,
 
 #### Guideline 2: Discrete Sets and Enumerations
 
-If an input condition specifies a specific set of allowed values, and there is reason to believe the system processes each value differently (e.g., "Vehicle type must be BUS, TRUCK, TAXI-CAB, PASSENGER, or MOTORCYCLE").
+If an input condition specifies a specific set of allowed values, and there is reason to believe the system processes each value differently (e.g., "Vehicle type must be BUS, `TRUCK`, `TAXI-CAB`, `PASSENGER`, or `MOTORCYCLE`").
 
 - **Rule:** Identify ONE valid equivalence class for EACH element in the set, and ONE invalid equivalence class for everything else.
-- **Valid:** [BUS], [TRUCK], [TAXI-CAB], [PASSENGER], [MOTORCYCLE] (Each is its own partition because the pricing or routing logic might differ for a bus versus a motorcycle).
-- **Invalid:** Any vehicle type not on the list (e.g., [TRAILER], [BICYCLE], or an empty string).
+- **Valid:** `BUS`, `TRUCK`, `TAXI-CAB`, `PASSENGER`, `MOTORCYCLE` (Each is its own partition because the pricing or routing logic might differ for a bus versus a motorcycle).
+- **Invalid:** Any vehicle type not on the list (e.g., `TRAILER`, `BICYCLE`, or an empty string).
 
 #### Guideline 3: Boolean or "Must-Be" Conditions
 
