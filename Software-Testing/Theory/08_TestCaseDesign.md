@@ -115,33 +115,13 @@ A standard template typically encompasses the following columns:
 
 Writing a test case is easy; writing a _good_ test case requires discipline. A high-quality test case must strictly adhere to the following seven criteria:
 
-#### Accurate
-
-The test must test exactly what it was designed to test, and nothing else. If the objective is to validate a password masking feature, the test case should not simultaneously attempt to validate database connection timeouts. Keep the focus sharp to avoid false negatives.
-
-#### Economical
-
-An economical test case contains no unnecessary steps. Testers should get straight to the point. If a user needs to be logged in to test a shopping cart feature, do not write out the ten steps of the login process. Instead, abstract the login process into the Pre-conditions (e.g., "User is logged in and on the checkout page"). This saves execution time and reduces maintenance overhead.
-
-#### Repeatable and Reusable
-
-The test case must keep going on through multiple release cycles and yield consistent results. A repeatable test does not rely on hardcoded dates (e.g., "Select May 14th, 2026") that will expire next week. Instead, it uses dynamic references (e.g., "Select the current system date + 1 day").
-
-#### Traceable
-
-Every valid test case must map directly back to a specific business requirement, user story, or technical specification. This traceability ensures comprehensive test coverage and proves to stakeholders that every requested feature has been validated.
-
-#### Appropriate
-
-The test must be appropriate for the specific test environment. Environmental context is critical. For instance, if you are validating terminal-based applications or compiling backend Go services, the test case must explicitly dictate the operating condition, such as ensuring the execution takes place within a native Ubuntu environment rather than a default Windows host shell, to prevent false command recognition errors.
-
-#### Self-standing
-
-A test case must be completely independent of its writer. A newly onboarded QA engineer should be able to pick up the document and execute it flawlessly without needing to tap the original author on the shoulder for clarification. For example, if a test relies on a pure Java repository that does not use build tools like Maven or Gradle but is tracked strictly via Git, the test case must explicitly state the exact `javac` compilation commands and the specific branch to pull. It cannot assume the tester "just knows" how to build the project.
-
-#### Self-cleaning
-
-A professional test case picks up after itself. If a test case creates a new user account, uploads a mock file, or alters a database configuration, the final steps (often called the "Teardown") must instruct the tester or the automation script to delete that data. Failing to clean up test data pollutes the environment and frequently causes subsequent test cases to fail unexpectedly.
+- **Accurate:** The test must test exactly what it was designed to test, and nothing else. If the objective is to validate a password masking feature, the test case should not simultaneously attempt to validate database connection timeouts. Keep the focus sharp to avoid false negatives.
+- **Economical:** An economical test case contains no unnecessary steps. Testers should get straight to the point. If a user needs to be logged in to test a shopping cart feature, do not write out the ten steps of the login process. Instead, abstract the login process into the Pre-conditions (e.g., "User is logged in and on the checkout page"). This saves execution time and reduces maintenance overhead.
+- **Repeatable and Reusable:** The test case must keep going on through multiple release cycles and yield consistent results. A repeatable test does not rely on hardcoded dates (e.g., "Select May 14th, 2026") that will expire next week. Instead, it uses dynamic references (e.g., "Select the current system date + 1 day").
+- **Traceable:** Every valid test case must map directly back to a specific business requirement, user story, or technical specification. This traceability ensures comprehensive test coverage and proves to stakeholders that every requested feature has been validated.
+- **Appropriate:** The test must be appropriate for the specific test environment. Environmental context is critical. For instance, if you are validating terminal-based applications or compiling backend Go services, the test case must explicitly dictate the operating condition, such as ensuring the execution takes place within a native Ubuntu environment rather than a default Windows host shell, to prevent false command recognition errors.
+- **Self-standing:** A test case must be completely independent of its writer. A newly onboarded QA engineer should be able to pick up the document and execute it flawlessly without needing to tap the original author on the shoulder for clarification. For example, if a test relies on a pure Java repository that does not use build tools like Maven or Gradle but is tracked strictly via Git, the test case must explicitly state the exact `javac` compilation commands and the specific branch to pull. It cannot assume the tester "just knows" how to build the project.
+- **Self-cleaning:** A professional test case picks up after itself. If a test case creates a new user account, uploads a mock file, or alters a database configuration, the final steps (often called the "Teardown") must instruct the tester or the automation script to delete that data. Failing to clean up test data pollutes the environment and frequently causes subsequent test cases to fail unexpectedly.
 
 ### AI in Quality Standards and Template Management
 
