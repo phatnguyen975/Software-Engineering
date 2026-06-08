@@ -322,7 +322,7 @@ To build resilient and high-quality software, testing cannot be a single, unifor
 
 Software testing is broadly categorized into four primary types. Below is a detailed technical breakdown of each, integrating modern engineering practices and AI applications.
 
-### Functional Testing (Black-Box Testing)
+### 4.1. Functional Testing (Black-Box Testing)
 
 Functional testing verifies that the software operates exactly as defined by the business requirements. It treats the application as a "black box"—the tester provides inputs and examines the outputs without needing to understand the underlying source code or database queries.
 
@@ -340,7 +340,7 @@ Functional testing verifies that the software operates exactly as defined by the
 - **Intelligent Test Generation:** AI tools can parse Swagger or OpenAPI documentation to automatically generate thousands of functional API test requests, including dynamic EP and BVA inputs.
 - **Smart API Fuzzing:** AI algorithms automatically mutate valid JSON requests by injecting unexpected data types or malformed strings to uncover unhandled edge cases in the routing logic.
 
-### Non-Functional Testing
+### 4.2. Non-Functional Testing
 
 While functional testing asks "Does it work?", non-functional testing asks "How well does it work?". This type evaluates the system's readiness regarding performance, security, and user experience.
 
@@ -355,14 +355,14 @@ While functional testing asks "Does it work?", non-functional testing asks "How 
 - **Usability Testing:** Evaluating how intuitive and user-friendly the system is.
 - **Back-up/Recovery Testing:** Forcing network failures or database crashes to verify the system can successfully restore state without data loss.
 
-**Engineering Best Practices:** Performance testing should be treated as code. Modern teams use terminal-centric load testing tools (like k6, which is scripted in JavaScript but runs on a high-performance Go engine) to simulate thousands of virtual users directly from the command line.
+**Engineering Best Practices:** Performance testing should be treated as code. Modern teams use terminal-centric load testing tools (like **k6**, which is scripted in JavaScript but runs on a high-performance Go engine) to simulate thousands of virtual users directly from the command line.
 
 **AI Applications:**
 
 - **Anomaly Detection:** AI monitoring tools establish a baseline of normal application performance. If CPU usage spikes or memory leaks occur during a stress test, the AI automatically flags the exact timestamp and associated microservice.
 - **Automated Threat Modeling:** Machine learning models analyze architectural diagrams and automatically generate security test payloads targeting known vulnerabilities in the specific tech stack being used.
 
-### Structural Testing (White-Box Testing)
+### 4.3. Structural Testing (White-Box Testing)
 
 Structural testing is concerned with the internal mechanisms of the system. It is performed by engineers who have full access to the source code, architecture, and database schemas. The goal is to ensure every line of code executes flawlessly.
 
@@ -380,7 +380,7 @@ Structural testing is concerned with the internal mechanisms of the system. It i
 - **Dead Code Identification:** AI static analysis tools scan the repository to highlight unreachable execution paths and unused variables, keeping the codebase lean.
 - **Targeted Test Generation:** If a developer struggles to achieve 100% branch coverage, AI coding assistants can analyze the specific uncovered `if/else` block and automatically write the exact unit test required to trigger that execution path.
 
-### Change-Related Testing
+### 4.4. Change-Related Testing
 
 Whenever a codebase is modified—whether to fix a bug or add a new feature—there is a high risk of unintentionally breaking existing functionality. Change-related testing mitigates this risk.
 
@@ -402,7 +402,7 @@ While the traditional Software Testing Life Cycle (STLC) provides a solid theore
 
 To bridge the gap between textbook theory and real-world execution, this section details the industry best practices that Senior QA engineers use to integrate testing directly into Agile workflows, development pipelines, and modern architectures.
 
-### The "Shift-Left" Testing Paradigm
+### 5.1. The "Shift-Left" Testing Paradigm
 
 In a traditional Waterfall model, testing happens on the "right" side of the project timeline—after all development is complete. "Shift-Left" is the practice of moving testing activities as early (to the "left") in the development lifecycle as possible.
 
@@ -417,7 +417,7 @@ In a traditional Waterfall model, testing happens on the "right" side of the pro
 - **Requirement Validation:** AI-driven Natural Language Processing (NLP) tools parse User Stories in Jira to detect conflicting requirements, missing acceptance criteria, or logical ambiguities before sprints begin.
 - **Intelligent Pair Programming:** AI coding assistants actively review code logic as developers type, suggesting edge-case validations and identifying potential null-pointer exceptions or memory leaks in real-time.
 
-### The Test Automation Pyramid
+### 5.2. The Test Automation Pyramid
 
 The Test Automation Pyramid is a strategic framework that dictates how automated tests should be structured to maximize speed and reliability while minimizing maintenance costs. A common mistake in junior teams is writing too many UI tests, which are slow and brittle. The pyramid solves this.
 
@@ -432,7 +432,7 @@ The Test Automation Pyramid is a strategic framework that dictates how automated
 - **Autonomous API Generation:** AI tools analyze backend OpenAPI/Swagger documentation or monitor network traffic to automatically generate comprehensive API test suites, covering boundary values and negative testing scenarios without manual scripting.
 - **Self-Healing E2E Tests:** In UI testing, if a developer changes a button's ID or CSS class, traditional tests break. AI-powered test execution engines use machine learning algorithms to visually identify the button's new attributes dynamically, healing the script on the fly and preventing false-positive failures.
 
-### Continuous Integration and Continuous Deployment (CI/CD)
+### 5.3. Continuous Integration and Continuous Deployment (CI/CD)
 
 Continuous Testing is the heartbeat of CI/CD. It ensures that every code commit is automatically verified in a standardized environment, preventing broken code from reaching production.
 
@@ -452,7 +452,7 @@ Continuous Testing is the heartbeat of CI/CD. It ensures that every code commit 
 
 To solidify your understanding of the Software Testing Life Cycle, Principles, Levels, and Modern Best Practices, this section provides a structured set of exercises. It is divided into theoretical Multiple-Choice Questions (MCQs) and practical, scenario-based problem-solving.
 
-### Multiple-Choice Questions (MCQs)
+### 6.1. Multiple-Choice Questions (MCQs)
 
 **1. During the Software Testing Life Cycle (STLC), which of the following is the primary deliverable of the Requirement Analysis phase?**
 
@@ -544,7 +544,7 @@ To solidify your understanding of the Software Testing Life Cycle, Principles, L
 
 **Explanation:** Shift-Left means moving testing activities "left" on the project timeline. QA participates in requirement analysis and architectural design to prevent defects early, adhering to the "Early Testing" principle.
 
-### Practical Application Exercises
+### 6.2. Practical Application Exercises
 
 #### Exercise Type A: Functional Test Design (Black-Box)
 

@@ -5,7 +5,7 @@
 
 ## 1. Core Concepts & Role of Test Cases
 
-### What is a Test Case?
+### 1.1. What is a Test Case?
 
 In software engineering, a test case is the foundational unit of test execution. At its core, it is a scientifically designed experiment to verify a specific behavior of the software.
 
@@ -13,7 +13,7 @@ According to the standard defined by IEEE 729-1983, a test case is "a specific s
 
 In practical application, a test case acts as a precise contract. It documents the exact preconditions, inputs, execution steps, and the expected outcomes required to validate a feature. Whether you are testing a complex user interface or validating backend logic in a Go or Java application, the test case ensures that the verification process is systematic, objective, and independent of the person executing it.
 
-### The Seven Core Purposes of Writing Test Cases
+### 1.2. The Seven Core Purposes of Writing Test Cases
 
 Creating test cases requires investment, but it provides a massive return in software quality and team alignment. The primary reasons for writing test cases include:
 
@@ -25,11 +25,11 @@ Creating test cases requires investment, but it provides a massive return in sof
 - **To Verify Execution Correctness:** Test cases ensure that the software does exactly what the business requirements state it should do. They prevent "feature drift" by validating the software against the initial specifications rather than just verifying that the code compiles and runs without crashing.
 - **To Measure Test Coverage:** By writing test cases against all accepted requirements, teams can calculate test coverage. This metric reveals blind spots in the testing strategy, highlighting areas of the application that are vulnerable and untested.
 
-### The Communication Value of Test Cases
+### 1.3. The Communication Value of Test Cases
 
 Beyond the technical execution, test cases serve as a unified language across the development team. Product Owners use them to confirm that their business rules are understood. Developers use them as a checklist during the implementation phase to ensure their code meets the acceptance criteria before pushing to the repository. By reading the test cases before coding begins, developers gain a clear understanding of the exact scenarios their code must handle, which drastically reduces the defect rate in the first iteration.
 
-### The Role of AI in Test Case Management
+### 1.4. The Role of AI in Test Case Management
 
 The landscape of software testing is rapidly evolving with the integration of AI. AI significantly enhances the conceptualization and management of test cases:
 
@@ -40,7 +40,7 @@ The landscape of software testing is rapidly evolving with the integration of AI
 
 ## 2. Core Structure of a Test Case
 
-### The Anatomy of a Standard Test Case
+### 2.1. The Anatomy of a Standard Test Case
 
 To ensure accountability, reproducibility, and clarity, every test case must contain a specific set of essential fields. These fields provide the tracking information and execution guidelines necessary for any tester or automated script to perform the validation.
 
@@ -57,7 +57,7 @@ To ensure accountability, reproducibility, and clarity, every test case must con
 - **Bug ID:** If the test fails, this links to the corresponding defect tracking ticket.
 - **Comments/Notes:** Any additional observations, workarounds, or execution anomalies.
 
-### Mastering the Test Case Objective/Title
+### 2.2. Mastering the Test Case Objective/Title
 
 The Objective or Title is widely considered the most important essential field of a test case. In many fast-paced agile environments, the title might be the only part of the documented test case that managers, developers, or other QA members read during a review.
 
@@ -75,19 +75,19 @@ A good test name makes peer reviews significantly easier and facilitates a smoot
 - _Validate_ (Action) + _user login_ (Function) + _with valid credentials and active session_ (Condition).
 - _Verify_ (Action) + _checkout process_ (Function) + _when the shopping cart is empty_ (Condition).
 
-### Defining Clear Validation Points
+### 2.3. Defining Clear Validation Points
 
 A validation point is the core expected result mapped to a specific action. It defines clearly what behavior, result, or state you are attempting to validate at a given moment.
 
 Instead of waiting until the very last step to verify the system, complex test cases should include validation points embedded within the execution steps. For example, if step 3 is "Upload the profile picture," a validation point should immediately follow: "Verify that a success message is displayed and the thumbnail updates immediately." This prevents false positives and pinpoints exactly where a multi-step process breaks down.
 
-### Best Practices for Steps and Test Data Management
+### 2.4. Best Practices for Steps and Test Data Management
 
 Writing steps requires balancing detail with efficiency. Steps should be economical, meaning there are no unnecessary actions. However, they must remain repeatable and self-standing. A tester should not need to guess how to navigate to a screen or what data to input.
 
 Test data must be managed carefully. Hardcoding dynamic values (like dates or one-time use tokens) inside test steps leads to brittle test cases. Instead, reference test data abstractly or clearly define how to generate it in the pre-conditions. Furthermore, a highly professional test case always includes a "Teardown" or "Self-cleaning" step to revert the database or system state back to its original form, ensuring it does not block subsequent test cases.
 
-### The Integration of AI in Test Case Structuring
+### 2.5. The Integration of AI in Test Case Structuring
 
 AI is heavily utilized in structuring and maintaining the essential components of test cases:
 
@@ -97,7 +97,7 @@ AI is heavily utilized in structuring and maintaining the essential components o
 
 ## 3. Test Case Template & Quality Standards
 
-### The Standard Test Case Template
+### 3.1. The Standard Test Case Template
 
 A well-structured test case template ensures consistency across the QA team and makes the documentation process highly systematic. While modern agile teams often use test management software (like Jira, Zephyr, or TestRail) rather than static spreadsheets, the underlying data structure remains identical.
 
@@ -111,7 +111,7 @@ A standard template typically encompasses the following columns:
 - **Observed Result:** Left blank during the writing phase, this is filled out during execution to record what actually happened if it differs from the expected result.
 - **Status:** The final verdict of the execution (Passed / Failed / Blocked / Skipped).
 
-### The Seven Characteristics of a Good Test Case
+### 3.2. The Seven Characteristics of a Good Test Case
 
 Writing a test case is easy; writing a _good_ test case requires discipline. A high-quality test case must strictly adhere to the following seven criteria:
 
@@ -123,7 +123,7 @@ Writing a test case is easy; writing a _good_ test case requires discipline. A h
 - **Self-standing:** A test case must be completely independent of its writer. A newly onboarded QA engineer should be able to pick up the document and execute it flawlessly without needing to tap the original author on the shoulder for clarification. For example, if a test relies on a pure Java repository that does not use build tools like Maven or Gradle but is tracked strictly via Git, the test case must explicitly state the exact `javac` compilation commands and the specific branch to pull. It cannot assume the tester "just knows" how to build the project.
 - **Self-cleaning:** A professional test case picks up after itself. If a test case creates a new user account, uploads a mock file, or alters a database configuration, the final steps (often called the "Teardown") must instruct the tester or the automation script to delete that data. Failing to clean up test data pollutes the environment and frequently causes subsequent test cases to fail unexpectedly.
 
-### AI in Quality Standards and Template Management
+### 3.3. AI in Quality Standards and Template Management
 
 The application of AI in software testing is transforming how teams maintain these quality standards:
 
@@ -133,11 +133,11 @@ The application of AI in software testing is transforming how teams maintain the
 
 ## 4. Test Case Design Techniques
 
-### The Purpose of Test Design Techniques
+### 4.1. The Purpose of Test Design Techniques
 
 Writing test cases without a structured methodology often leads to two major problems: testing too much (wasting time and resources) or testing too little (leaving dangerous gaps in test coverage). Test case design techniques are mathematical and logical approaches that help QA engineers select the minimum number of test cases required to achieve the maximum possible coverage. They ensure testing is both economical and highly accurate.
 
-### Equivalence Partitioning (EP)
+### 4.2. Equivalence Partitioning (EP)
 
 Equivalence Partitioning is a black-box testing technique that divides input data into distinct groups, or "partitions," where the software is expected to exhibit the same behavior for every value within a particular group.
 
@@ -157,7 +157,7 @@ The core principle is that testing one value from a partition is equivalent to t
 
 Instead of testing infinite numbers, you only need three test cases to validate the quantity logic.
 
-### Boundary Value Analysis (BVA)
+### 4.3. Boundary Value Analysis (BVA)
 
 Boundary Value Analysis is built on the statistical reality that errors are most likely to occur at the extreme edges of input ranges rather than in the center. BVA is almost always used in conjunction with Equivalence Partitioning.
 
@@ -176,7 +176,7 @@ Instead of selecting a random value from within a partition, BVA focuses entirel
 
 Testing these exact edges ensures that developers did not accidentally use a strictly less than `<` operator when they should have used a less than or equal to `<=` operator.
 
-### Decision Table Testing
+### 4.4. Decision Table Testing
 
 When business logic becomes highly complex and involves multiple combinations of conditions resulting in different actions, EP and BVA are no longer sufficient. Decision Table testing is a technique used to systematically map out complex logical relationships.
 
@@ -191,7 +191,7 @@ A decision table captures all possible combinations of input conditions and defi
 | TC_03     | No                          | Yes                           | Error: Invalid Username    |
 | TC_04     | No                          | No                            | Error: Invalid Credentials |
 
-### State Transition Testing
+### 4.5. State Transition Testing
 
 Some software behaviors depend not just on the current input, but on the historical sequence of inputs (the current "state" of the system). State Transition Testing is used to validate systems that have finite, well-defined states and transitions.
 
@@ -203,7 +203,7 @@ Some software behaviors depend not just on the current input, but on the histori
 
 A test case using this technique maps out the explicit sequence of actions required to force the system through its entire lifecycle of states.
 
-### The Role of AI in Test Case Design
+### 4.6. The Role of AI in Test Case Design
 
 AI is fundamentally changing how these design techniques are applied in modern QA environments, removing much of the manual calculation and mapping:
 
@@ -214,19 +214,19 @@ AI is fundamentally changing how these design techniques are applied in modern Q
 
 ## 5. The Strategic Value of Test Cases
 
-### Beyond Administrative Documentation
+### 5.1. Beyond Administrative Documentation
 
 At the culmination of these core concepts, it is vital to recognize that a test case is far more than a simple administrative checklist or a mandatory project artifact. In the realm of professional Quality Assurance, a test case is a strategic asset. It represents a scientifically designed experiment that executes a single, well-defined objective to validate software behavior.
 
 By translating vague business requirements into concrete, verifiable actions, test cases serve as the ultimate source of truth for software quality. They establish accountability, ensure complete reproducibility of defects, and provide a transparent metric for tracking project health and test coverage.
 
-### The Anatomy of Precision
+### 5.2. The Anatomy of Precision
 
 The effectiveness of a test case relies heavily on its structural integrity. While fields like test data, preconditions, and expected results form the mechanical execution of the test, the **Test Case Objective/Title** is the most critical component for team communication.
 
 Mastering the syntactic structure—`Action + Function + Operating Condition`—is what separates junior testers from senior QA engineers. This standardized naming convention ensures that anyone, from a Product Owner to an Automation Engineer, can instantly grasp the exact scope and context of the test without reading every individual step.
 
-### The Hallmarks of Excellence
+### 5.3. The Hallmarks of Excellence
 
 Writing a test case is a straightforward task, but designing a robust, high-quality test suite requires strict adherence to seven core characteristics. A truly professional test case must be:
 
@@ -238,11 +238,11 @@ Writing a test case is a straightforward task, but designing a robust, high-qual
 - **Self-standing:** Comprehensible and executable by anyone, completely independent of the original author.
 - **Self-cleaning:** Designed to revert any data or state changes it caused, leaving the environment pristine for the next test.
 
-### The Prerequisite for Automation
+### 5.4. The Prerequisite for Automation
 
 A common misconception is that manual testing and automated testing are entirely separate disciplines. In reality, excellent manual test cases are the foundational blueprints for all automated testing frameworks. You cannot automate chaos. If a manual test case is not economical, self-standing, and self-cleaning, the automated script derived from it will be brittle, slow, and prone to false failures. Structuring test cases with precise inputs, explicit preconditions, and isolated validation points is the first, mandatory step toward building a successful Continuous Integration/Continuous Deployment (CI/CD) pipeline.
 
-### AI and the Future of Test Engineering
+### 5.5. AI and the Future of Test Engineering
 
 The integration of AI represents a paradigm shift in how quality assurance is managed at a strategic level. AI is no longer just a tool for execution; it acts as a co-pilot throughout the entire software testing lifecycle:
 
@@ -253,7 +253,7 @@ The integration of AI represents a paradigm shift in how quality assurance is ma
 
 ## 6. Comprehensive Practice & Applied Exercises
 
-### Multiple-Choice Questions (MCQs)
+### 6.1. Multiple-Choice Questions (MCQs)
 
 **Question 1: According to IEEE 729-1983, how is a test case defined?**
 
@@ -345,117 +345,103 @@ The integration of AI represents a paradigm shift in how quality assurance is ma
 
 **Explanation:** A self-standing test case is written clearly enough that any newly onboarded QA engineer can read it and execute it flawlessly without needing to ask the original author for clarification.
 
-### Applied Exercises
+### 6.2. Applied Exercises
 
 #### Format 1: Objective/Title Syntax Formulation
 
 **Exercise 1:**
 
-- _Context:_ You need to test the generation of an annual financial report. The test must be executed precisely on the last day of the fiscal year to ensure the date logic holds up.
-- _Task:_ Write the Test Case Title using the standard syntax.
-
-**Solution:**
-
-- **Title:** Run annual report on the last day of the fiscal year.
-- **Explanation:**
-  - **Action:** Run
-  - **Function:** annual report
-  - **Operating Condition:** on the last day of the fiscal year. This exactly matches the required structure and clearly conveys the test's purpose.
+- **Context:** You need to test the generation of an annual financial report. The test must be executed precisely on the last day of the fiscal year to ensure the date logic holds up.
+- **Task:** Write the Test Case Title using the standard syntax.
+- **Solution:**
+  - **Title:** Run annual report on the last day of the fiscal year.
+  - **Explanation:**
+    - **Action:** Run
+    - **Function:** annual report
+    - **Operating Condition:** on the last day of the fiscal year. This exactly matches the required structure and clearly conveys the test's purpose.
 
 **Exercise 2:**
 
-- _Context:_ You are testing an e-commerce website. You need to ensure that if a user clicks the "Proceed to Checkout" button without adding any items to their cart, the system prevents them from moving forward.
-- _Task:_ Write the Test Case Title using the standard syntax.
-
-**Solution:**
-
-- **Title:** Validate checkout process when the shopping cart is empty.
-- **Explanation:**
-  - **Action:** Validate
-  - **Function:** checkout process
-  - **Operating Condition:** when the shopping cart is empty.
+- **Context:** You are testing an e-commerce website. You need to ensure that if a user clicks the "Proceed to Checkout" button without adding any items to their cart, the system prevents them from moving forward.
+- **Task:** Write the Test Case Title using the standard syntax.
+- **Solution:**
+  - **Title:** Validate checkout process when the shopping cart is empty.
+  - **Explanation:**
+    - **Action:** Validate
+    - **Function:** checkout process
+    - **Operating Condition:** when the shopping cart is empty.
 
 #### Format 2: Complete the Test Case Template
 
 **Exercise 3:**
 
-- _Context:_ You are testing the Login page of a web application. The requirement states that if a user attempts to log in with an email that does not exist in the database, the system must display a red error message stating "Account not found."
-- _Task:_ Create the full test case template for this scenario.
-
-**Solution:**
+- **Context:** You are testing the Login page of a web application. The requirement states that if a user attempts to log in with an email that does not exist in the database, the system must display a red error message stating "Account not found."
+- **Task:** Create the full test case template for this scenario.
+- **Solution:**
 
 | TC ID      | Objective                                            | Pre-conditions                                                                                                | Steps                                                                                                                                 | Expected Result                                                                                          |
 | :--------- | :--------------------------------------------------- | :------------------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------- |
 | TC_AUTH_02 | Verify user login with an unregistered email address | 1. User is on the application Login page.<br>2. The email `fakeuser@test.com` does not exist in the database. | 1. Enter `fakeuser@test.com` into the Email field.<br>2. Enter `Password123` into the Password field.<br>3. Click the "Login" button. | 1. The user is not logged in.<br>2. A red error message appears displaying exactly: "Account not found." |
 
-**Explanation:** This test case is **Economical** (no unnecessary steps to navigate to the login page, it's handled in pre-conditions) and **Accurate** (it tests exactly what the requirement dictates, providing specific test data and explicit expected results).
+- **Explanation:** This test case is **Economical** (no unnecessary steps to navigate to the login page, it's handled in pre-conditions) and **Accurate** (it tests exactly what the requirement dictates, providing specific test data and explicit expected results).
 
 **Exercise 4:**
 
-- _Context:_ You are testing a Search function on a blog. If the user searches for a term that has no matching articles, the page should display "No results found for [term]".
-- _Task:_ Create the full test case template for this scenario.
-
-**Solution:**
+- **Context:** You are testing a Search function on a blog. If the user searches for a term that has no matching articles, the page should display "No results found for [term]".
+- **Task:** Create the full test case template for this scenario.
+- **Solution:**
 
 | TC ID      | Objective                                            | Pre-conditions                     | Steps                                                                                                          | Expected Result                                                                                       |
 | :--------- | :--------------------------------------------------- | :--------------------------------- | :------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------- |
 | TC_SRCH_01 | Validate search function with a non-existent keyword | 1. User is on the blog's homepage. | 1. Click on the search bar.<br>2. Type the keyword `xyzqwerty` into the search bar.<br>3. Press the Enter key. | 1. The search results page loads.<br>2. The page displays the text: "No results found for xyzqwerty". |
 
-**Explanation:** The steps are explicit and **Self-standing**. The validation point is clearly defined in the Expected Result, showing exactly what string must appear on the screen.
+- **Explanation:** The steps are explicit and **Self-standing**. The validation point is clearly defined in the Expected Result, showing exactly what string must appear on the screen.
 
 #### Format 3: Test Case Audit & Correction
 
 **Exercise 5:**
 
-_Flawed Test Case:_
-
-- **Title:** Test file upload
-- **Pre-conditions:** None
-- **Steps:** 1. Go to the upload page. 2. Upload a file. 3. Check if it worked.
-- **Expected Result:** File is uploaded.
-
-_Task:_ Audit this test case, identify which of the 7 characteristics it violates, and rewrite it correctly.
-
-**Solution & Audit:**
-
-- **Violations:**
-  - **Accurate/Syntax:** The title lacks an Operating Condition.
-  - **Self-standing:** The steps are incredibly vague. What is the URL? What type of file? What size? "Check if it worked" is not a valid instruction.
-  - **Economical/Traceable:** It does not specify the exact parameters of the test, making it impossible to map to a specific requirement (e.g., is this testing PDF uploads or image uploads?).
-- **Corrected Test Case:**
-  - **Title:** Verify profile picture upload with a valid PNG file under 5MB.
-  - **Pre-conditions:** 1. User is logged into their account. 2. User is on the 'Edit Profile' page. 3. A test file named `avatar_test.png` (2MB) is available on the local machine.
-  - **Steps:** 1. Click the "Upload Avatar" button. 2. Select the `avatar_test.png` file from the local machine and click "Open". 3. Click the "Save Changes" button.
-  - **Expected Result:** A green success toast message appears, and the profile thumbnail immediately updates to display `avatar_test.png`.
+- **Flawed Test Case:**
+  - **Title:** Test file upload
+  - **Pre-conditions:** None
+  - **Steps:** 1. Go to the upload page. 2. Upload a file. 3. Check if it worked.
+  - **Expected Result:** File is uploaded.
+- **Task:** Audit this test case, identify which of the 7 characteristics it violates, and rewrite it correctly.
+- **Solution & Audit:**
+  - **Violations:**
+    - **Accurate/Syntax:** The title lacks an Operating Condition.
+    - **Self-standing:** The steps are incredibly vague. What is the URL? What type of file? What size? "Check if it worked" is not a valid instruction.
+    - **Economical/Traceable:** It does not specify the exact parameters of the test, making it impossible to map to a specific requirement (e.g., is this testing PDF uploads or image uploads?).
+  - **Corrected Test Case:**
+    - **Title:** Verify profile picture upload with a valid PNG file under 5MB.
+    - **Pre-conditions:** 1. User is logged into their account. 2. User is on the 'Edit Profile' page. 3. A test file named `avatar_test.png` (2MB) is available on the local machine.
+    - **Steps:** 1. Click the "Upload Avatar" button. 2. Select the `avatar_test.png` file from the local machine and click "Open". 3. Click the "Save Changes" button.
+    - **Expected Result:** A green success toast message appears, and the profile thumbnail immediately updates to display `avatar_test.png`.
 
 **Exercise 6:**
 
-_Flawed Test Case:_
-
-- **Title:** Validate database connection when creating a new product.
-- **Pre-conditions:** Admin is logged in.
-- **Steps:**
-  1. Navigate to /admin/products.
-  2. Click 'Add Product'.
-  3. Fill in product name as "Test Widget 99".
-  4. Click 'Save'.
-- **Expected Result:** Product is saved to the database.
-
-_Task:_ Audit this test case, identify which of the 7 characteristics it violates, and rewrite it correctly.
-
-**Solution & Audit:**
-
-- **Violations:**
-  - **Self-cleaning:** This is the major violation. The test case creates a persistent entity ("Test Widget 99") in the database but provides no instructions to delete it. Running this test 100 times will result in 100 junk products cluttering the admin panel.
-  - **Accurate:** The title says "Validate database connection", but the steps are performing an end-to-end UI test for product creation.
-- **Corrected Test Case:**
-  - **Title:** Verify new product creation with valid standard inputs.
-  - **Pre-conditions:** 1. Admin is logged into the dashboard. 2. Admin is on the `/admin/products` page.
+- **Flawed Test Case:**
+  - **Title:** Validate database connection when creating a new product.
+  - **Pre-conditions:** Admin is logged in.
   - **Steps:**
-    1. Click the 'Add Product' button.
-    2. Enter "Test Widget 99" into the Product Name field.
-    3. Enter "10" into the Price field.
+    1. Navigate to /admin/products.
+    2. Click 'Add Product'.
+    3. Fill in product name as "Test Widget 99".
     4. Click 'Save'.
-    5. **[Validation Point]** Verify a success message is displayed and "Test Widget 99" appears in the product list.
-    6. **[Teardown]** Click the 'Delete' icon next to "Test Widget 99" and confirm deletion.
-  - **Expected Result:** The product is successfully created, visible on the UI, and subsequently removed without leaving residual data.
+  - **Expected Result:** Product is saved to the database.
+- **Task:** Audit this test case, identify which of the 7 characteristics it violates, and rewrite it correctly.
+- **Solution & Audit:**
+  - **Violations:**
+    - **Self-cleaning:** This is the major violation. The test case creates a persistent entity ("Test Widget 99") in the database but provides no instructions to delete it. Running this test 100 times will result in 100 junk products cluttering the admin panel.
+    - **Accurate:** The title says "Validate database connection", but the steps are performing an end-to-end UI test for product creation.
+  - **Corrected Test Case:**
+    - **Title:** Verify new product creation with valid standard inputs.
+    - **Pre-conditions:** 1. Admin is logged into the dashboard. 2. Admin is on the `/admin/products` page.
+    - **Steps:**
+      1. Click the 'Add Product' button.
+      2. Enter "Test Widget 99" into the Product Name field.
+      3. Enter "10" into the Price field.
+      4. Click 'Save'.
+      5. **[Validation Point]** Verify a success message is displayed and "Test Widget 99" appears in the product list.
+      6. **[Teardown]** Click the 'Delete' icon next to "Test Widget 99" and confirm deletion.
+    - **Expected Result:** The product is successfully created, visible on the UI, and subsequently removed without leaving residual data.

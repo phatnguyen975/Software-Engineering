@@ -5,13 +5,13 @@
 
 ## 1. Overview of Decision Table Testing
 
-### What is Decision Table Testing?
+### 1.1. What is Decision Table Testing?
 
 Decision Table Testing is a highly structured, black-box test design technique used to determine test scenarios for complex business logic. At its core, it utilizes a tabular representation to map various combinations of inputs (conditions) to their corresponding outputs (actions or expected results).
 
 In software engineering, applications frequently behave differently depending on a multitude of interrelated variables. When business rules become intricate with multiple `if-else` or `switch` statements, ad-hoc or intuition-based testing often leads to missed edge cases. Decision Table Testing enforces a mathematical, rigorous approach to ensure that all logical combinations are accounted for, documented, and verified.
 
-### The Core Anatomy of a Decision Table
+### 1.2. The Core Anatomy of a Decision Table
 
 A standard decision table is divided into four main quadrants, providing a clean visual architecture for mapping logic:
 
@@ -20,7 +20,7 @@ A standard decision table is divided into four main quadrants, providing a clean
 - **Rules (Combinations):** The columns in the table represent the rules. Each rule is a unique permutation of the different causes.
 - **Test Cases:** Ultimately, each distinct column (Rule) in the completed and reduced decision table translates directly into a single, actionable Test Case.
 
-### Strategic Advantages and Best Practices
+### 1.3. Strategic Advantages and Best Practices
 
 From an engineering and quality assurance perspective, adopting this technique provides several high-value benefits:
 
@@ -29,13 +29,13 @@ From an engineering and quality assurance perspective, adopting this technique p
 - **Defect Prevention:** The mere act of constructing the table often highlights contradictions, ambiguities, or gaps in the original requirement specifications before a single line of code is written.
 - **Foundation for Automation:** Decision tables map perfectly to data-driven testing frameworks, making them ideal starting points for writing parameterized automated tests.
 
-### Inherent Challenges and Limitations
+### 1.4. Inherent Challenges and Limitations
 
 While powerful, the technique has a significant limitation known as the "State Explosion Problem."
 
 When the number of inputs (Causes) increases, the size of the table grows exponentially. For example, a system with 3 boolean conditions requires $2^3 = 8$ rules. However, a system with 10 boolean conditions requires $2^{10} = 1024$ rules. Managing, reviewing, and executing a table of this size manually becomes impractical. This necessitates the use of optimization techniques, such as table reduction (identifying and merging rules that result in the same effect regardless of certain inputs) and eliminating logically impossible scenarios.
 
-### The Role of AI in Decision Table Testing
+### 1.5. The Role of AI in Decision Table Testing
 
 Modern software testing is rapidly evolving with the integration of AI, significantly mitigating the traditional challenges of Decision Table Testing.
 
@@ -82,7 +82,7 @@ The final step bridges the gap between theoretical test design and actual test e
 
 This mechanical translation ensures that test documentation is highly traceable; every test case can be traced back to a specific rule in the decision table, and subsequently, to a specific business requirement.
 
-### AI Integration in the 4-Step Workflow
+### 2.5. AI Integration in the 4-Step Workflow
 
 Artificial Intelligence acts as a powerful accelerator throughout this standard procedure, transforming it from a manual administrative task into an automated, highly efficient process.
 
@@ -92,7 +92,7 @@ Artificial Intelligence acts as a powerful accelerator throughout this standard 
 
 ## 3. Case Study 1 - Credit Card Discount System
 
-### Requirement Analysis and Variable Extraction
+### 3.1. Requirement Analysis and Variable Extraction
 
 To understand the practical application of Decision Table Testing, we analyze a retail banking scenario involving promotional discounts for credit card users. The business requirements are stated as follows:
 
@@ -122,7 +122,7 @@ From a Quality Assurance perspective, the first step is to dissect these require
 
 During this analysis, an experienced QA engineer immediately identifies implicit business constraints. A customer cannot logically be a "New Customer" and an "Existing Customer with a Loyalty Card" simultaneously. Furthermore, there is an explicit constraint preventing the stacking of the Coupon (C3) with the New Customer discount (C1).
 
-### Constructing the Unoptimized Decision Table
+### 3.2. Constructing the Unoptimized Decision Table
 
 With 3 boolean conditions, the system dictates exactly 8 possible permutations (2 to the power of 3). The unoptimized table maps out every single combination to ensure absolute test coverage.
 
@@ -140,7 +140,7 @@ With 3 boolean conditions, the system dictates exactly 8 possible permutations (
 
 Notice in Rule 3 (C1=T, C2=F, C3=T), the total discount is 15%. Because the business rule explicitly states the coupon cannot be used with the new customer discount, the 20% effect (E3) is ignored, and only the 15% effect (E1) is applied. Rules 1 and 2 are marked as E4 (Impossible) because of the conflicting customer states.
 
-### Applying Reduction Strategies
+### 3.3. Applying Reduction Strategies
 
 Executing 8 test cases for this specific logic is redundant. We apply reduction techniques to optimize the testing effort.
 
@@ -161,7 +161,7 @@ Executing 8 test cases for this specific logic is redundant. We apply reduction 
 
 Through reduction, the required test cases have been optimized from 8 down to 5, saving significant execution time without compromising logical coverage.
 
-### Generating Final Test Cases
+### 3.4. Generating Final Test Cases
 
 The columns from the reduced decision table are now translated directly into formal, actionable Test Cases ready for execution.
 
@@ -173,7 +173,7 @@ The columns from the reduced decision table are now translated directly into for
 | **TC_Disc_004** | No                  | No                 | Yes           | System applies 20% discount |
 | **TC_Disc_005** | No                  | No                 | No            | System applies 0% discount  |
 
-### The Role of AI in Discount and Rule Validation
+### 3.5. The Role of AI in Discount and Rule Validation
 
 In modern e-commerce and banking systems, discount logic is rarely this static; it is often highly dynamic and personalized. Artificial Intelligence plays a critical role in validating these complex promotional engines.
 
@@ -183,13 +183,13 @@ In modern e-commerce and banking systems, discount logic is rarely this static; 
 
 ## 4. Case Study 2 - The Classic "Next Date" Problem
 
-### The "Next Date" Problem Statement
+### 4.1. The "Next Date" Problem Statement
 
 In the realm of software testing, the "Next Date" problem is a legendary case study. It perfectly illustrates the necessity of structured test design. The premise is deceivingly simple: given a valid input date (Day, Month, Year), the system must compute and output the exact date of the following day.
 
 While it sounds straightforward, the Gregorian calendar introduces severe complexities: months have varying lengths (28, 29, 30, or 31 days), December triggers a year rollover, and leap years dynamically alter the length of February based on specific mathematical rules. Intuition-based testing will almost certainly miss critical boundary defects in this scenario. We must rely on Decision Table Testing, combined with Equivalence Partitioning, to conquer this logic.
 
-### Defining the Input Partitions (Causes)
+### 4.2. Defining the Input Partitions (Causes)
 
 Testing every single day of the year is exhaustive and inefficient. Before building the decision table, a Senior QA engineer will partition the inputs into logical groups where the system's behavior is expected to be identical.
 
@@ -213,7 +213,7 @@ Testing every single day of the year is exhaustive and inefficient. Before build
 - **Y1:** Leap Year (Divisible by 4, but century years must be divisible by 400).
 - **Y2:** Common Year (Non-leap year).
 
-### Defining the Expected Actions (Effects)
+### 4.3. Defining the Expected Actions (Effects)
 
 When transitioning to the next date, the system executes one or more underlying state changes. We must define these atomic actions to map our expected results.
 
@@ -224,7 +224,7 @@ When transitioning to the next date, the system executes one or more underlying 
 - **E5 (Reset Month):** The month resets to January (end of the year).
 - **E6 (Increment Year):** The year increases by 1.
 
-### Constructing the Logic Matrix
+### 4.4. Constructing the Logic Matrix
 
 If we blindly cross-multiplied all variables (4 Month groups - 5 Day groups - 2 Year groups), we would generate 40 rules. However, practical decision table reduction teaches us that the Year (Leap vs. Common) is a "Don't Care" condition for all months except February. We optimize the table to focus strictly on the 22 meaningful scenarios.
 
@@ -242,7 +242,7 @@ Below is an analytical breakdown of how the rules are evaluated, focusing on the
   - If M4, D3 (29th), and Y1 (Leap Year) -> Reset Day, Increment Month (Output: March 1).
   - If M4, D4/D5 (30th/31st) -> Impossible (E1) regardless of the year.
 
-### Translating to High-Value Test Cases
+### 4.5. Translating to High-Value Test Cases
 
 From the 22 distinct logical columns derived in our table, we map out actionable test scenarios. Here is a curated selection demonstrating different boundaries:
 
@@ -255,7 +255,7 @@ From the 22 distinct logical columns derived in our table, we map out actionable
 | **TC_17** | 28         | 2 (M4)       | 2000 (Y1)   | 29/02/2000                  | Boundary: Leap year recognition (Century rule). |
 | **TC_18** | 28         | 2 (M4)       | 2013 (Y2)   | 01/03/2013                  | Boundary: Common year February end.             |
 
-### The Role of AI in Date and Time Testing
+### 4.6. The Role of AI in Date and Time Testing
 
 Date and time calculations are notoriously prone to edge-case defects (e.g., Leap Seconds, Timezone offsets, Unix Epoch rollovers like the Y2K38 problem). AI significantly bolsters QA capabilities in this domain:
 
@@ -266,14 +266,14 @@ Date and time calculations are notoriously prone to edge-case defects (e.g., Lea
 
 ## 5. Real-World Best Practices for Senior QA/QC
 
-### Strategic Application: Knowing When to Use (and Avoid) Decision Tables
+### 5.1. Strategic Application: Knowing When to Use (and Avoid) Decision Tables
 
 A mark of a Senior QA engineer is not just knowing how to execute a testing technique, but knowing _when_ it is the most effective tool for the job. Decision Table Testing is highly specialized and should be applied strategically.
 
 - **When to Apply:** It is the absolute best choice for business logic heavy applications, such as financial calculation engines, insurance premium calculators, complex access control matrices (IAM), or dynamic pricing and discount modules. If the requirement document contains multiple overlapping "If-Then-Else" conditions, a decision table is mandatory.
 - **When to Avoid:** Decision tables are highly inefficient for testing sequential workflows (e.g., a multi-step checkout process), which are better suited for State Transition Testing. They are also virtually useless for UI/UX testing, basic CRUD (Create, Read, Update, Delete) operations, or testing API payload structures.
 
-### Shift-Left Testing and Agile Integration
+### 5.2. Shift-Left Testing and Agile Integration
 
 In modern Agile environments, testing is not a phase that happens after development; it is a continuous process. Decision tables are a powerful asset for "Shift-Left" testing, which means pushing QA activities as early in the software development lifecycle as possible.
 
@@ -281,21 +281,21 @@ In modern Agile environments, testing is not a phase that happens after developm
 - **Requirement Validation:** Creating the table before coding begins often exposes edge cases, missing requirements, or contradictory logic in the user story. Resolving these logical conflicts during the planning phase is exponentially cheaper than fixing a bug in production.
 - **Behavior-Driven Development (BDD):** Decision tables map perfectly to BDD frameworks. The columns of a reduced decision table can be directly translated into Gherkin syntax (`Given` [Causes], `When` [Action], `Then` [Effects]), creating executable specifications that both business stakeholders and developers can understand.
 
-### Synergizing Test Design Techniques
+### 5.3. Synergizing Test Design Techniques
 
 Relying on a single testing technique leaves blind spots. Senior QA engineers synthesize multiple methodologies to create an impenetrable safety net.
 
 - **Combining with Equivalence Partitioning (EP):** As seen in the "Next Date" problem, you should never put raw, infinite data values (like every possible day of the year) into a decision table. First, use EP to categorize inputs into logical groups, and then use those groups as the "Causes" in your table.
 - **Combining with Boundary Value Analysis (BVA):** Once your decision table dictates which logical paths need testing, use BVA to select the exact test data for those paths. If a rule applies to "Purchase amounts over $100", the decision table validates the logic, while BVA dictates that you should execute that rule using exact values like $100.00, $100.01, and $99.99 to catch off-by-one coding errors.
 
-### Bridging the Gap to Automation: Data-Driven Testing
+### 5.4. Bridging the Gap to Automation: Data-Driven Testing
 
 Manual execution of decision tables is prone to human error and is unscalable for regression testing. The ultimate goal of a decision table is to serve as the blueprint for Data-Driven Testing (DDT).
 
 - **Parameterized Test Scripts:** Instead of writing individual test scripts for every column in the table, automation engineers write a single, robust test function. This function is parameterized, meaning it takes the Causes as inputs and asserts against the expected Effects.
 - **Data Providers:** The reduced decision table is exported into a structured data format (like CSV, JSON, or a database table). Frameworks utilizing tools like TestNG, JUnit, or standard Go testing packages loop through this data source, feeding each row (Test Case) into the parameterized function. This ensures that 100% of the logical rules are automatically validated during every CI/CD pipeline run.
 
-### AI in Modern QA Workflows
+### 5.5. AI in Modern QA Workflows
 
 The integration of AI is fundamentally shifting how Senior QA engineers approach complex logic validation, moving the role from manual test execution to intelligent test orchestration.
 
@@ -305,25 +305,25 @@ The integration of AI is fundamentally shifting how Senior QA engineers approach
 
 ## 6. Executive Summary and Core Value Proposition
 
-### Mastering Complex Business Logic
+### 6.1. Mastering Complex Business Logic
 
 At its core, Decision Table Testing is the ultimate analytical tool for a Quality Assurance engineer facing convoluted business rules. It replaces intuition, guesswork, and ad-hoc testing with a rigorous, mathematical framework. By mapping every possible cause to its corresponding effect, it forces both testing and development teams to confront the exact behavior of a system under all permutations.
 
 The primary value lies in its ability to bring order to chaos. It takes "spaghetti requirements"—where multiple conditions overlap, contradict, or cancel each other out—and flattens them into a deterministic matrix. This guarantees a level of test coverage that cannot be achieved by simply reading requirements and writing test cases based on gut feeling.
 
-### The Blueprint for Robust Test Automation
+### 6.2. The Blueprint for Robust Test Automation
 
 A finalized, reduced decision table is far more than just a piece of documentation; it is the exact architectural blueprint for Data-Driven Testing. The tabular format maps seamlessly to automated testing paradigms, drastically reducing the amount of code required to achieve maximum coverage.
 
 Instead of writing individual test scripts for every scenario, engineers can write a single, modular function that accepts parameters. The decision table acts as the data provider. For instance, when implementing table-driven test patterns in Go, or when building parameterized unit tests within a raw Java repository, the columns of the decision table directly translate into the input arrays and expected assertions. This allows developers to execute comprehensive validation suites rapidly directly from their terminal environments, ensuring that core business logic remains unbroken with every commit.
 
-### Defect Prevention over Defect Detection
+### 6.3. Defect Prevention over Defect Detection
 
 The most profound impact of Decision Table Testing occurs before a single line of code is written. It is a fundamental component of the "Shift-Left" testing philosophy. The mechanical process of identifying variables, calculating permutations, and applying reduction strategies almost always uncovers hidden flaws in the original product requirements.
 
 When a QA engineer discovers an "Impossible" scenario or an unhandled combination during the table construction phase, they are actively preventing bugs from entering the software architecture. Resolving these logical ambiguities during the planning and design phases is exponentially cheaper and less frustrating than attempting to debug them in a staging or production environment.
 
-### The AI-Augmented Quality Engineer
+### 6.4. The AI-Augmented Quality Engineer
 
 The future of software testing relies heavily on the synergy between structured techniques like decision tables and the rapid processing power of Artificial Intelligence. AI is fundamentally transforming how these tables are generated, maintained, and executed.
 
@@ -335,7 +335,7 @@ In this AI-driven landscape, the role of the Senior QA shifts from manually writ
 
 This section provides a comprehensive set of exercises to solidify your understanding of Decision Table Testing, ranging from theoretical multiple-choice questions to practical, code-level implementations.
 
-### Multiple-Choice Questions (MCQs)
+### 7.1. Multiple-Choice Questions (MCQs)
 
 **Question 1: What is the primary purpose of utilizing a Decision Table in software testing?**
 
@@ -427,7 +427,7 @@ This section provides a comprehensive set of exercises to solidify your understa
 
 **Explanation:** Since April strictly has 30 days every year, the leap year variable does not change the outcome for any input dates in April, making it a "Don't Care" condition for that subset.
 
-### Practical Exercises: Table Construction & Reduction
+### 7.2. Practical Exercises: Table Construction & Reduction
 
 #### Type 1: Requirement Parsing and Optimization
 
@@ -479,7 +479,7 @@ This section provides a comprehensive set of exercises to solidify your understa
   - **TC2:** Input(Active=T, Pwd=F) -> Expected("Wrong Password")
   - **TC3:** Input(Active=F, Pwd=-) -> Expected("Account Suspended")
 
-### Practical Exercises: Translating Tables to Code (Data-Driven Testing)
+### 7.3. Practical Exercises: Translating Tables to Code (Data-Driven Testing)
 
 #### Type 2: Code-Level Validation Strategies
 

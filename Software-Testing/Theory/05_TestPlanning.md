@@ -5,13 +5,13 @@
 
 ## 1. Comprehensive Overview of the Software Testing Life Cycle (STLC)
 
-### What is STLC?
+### 1.1. What is STLC?
 
 The Software Testing Life Cycle (STLC) is a highly structured, systematic sequence of activities conducted by Quality Assurance (QA) and testing teams to guarantee the quality, reliability, and performance of a software product. While the Software Development Life Cycle (SDLC) focuses on building the software, the STLC runs parallel to it, focusing strictly on verifying and validating that the software meets all specified requirements and is free of defects.
 
 Adhering to the STLC ensures that testing is not an ad-hoc activity but a formalized, predictable process that optimizes resources, minimizes risks, and prevents critical defects from reaching the end-users.
 
-### The 6 Phases of the STLC
+### 1.2. The 6 Phases of the STLC
 
 The standard STLC comprises six distinct phases. Each phase has specific entry criteria, activities, and deliverables.
 
@@ -193,11 +193,11 @@ Test deliverables are the tangible artifacts produced throughout the testing lif
 
 ## 3. Risk Management & Mitigation Strategies in Test Planning
 
-### Understanding Risk in Software Testing
+### 3.1. Understanding Risk in Software Testing
 
 In software engineering, a risk is a potential, unforeseen event or condition that, if it occurs, has a negative impact on the project's quality, schedule, or budget. As a Senior QA, identifying these risks early during the Test Planning phase is not just about listing what could go wrong, but establishing a proactive framework to handle those exact scenarios. A robust Test Plan must transition from reactive bug-finding to proactive risk management.
 
-### Risk Categorization: Identifying Potential Pitfalls
+### 3.2. Risk Categorization: Identifying Potential Pitfalls
 
 The first step is identifying all possible risks associated with the software release. These generally fall into two main categories: Project Risks and Product Risks.
 
@@ -219,7 +219,7 @@ These are technical risks related to the software's quality, functionality, or a
 - **Security Vulnerabilities:** Potential loopholes that could expose sensitive user data to unauthorized access.
 - **Performance Bottlenecks:** The risk that the system architecture (e.g., a Go-based backend) fails to handle the expected concurrent user load or data throughput.
 
-### Risk Assessment: Quantifying the Threat
+### 3.3. Risk Assessment: Quantifying the Threat
 
 Once identified, risks must be evaluated to prioritize the testing focus. This is typically done using a Risk Assessment Matrix.
 
@@ -227,7 +227,7 @@ Once identified, risks must be evaluated to prioritize the testing focus. This i
 - **Impact (Severity):** If the risk occurs, how much damage will it cause to the project or the user? (Critical, Major, Minor).
 - **Risk Priority Number (RPN):** By multiplying the Likelihood and Impact scores, QAs can assign a priority level to each risk. A high-probability, high-impact risk (like a payment gateway failure) dictates a massive allocation of testing effort, whereas a low-probability, low-impact risk (like a minor UI glitch on an obscure browser) might be deprioritized.
 
-### Risk Mitigation: The Action Plan
+### 3.4. Risk Mitigation: The Action Plan
 
 Mitigation involves creating specific, actionable strategies to reduce either the likelihood of the risk occurring or its impact if it does.
 
@@ -236,7 +236,7 @@ Mitigation involves creating specific, actionable strategies to reduce either th
 - **Risk Transfer:** Shifting the responsibility of the risk. For instance, using a managed cloud service provider (like AWS or Azure) to handle server uptime, transferring the infrastructure risk away from the internal QA team.
 - **Active Mitigation (Contingency Planning):** Preparing a backup plan. If there is a risk of a delayed development build, the QA team mitigates this by front-loading the creation of automation frameworks, mock servers, and test data generators so execution can begin instantly once the code is delivered.
 
-### AI Integration in Risk Management
+### 3.5. AI Integration in Risk Management
 
 Artificial Intelligence has revolutionized how QA teams handle Risk Management, shifting the paradigm from educated guessing to data-driven certainty.
 
@@ -248,7 +248,7 @@ Artificial Intelligence has revolutionized how QA teams handle Risk Management, 
 
 This section provides a comprehensive set of exercises to test your understanding of the Software Testing Life Cycle, Test Planning, and Risk Management concepts covered in Sections 1 through 3.
 
-### Multiple Choice Questions (MCQs)
+### 4.1. Multiple Choice Questions (MCQs)
 
 **Question 1: During which phase of the Software Testing Life Cycle (STLC) does the QA team typically create the Requirement Traceability Matrix (RTM)?**
 
@@ -340,7 +340,7 @@ This section provides a comprehensive set of exercises to test your understandin
 
 **Explanation:** Option A defines a specific, measurable goal for a feature. B is Resource Planning, C is Test Logistics (Strategy), and D is defining Scope (Strategy).
 
-### Applied Exercises: Scenario-Based Problem Solving
+### 4.2. Applied Exercises: Scenario-Based Problem Solving
 
 #### Type 1: Defining Strategy & Scope
 

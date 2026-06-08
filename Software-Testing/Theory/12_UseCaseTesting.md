@@ -5,13 +5,13 @@
 
 ## 1. Overview of Use Case Testing
 
-### What is Use Case Testing?
+### 1.1. What is Use Case Testing?
 
 Use case testing is a black-box test design technique in which test cases are designed to execute specific use-case scenarios. Instead of testing isolated functionalities, individual components, or internal code structures, this approach validates the system from the end-user's perspective. The primary focus is ensuring that the interactions between an actor and the software system successfully achieve a specific objective.
 
 In practical terms, it requires Quality Assurance (QA) engineers to adopt a user-centric mindset. Rather than simply asking "Does this login button function properly?", use case testing asks "Can the user successfully authenticate and access their dashboard through a logical sequence of steps?"
 
-### The Concept of a Use Case
+### 1.2. The Concept of a Use Case
 
 A use case is essentially a defined list of actions or event steps that detail the interactions between an actor and a system to achieve a specific goal. To fully grasp the scope of a use case, it is important to understand its foundational elements:
 
@@ -19,7 +19,7 @@ A use case is essentially a defined list of actions or event steps that detail t
 - **Goal-Oriented:** Every use case exists to fulfill a singular, specific business or user objective. If there is no clear goal, it is not a valid use case.
 - **Behavioral Description:** It describes _what_ the system should do in response to the actor's inputs and actions, treating the internal technical implementation as a black box.
 
-### Industry Best Practices and Strategic Application
+### 1.3. Industry Best Practices and Strategic Application
 
 In modern software development lifecycles, particularly within Agile and Scrum frameworks, use case testing is highly strategic and integrated early in the process.
 
@@ -27,7 +27,7 @@ In modern software development lifecycles, particularly within Agile and Scrum f
 - **Behavior-Driven Development (BDD) Alignment:** Use cases are often the starting point for BDD practices. Teams translate use case flows into "Given-When-Then" formats. This creates a shared language among Business Analysts (BAs), Developers, and QAs, ensuring everyone has the exact same understanding of the expected system behavior before a single line of code is written.
 - **Risk-Based Prioritization:** In large enterprise applications, achieving 100% test coverage across all possible use cases is often impossible due to time and resource constraints. Experienced QAs apply risk-based testing, prioritizing use cases based on their criticality to the business and the frequency of user interaction.
 
-### The Role of AI in Use Case Testing
+### 1.4. The Role of AI in Use Case Testing
 
 Artificial Intelligence (AI) and Machine Learning (ML) are actively transforming how QA teams approach use case testing, shifting the focus from manual, repetitive tasks to strategic analysis and automation.
 
@@ -38,7 +38,7 @@ Artificial Intelligence (AI) and Machine Learning (ML) are actively transforming
 
 ## 2. Characteristics and Structure of a Use Case
 
-### Core Characteristics of a Use Case
+### 2.1. Core Characteristics of a Use Case
 
 To effectively test a system using the use case approach, a Quality Assurance engineer must first recognize what qualifies as a valid use case. Regardless of the system's complexity, every well-defined use case shares four fundamental characteristics:
 
@@ -47,7 +47,7 @@ To effectively test a system using the use case approach, a Quality Assurance en
 - **A Single Ending Point:** The use case concludes when the goal is either successfully achieved or explicitly failed/abandoned. Once this endpoint is reached, the system returns to a state of rest relative to that specific interaction.
 - **Multiple Paths from Start to Finish:** While there is only one starting and ending point, the journey between them can vary. A use case encompasses the "happy path" (where everything goes perfectly) as well as all the alternate routes (handling invalid inputs, system errors, or optional steps).
 
-### Anatomy of a Use Case Specification
+### 2.2. Anatomy of a Use Case Specification
 
 A visual diagram provides a high-level overview, but the true value for QA lies in the Use Case Specification—a detailed textual breakdown of the interaction. Using the standardized template, here is how a complete specification is structured, illustrated with a practical authentication example.
 
@@ -62,7 +62,7 @@ A visual diagram provides a high-level overview, but the true value for QA lies 
 | **Business Rules / Constraints** | - Passwords must be validated using bcrypt comparison, never plain text.<br>- The system allows a maximum of 5 consecutive failed login attempts before locking the account.                                                                                                                                                                                                                                      |
 | **Postconditions**               | - The user is authenticated and possesses a valid session token.<br>- The `last_login_at` in the database is updated.<br>- An audit event is published to the logging service.                                                                                                                                                                                                                                    |
 
-### QA Strategies for Analyzing Use Case Structures
+### 2.3. QA Strategies for Analyzing Use Case Structures
 
 When reviewing a Use Case Specification, experienced QA engineers do not just read the document; they deconstruct it to build a robust testing strategy.
 
@@ -70,7 +70,7 @@ When reviewing a Use Case Specification, experienced QA engineers do not just re
 - **Validating Postconditions Beyond the UI:** A common pitfall for junior testers is only verifying the UI response. A Senior QA relies on the Postconditions to check backend state changes. If the use case says an audit event is published, the test case must include a step to query the database or check the message broker (like RabbitMQ or Kafka) to ensure the event actually exists.
 - **Identifying Hidden Constraints:** The Business Rules section often dictates edge cases. For instance, if a system allows 5 failed attempts, QA knows they must design tests for exactly 4 attempts (boundary), 5 attempts (boundary), and 6 attempts (exception).
 
-### The Role of AI in Use Case Analysis
+### 2.4. The Role of AI in Use Case Analysis
 
 AI is increasingly being used to analyze and optimize the structural components of use cases before a single test is executed.
 
@@ -80,20 +80,20 @@ AI is increasingly being used to analyze and optimize the structural components 
 
 ## 3. Analyzing the Flow of Events
 
-### Understanding the Flow of Events
+### 3.1. Understanding the Flow of Events
 
 In use case testing, the system is not viewed as a static set of screens, but rather as a dynamic sequence of interactions. This sequence is known as the "Flow of Events." It maps out exactly how the actor and the system communicate step-by-step to reach the use case's goal.
 
 To thoroughly test a system, QA engineers must analyze these event flows to ensure that every possible interaction—whether expected or unexpected—is accounted for and handled gracefully by the software.
 
-### The Basic Flow (The Happy Path)
+### 3.2. The Basic Flow (The Happy Path)
 
 The Basic Flow represents what "normally" happens when the use case is performed under perfect conditions. It assumes that the user inputs the correct data, the system components are functioning optimally, and no constraints are violated.
 
 - **Characteristics:** It is a straight, linear path from the starting point to the successful ending point. There are no deviations, conditions, or error-handling steps included in this flow.
 - **QA Perspective:** The Basic Flow is the highest priority. If this path fails, the core functionality is broken (a critical blocker). This flow forms the baseline for sanity and smoke testing.
 
-### Alternate Flows (Variations and Exceptions)
+### 3.3. Alternate Flows (Variations and Exceptions)
 
 Real-world usage rarely follows the perfect path. Alternate Flows cover the system's behavior when encountering optional actions, exceptional conditions, or errors relative to the normal behavior.
 
@@ -102,7 +102,7 @@ Alternate flows branch off from a specific step in the Basic Flow and can either
 - **Optional Flows:** The user chooses a different valid path (e.g., during checkout, the user chooses to add a new shipping address instead of using the default one).
 - **Exception Flows:** An error occurs, or a business rule is violated (e.g., the user enters an invalid password, or the system database connection times out).
 
-### Mapping the Flows: A Practical Example
+### 3.4. Mapping the Flows: A Practical Example
 
 To visualize how these flows are documented, let's analyze a standard Authentication Use Case. Notice how the Alternate Flows explicitly reference the step in the Basic Flow where the deviation occurs.
 
@@ -115,7 +115,7 @@ To visualize how these flows are documented, let's analyze a standard Authentica
 |                     | 2b   | **Max Retries Exceeded:** The user enters an invalid password 4 consecutive times. The system locks the account and closes the application/session. (Ends the Use Case). |
 |                     | 2c   | **System Timeout:** The database fails to respond within 5 seconds during validation. The system displays a "Service Unavailable" message. (Ends the Use Case).          |
 
-### QA Techniques for Flow Analysis
+### 3.5. QA Techniques for Flow Analysis
 
 A major part of a QA engineer's job is discovering the "hidden" alternate flows that Business Analysts or Product Owners might have missed during the requirements phase.
 
@@ -123,7 +123,7 @@ A major part of a QA engineer's job is discovering the "hidden" alternate flows 
 - **Negative Brainstorming:** Testers actively look for ways to break the Basic Flow. They ask "What if?" at every step. What if the user inputs special characters? What if the network drops out exactly at Step 2? This technique helps expand the Alternate Flows matrix.
 - **Concurrency Evaluation:** Analyzing what happens when multiple actors attempt to execute the same flow simultaneously. For example, two users trying to book the exact same airline seat at the exact same millisecond.
 
-### The Role of AI in Flow Analysis
+### 3.6. The Role of AI in Flow Analysis
 
 Modern QA processes leverage AI to deeply analyze and optimize the flow of events, ensuring higher test coverage with less manual effort.
 
@@ -133,7 +133,7 @@ Modern QA processes leverage AI to deeply analyze and optimize the flow of event
 
 ## 4. Building and Optimizing Use-Case Scenarios
 
-### Understanding Use-Case Scenarios
+### 4.1. Understanding Use-Case Scenarios
 
 While analyzing the flow of events gives us the individual puzzle pieces, a **Use-case Scenario** is the fully assembled picture. In software testing, a scenario is defined as a complete, end-to-end "path" through the use case.
 
@@ -144,7 +144,7 @@ Every scenario must trace a route from the single starting point to a definitive
 
 By generating these scenarios, testers transition from theoretical requirements to actionable test conditions.
 
-### Constructing the Scenario Matrix
+### 4.2. Constructing the Scenario Matrix
 
 To ensure systematic coverage, QA teams map out the combinations in a Scenario Matrix. Let's look at a complex use case that has one Basic Flow and four Alternate Flows. By mathematically combining these routes, we can generate a comprehensive list of testable paths.
 
@@ -161,7 +161,7 @@ Here is an example of a standard scenario matrix derived from a heavily branched
 | **S7**      | Basic flow + Alternate flow 3 + Alternate flow 4                    |
 | **S8**      | Basic flow + Alternate flow 4                                       |
 
-### QA Best Practices for Scenario Optimization
+### 4.3. QA Best Practices for Scenario Optimization
 
 In a theoretical classroom setting, a tester might be asked to execute all scenarios from S1 to S8. However, in real-world enterprise projects, use cases often have dozens of alternate flows, leading to a "combinatorial explosion" where thousands of scenarios are technically possible. Testing every single one (Exhaustive Testing) is too expensive and time-consuming.
 
@@ -171,7 +171,7 @@ Senior QA engineers apply strategic optimization techniques to select the most v
 - **Orthogonal Array / Pairwise Testing:** Instead of testing every possible combination of alternate flows, QAs use mathematical models to ensure that every _pair_ of flows is tested together at least once. This drastically reduces the number of scenarios (e.g., reducing 100 paths down to 15) while maintaining a defect detection rate of over 90%.
 - **Independent Path Coverage:** Drawing from McCabe's Cyclomatic Complexity, QAs ensure that every unique branch in the use case diagram is traversed at least once across the selected suite of scenarios, guaranteeing no code path is left entirely unexecuted.
 
-### Transitioning from Scenarios to Test Cases
+### 4.4. Transitioning from Scenarios to Test Cases
 
 A scenario is just a high-level condition. To actually execute the test, the scenario must be converted into a detailed Test Case.
 
@@ -181,7 +181,7 @@ If we take **S2 (Basic flow + Alternate flow 1)** from our matrix, a QA engineer
 - **Actionable Steps:** Step-by-step instructions on what to click and type.
 - **Expected Result:** What is the precise system response at the end of this specific route? (e.g., HTTP 400 Bad Request and a red validation text under the input field).
 
-### The Role of AI in Scenario Generation
+### 4.5. The Role of AI in Scenario Generation
 
 The process of identifying and optimizing scenarios is highly logical and mathematical, making it a perfect candidate for AI integration.
 
@@ -191,7 +191,7 @@ The process of identifying and optimizing scenarios is highly logical and mathem
 
 ## 5. Advanced Applications and QA Best Practices
 
-### Synergizing Use Case Testing with Micro-Level Techniques
+### 5.1. Synergizing Use Case Testing with Micro-Level Techniques
 
 Use case testing is a macro-level technique; it validates the overall journey. However, a Senior QA engineer knows that a journey can fail due to a single bad step. To write highly effective and granular test cases, you must combine use case scenarios with micro-level black-box techniques.
 
@@ -199,7 +199,7 @@ Use case testing is a macro-level technique; it validates the overall journey. H
 - **Boundary Value Analysis (BVA):** Errors most frequently occur at the edges of allowed limits. If a business rule states a password must be 8 to 16 characters, BVA dictates you must test exactly 7, 8, 16, and 17 characters. You inject these boundary values into the "Actionable Steps" of your use case scenarios to aggressively test the system's constraints.
 - **Decision Tables:** For complex use cases where multiple preconditions dictate the flow (e.g., a checkout use case depending on User Status, Coupon Validity, and Stock Availability), QA engineers map these conditions into a Decision Table before writing the scenarios. This prevents missing combinations that a standard flow diagram might obscure.
 
-### Mastering the Requirements Traceability Matrix (RTM)
+### 5.2. Mastering the Requirements Traceability Matrix (RTM)
 
 In enterprise software development, testing is only as good as its documentation and coverage. The Traceability Matrix is the ultimate tool for a QA to prove that the system does exactly what it is supposed to do.
 
@@ -207,14 +207,14 @@ In enterprise software development, testing is only as good as its documentation
 - **Impact Analysis:** When a Product Owner changes a requirement mid-sprint, the QA does not need to guess what to retest. By checking the RTM, they can trace the changed Use Case down to the exact 5 or 6 automated test scripts that need updating, saving hours of manual review.
 - **Coverage Guarantee:** Before signing off on a release, a QA Lead looks at the RTM. If there is a Use Case Alternate Flow that has zero Test Cases linked to it, that is a glaring coverage gap that must be addressed immediately.
 
-### Expanding Beyond the UI: Backend and API Use Cases
+### 5.3. Expanding Beyond the UI: Backend and API Use Cases
 
 A common misconception is that use case testing is exclusively for graphical user interfaces (GUIs). Modern systems are built on microservices, meaning QAs must validate use cases at the API level.
 
 - **API Choreography:** An actor is not always a human; it can be a mobile app communicating with a server. QA engineers map out API use cases using tools like Postman or REST Assured. The Basic Flow might involve extracting a token from a `POST /login` response, injecting it into a `GET /profile` header, and asserting the HTTP 200 status.
 - **Database State Validation:** Validating the flow means checking the persistence layer. A use case scenario for "Delete Account" is not successful just because the UI says "Account Deleted." The QA must execute a database query to ensure the record's `is_deleted` flag is set to true, or that the personal data was actually wiped (Postconditions).
 
-### The Role of AI in Advanced QA
+### 5.4. The Role of AI in Advanced QA
 
 AI is elevating the strategic role of QA by automating the maintenance and analytical aspects of advanced testing frameworks.
 
@@ -226,7 +226,7 @@ AI is elevating the strategic role of QA by automating the maintenance and analy
 
 This section provides a set of exercises designed to test your theoretical understanding and practical application of Use Case Testing, exactly as covered in the previous sections.
 
-### Theoretical Knowledge (Multiple Choice)
+### 6.1. Theoretical Knowledge (Multiple Choice)
 
 **1. What is the primary focus of Use Case Testing?**
 
@@ -318,7 +318,7 @@ This section provides a set of exercises designed to test your theoretical under
 
 **Explanation:** AI acts as an accelerator (Sections 1.4, 2.4, 3.6), handling the heavy logical lifting like graph traversal for scenario generation, data synthesis, and analyzing user logs.
 
-### Practical Application Exercises
+### 6.2. Practical Application Exercises
 
 #### Type 1: Flow Identification & Specification Building
 
