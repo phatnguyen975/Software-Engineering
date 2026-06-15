@@ -659,11 +659,11 @@ public class StringUtils {
 }
 ```
 
-Write a JUnit test class named StringUtilsTest that includes:
+Write a JUnit test class named `StringUtilsTest` that includes:
 
-1. A setup method to initialize the StringUtils object.
+1. A setup method to initialize the `StringUtils` object.
 2. A test method to verify standard string reversal.
-3. A test method to verify that passing a null value returns null.
+3. A test method to verify that passing a `null` value returns `null`.
 
 **Solution 1.1:**
 
@@ -790,10 +790,10 @@ Calculate the Cyclomatic Complexity using the formula $C = E - N + 2$ (assuming 
   - $C = 6 - 5 + 2 = 3$
 - **Step 4:** Basis Paths
   - Since C = 3, there are 3 independent basis paths required:
-  - Path 1: A -> C -> E (Both conditions False: X<=0, Y<=0)
-  - Path 2: A -> B -> C -> E (X is True, Y is False: X>0, Y<=0)
-  - Path 3: A -> C -> D -> E (X is False, Y is True: X<=0, Y>0)
-  - (Note: Testing A -> B -> C -> D -> E is also a valid path, but only 3 are mathematically required to cover all edges/branches).
+  - **Path 1:** A -> C -> E (Both conditions False: X<=0, Y<=0)
+  - **Path 2:** A -> B -> C -> E (X is True, Y is False: X>0, Y<=0)
+  - **Path 3:** A -> C -> D -> E (X is False, Y is True: X<=0, Y>0)
+  - **Note:** Testing A -> B -> C -> D -> E is also a valid path, but only 3 are mathematically required to cover all edges/branches.
 
 **Question 2.2: Loop and Decision Coverage**
 
