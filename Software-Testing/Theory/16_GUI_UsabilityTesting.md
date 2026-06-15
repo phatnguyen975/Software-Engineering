@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>GUI & Usability Testing</h1>
+  <h1>GUI Testing & Usability Testing</h1>
   <sub>June 14, 2026</sub>
 </div>
 
