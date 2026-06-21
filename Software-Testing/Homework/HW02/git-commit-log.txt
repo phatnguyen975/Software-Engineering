@@ -1,0 +1,912 @@
+* commit 0feed3ea30535caf9789c8b96aa6cfd1fb48b49f
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sun Jun 21 02:25:06 2026 +0700
+| 
+|     chore: done demo test cases
+| 
+|  backend/database.sqlite                           | Bin 0 -> 36864 bytes
+|  qa-artifacts/bug-reports/FR07-bugs.md             |  26 ++++++++++----------
+|  .../execution-results/FR01-execution-results.md   |   2 +-
+|  .../execution-results/FR03-execution-results.md   |   2 +-
+|  .../execution-results/FR07-execution-results.md   |   2 +-
+|  .../execution-results/FR17-execution-results.md   |   2 +-
+|  6 files changed, 17 insertions(+), 17 deletions(-)
+| 
+* commit a3b4946e6e2a467ba5c3d2b7ced80d7ff8bb78e3
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sat Jun 20 23:45:41 2026 +0700
+| 
+|     chore: setup for demo
+| 
+|  backend/database.sqlite                               | Bin 36864 -> 0 bytes
+|  backend/package-lock.json                             |  13 +++++++++++++
+|  .../execution-results/FR03-execution-results.md       |   2 +-
+|  3 files changed, 14 insertions(+), 1 deletion(-)
+| 
+* commit f5dc41acde5d684657980208c653e09dd9c270ba
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sat Jun 20 01:20:00 2026 +0700
+| 
+|     feat(FR03): github issues posted, sync-back complete
+| 
+|  backend/database.sqlite                           | Bin 0 -> 36864 bytes
+|  evidence/screenshots/FR03/BUG-002-Step1.jpg       | Bin 0 -> 158950 bytes
+|  evidence/screenshots/FR03/BUG-002-Step2.jpg       | Bin 0 -> 245539 bytes
+|  evidence/screenshots/FR03/BUG-004.jpg             | Bin 0 -> 177496 bytes
+|  frontend-mobile/App.js                            |   2 +-
+|  qa-artifacts/ai-audit/FR03-ai-audit.md            |  60 +-
+|  qa-artifacts/bug-reports/FR03-bugs.md             |  32 +-
+|  scripts/github-issues/FR03-github-issues-guide.md | 602 ++++++++++++++++++++
+|  8 files changed, 676 insertions(+), 20 deletions(-)
+| 
+* commit 88593ca095bda68e464a5796d0b1c59dd3239cd4
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Jun 19 20:57:07 2026 +0700
+| 
+|     feat(FR03): generate all bug reports
+| 
+|  qa-artifacts/ai-audit/FR03-ai-audit.md | 48 ++++++++++++++++++++++++++++++--
+|  qa-artifacts/bug-reports/FR03-bugs.md  |  9 ++++++
+|  2 files changed, 55 insertions(+), 2 deletions(-)
+| 
+* commit 2f3d23c0a7f9e99d1a9c545089422751d70b95f5
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Jun 19 20:50:44 2026 +0700
+| 
+|     feat(FR03): generate all bug reports
+| 
+|  backend/database.sqlite                  | Bin 36864 -> 0 bytes
+|  evidence/scripts/FR03/FR03-api-tests.txt | 177 +++++++++++++
+|  qa-artifacts/bug-reports/FR03-bugs.md    | 407 +++++++++++++++++++++++++++++
+|  3 files changed, 584 insertions(+)
+| 
+* commit 4b491a7e5d3a8ff0d3d56f89b31f618be2ae765e
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Jun 19 20:05:30 2026 +0700
+| 
+|     feat(FR03): execute test cases - record observed results
+| 
+|  qa-artifacts/ai-audit/FR03-ai-audit.md            |  58 +++-
+|  .../execution-results/FR03-execution-results.md   | 120 ++++----
+|  qa-artifacts/test-cases/FR03-test-cases.md        | 298 ++++++++++----------
+|  scripts/curl/FR03-api-tests.sh                    |  14 +-
+|  4 files changed, 274 insertions(+), 216 deletions(-)
+| 
+* commit a4ccc876e24f8f0193ec2f654575b0831d383044
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Jun 19 18:58:12 2026 +0700
+| 
+|     fix scripts
+| 
+|  scripts/curl/FR03-api-tests.sh          | 11 ++++++++++-
+|  scripts/mobile/FR03-ui-manual-checks.md |  6 ++++--
+|  2 files changed, 14 insertions(+), 3 deletions(-)
+| 
+* commit 79273b61ac705db9fe603918a3260c0d124950fc
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Jun 19 17:42:56 2026 +0700
+| 
+|     feat(FR03): execution scripts and blank results template generated
+| 
+|  .../api-responses/FR03/FR03-BVA-001-response.json |   1 +
+|  .../api-responses/FR03/FR03-BVA-002-response.json |   1 +
+|  .../api-responses/FR03/FR03-BVA-003-response.json |   1 +
+|  .../api-responses/FR03/FR03-BVA-004-response.json |   1 +
+|  .../api-responses/FR03/FR03-BVA-005-response.json |   1 +
+|  .../api-responses/FR03/FR03-BVA-006-response.json |   1 +
+|  .../api-responses/FR03/FR03-BVA-007-response.json |   1 +
+|  .../api-responses/FR03/FR03-BVA-008-response.json |   1 +
+|  .../api-responses/FR03/FR03-BVA-009-response.json |   1 +
+|  .../api-responses/FR03/FR03-BVA-010-response.json |   1 +
+|  .../api-responses/FR03/FR03-BVA-011-response.json |   1 +
+|  .../api-responses/FR03/FR03-BVA-012-response.json |   1 +
+|  .../api-responses/FR03/FR03-BVA-013-response.json |   1 +
+|  .../api-responses/FR03/FR03-BVA-014-response.json |   1 +
+|  .../api-responses/FR03/FR03-BVA-015-response.json |   1 +
+|  .../api-responses/FR03/FR03-EP-001-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-002-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-003-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-004-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-005-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-006-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-007-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-008-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-009-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-010-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-011-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-012-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-013-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-014-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-015-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-016-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-017-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-018-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-019-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-020-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-021-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-022-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-023-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-024-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-025-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-026-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-027-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-028-response.json  |   1 +
+|  .../api-responses/FR03/FR03-EP-029-response.json  |   1 +
+|  frontend-mobile/App.js                            |   2 +-
+|  .../execution-results/FR03-execution-results.md   |  79 +++++
+|  scripts/curl/FR03-api-tests.sh                    | 304 ++++++++++++++++++++
+|  scripts/mobile/FR03-ui-manual-checks.md           |  53 ++++
+|  48 files changed, 481 insertions(+), 1 deletion(-)
+| 
+* commit bcf97e16b9ee5f11fab7a62956f82de4ffd7e622
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Jun 19 05:18:47 2026 +0700
+| 
+|     feat(FR03): test cases reviewed and approved
+| 
+|  qa-artifacts/ai-audit/FR03-ai-audit.md     | 62 +++++++++++++++++++++++++++-
+|  qa-artifacts/test-cases/FR03-test-cases.md | 46 +++++++++++++++++++++
+|  2 files changed, 106 insertions(+), 2 deletions(-)
+| 
+* commit a64da8f8ccd483083b8d3df5be84cb8c84ca2e80
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Jun 19 05:09:47 2026 +0700
+| 
+|     feat(FR03): test cases generated
+| 
+|  qa-artifacts/ai-audit/FR03-ai-audit.md            |  82 ++-
+|  .../domain-analysis/FR03-domain-analysis.md       |  14 +-
+|  qa-artifacts/test-cases/FR03-test-cases.md        | 758 ++++++++++++++++++++
+|  3 files changed, 844 insertions(+), 10 deletions(-)
+| 
+* commit 439171afee1810f7b93890ec13d0992918a6e7d4
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Jun 19 02:26:07 2026 +0700
+| 
+|     feat(FR03): domain coverage review and AI gap analysis
+| 
+|  qa-artifacts/ai-audit/FR03-ai-audit.md            | 67 +++++++++++++++++-
+|  .../domain-analysis/FR03-domain-analysis.md       | 78 +++++++++++++++++++++
+|  2 files changed, 143 insertions(+), 2 deletions(-)
+| 
+* commit 8403fae17382986373f1905f0c6624ca616c808f
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Jun 19 02:15:22 2026 +0700
+| 
+|     feat(FR03): boundary analysis - BVA 9-point
+| 
+|  qa-artifacts/ai-audit/FR03-ai-audit.md            | 80 +++++++++++++++++++--
+|  .../boundary-analysis/FR03-boundary-analysis.md   | 61 ++++++++++++++++
+|  2 files changed, 137 insertions(+), 4 deletions(-)
+| 
+* commit d19ab817a53b1303d183ae96a4c8682c0c9fe37d
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Jun 19 01:57:16 2026 +0700
+| 
+|     feat(FR03): domain analysis step 2-3 - EP classes
+| 
+|  qa-artifacts/ai-audit/FR03-ai-audit.md            |  77 ++++++++++++-
+|  .../domain-analysis/FR03-domain-analysis.md       | 113 ++++++++++++++++++++
+|  2 files changed, 187 insertions(+), 3 deletions(-)
+| 
+* commit 3b8d6362b7d515dc036eb8688e68354f9c51d53b
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Jun 19 00:35:12 2026 +0700
+| 
+|     feat(FR03): domain analysis step 1 - variables
+| 
+|  qa-artifacts/ai-audit/FR03-ai-audit.md            | 72 ++++++++++++++++++++-
+|  .../domain-analysis/FR03-domain-analysis.md       | 56 ++++++++++++++++
+|  2 files changed, 125 insertions(+), 3 deletions(-)
+| 
+* commit 815ba54d2f0a5f45efdc080cb9621b2d94104b80
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Jun 18 23:36:42 2026 +0700
+| 
+|     feat(FR03): requirement analysis
+| 
+|  backend/package-lock.json                         | 13 ----
+|  frontend-mobile/App.js                            |  2 +-
+|  frontend-mobile/package-lock.json                 |  6 ++
+|  qa-artifacts/ai-audit/FR03-ai-audit.md            | 63 ++++++++++++++++++
+|  .../requirements/FR03-requirement-analysis.md     | 73 +++++++++++++++++++++
+|  5 files changed, 143 insertions(+), 14 deletions(-)
+| 
+* commit 950b008229997964d0debdf03ec4d4fde51da343
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Jun 18 18:51:07 2026 +0700
+| 
+|     feat(FR17): github issues posted, sync-back complete
+| 
+|  backend/database.sqlite                           | Bin 36864 -> 36864 bytes
+|  evidence/screenshots/FR17/BUG-006.png             | Bin 0 -> 222208 bytes
+|  qa-artifacts/ai-audit/FR17-ai-audit.md            |  57 +-
+|  qa-artifacts/bug-reports/FR17-bugs.md             | 283 ++++++--
+|  scripts/github-issues/FR17-github-issues-guide.md | 762 ++++++++++++++++++++
+|  5 files changed, 1042 insertions(+), 60 deletions(-)
+| 
+* commit d226f8be77a435c9967a05d683f43adcee78d481
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Jun 18 17:43:49 2026 +0700
+| 
+|     feat(FR17): generate all bug reports
+| 
+|  backend/database.sqlite                | Bin 36864 -> 36864 bytes
+|  qa-artifacts/ai-audit/FR17-ai-audit.md |  54 ++++-
+|  qa-artifacts/bug-reports/FR17-bugs.md  | 403 +++++++++++++++++++++++++++++++
+|  run_servers.sh                         |   5 -
+|  4 files changed, 455 insertions(+), 7 deletions(-)
+| 
+* commit 9179a3b95f603b6daccf1dca71bbb6cb30950001
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Jun 18 16:59:58 2026 +0700
+| 
+|     feat(FR17): execute test cases - record observed results
+| 
+|  .../api-responses/FR17/FR17-BVA-001-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-002-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-003-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-004-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-005-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-006-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-007-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-008-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-009-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-010-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-011-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-012-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-013-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-014-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-015-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-016-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-017-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-018-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-019-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-020-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-021-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-022-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-023-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-024-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-025-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-026-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-027-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-028-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-029-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-030-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-031-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-032-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-033-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-034-response.json |   2 +-
+|  .../api-responses/FR17/FR17-BVA-035-response.json |   2 +-
+|  .../api-responses/FR17/FR17-EP-011-response.json  |   2 +-
+|  .../api-responses/FR17/FR17-EP-012-response.json  |   2 +-
+|  .../api-responses/FR17/FR17-EP-013-response.json  |   2 +-
+|  .../api-responses/FR17/FR17-EP-014-response.json  |   2 +-
+|  .../api-responses/FR17/FR17-EP-015-response.json  |   2 +-
+|  .../api-responses/FR17/FR17-EP-016-response.json  |   2 +-
+|  .../api-responses/FR17/FR17-EP-017-response.json  |   2 +-
+|  .../api-responses/FR17/FR17-EP-018-response.json  |   2 +-
+|  .../api-responses/FR17/FR17-EP-019-response.json  |   2 +-
+|  .../api-responses/FR17/FR17-EP-020-response.json  |   2 +-
+|  .../api-responses/FR17/FR17-EP-021-response.json  |   2 +-
+|  .../api-responses/FR17/FR17-EP-022-response.json  |   2 +-
+|  .../api-responses/FR17/FR17-EP-023-response.json  |   2 +-
+|  .../api-responses/FR17/FR17-EP-024-response.json  |   2 +-
+|  .../api-responses/FR17/FR17-EP-025-response.json  |   2 +-
+|  .../api-responses/FR17/FR17-EP-026-response.json  |   2 +-
+|  .../api-responses/FR17/FR17-EP-027-response.json  |   2 +-
+|  .../api-responses/FR17/FR17-EP-028-response.json  |   2 +-
+|  .../api-responses/FR17/FR17-EP-033-response.json  |   2 +-
+|  .../api-responses/FR17/FR17-EP-038-response.json  |   2 +-
+|  .../{FR01-api-tests.md => FR01-api-tests.txt}     |   0
+|  .../{FR01-dom-checks.md => FR01-dom-checks.txt}   |   0
+|  .../{FR07-api-tests.md => FR07-api-tests.txt}     |   0
+|  .../{FR07-dom-checks.md => FR07-dom-checks.txt}   |   0
+|  evidence/scripts/FR17/FR17-api-tests.txt          | 715 ++++++++++++++++++++
+|  evidence/scripts/FR17/FR17-dom-checks.txt         |  16 +
+|  qa-artifacts/ai-audit/FR17-ai-audit.md            |  59 +-
+|  .../execution-results/FR17-execution-results.md   | 166 ++---
+|  qa-artifacts/test-cases/FR17-test-cases.md        | 462 ++++++-------
+|  scripts/curl/FR17-api-tests.sh                    |  30 +-
+|  65 files changed, 1185 insertions(+), 373 deletions(-)
+| 
+* commit 6747f076c9cb119ba36ebc3aff12f9a1674b4657
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Jun 18 14:32:00 2026 +0700
+| 
+|     feat(FR17): execution scripts and blank results template generated
+| 
+|  .../api-responses/FR17/FR17-BVA-001-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-002-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-003-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-004-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-005-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-006-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-007-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-008-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-009-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-010-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-011-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-012-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-013-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-014-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-015-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-016-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-017-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-018-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-019-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-020-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-021-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-022-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-023-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-024-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-025-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-026-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-027-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-028-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-029-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-030-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-031-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-032-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-033-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-034-response.json |   1 +
+|  .../api-responses/FR17/FR17-BVA-035-response.json |   1 +
+|  .../api-responses/FR17/FR17-EP-001-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-002-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-004-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-005-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-007-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-008-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-009-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-010-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-011-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-012-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-013-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-014-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-015-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-016-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-017-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-018-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-019-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-020-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-021-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-022-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-023-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-024-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-025-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-026-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-027-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-028-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-029-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-030-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-031-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-032-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-033-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-034-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-035-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-036-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-037-response.json  |   1 +
+|  .../api-responses/FR17/FR17-EP-038-response.json  |   1 +
+|  .../execution-results/FR01-execution-results.md   |  29 +-
+|  .../execution-results/FR07-execution-results.md   |  29 +-
+|  .../execution-results/FR17-execution-results.md   | 113 +++
+|  qa-artifacts/test-cases/FR17-test-cases.md        |   4 +-
+|  scripts/curl/FR17-api-tests.sh                    | 837 ++++++++++++++++++++
+|  scripts/curl/FR17-dom-checks.js                   | 172 ++++
+|  77 files changed, 1227 insertions(+), 28 deletions(-)
+| 
+* commit f4ef38057e491bc69b86c5d3aa68ca95fb7943bc
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Jun 18 05:26:19 2026 +0700
+| 
+|     feat(FR17): test cases reviewed and approved
+| 
+|  qa-artifacts/ai-audit/FR17-ai-audit.md     | 62 +++++++++++++++++++++++++++-
+|  qa-artifacts/test-cases/FR17-test-cases.md | 40 ++++++++++++++++++
+|  2 files changed, 100 insertions(+), 2 deletions(-)
+| 
+* commit fb219ad78dfaccfd340bb60d2ac8d089cd196859
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Jun 18 05:19:05 2026 +0700
+| 
+|     feat(FR17): test cases generated
+| 
+|  qa-artifacts/ai-audit/FR17-ai-audit.md            |   67 +-
+|  .../domain-analysis/FR17-domain-analysis.md       |    5 +-
+|  qa-artifacts/test-cases/FR17-test-cases.md        | 1244 +++++++++++++++++++
+|  3 files changed, 1311 insertions(+), 5 deletions(-)
+| 
+* commit 7e507600fbad1411070773d3ed0ab7a79de66a81
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Jun 18 04:38:10 2026 +0700
+| 
+|     feat(FR17): domain coverage review and AI gap analysis
+| 
+|  qa-artifacts/ai-audit/FR17-ai-audit.md            | 67 ++++++++++++++++++-
+|  .../domain-analysis/FR17-domain-analysis.md       | 74 +++++++++++++++++++++
+|  2 files changed, 139 insertions(+), 2 deletions(-)
+| 
+* commit c8d35dfcbab66f79bfb039d80a79f1022ac89121
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Jun 18 04:20:24 2026 +0700
+| 
+|     feat(FR17): boundary analysis - BVA 9-point
+| 
+|  qa-artifacts/ai-audit/FR17-ai-audit.md            |  63 +++++++++-
+|  .../boundary-analysis/FR17-boundary-analysis.md   | 132 ++++++++++++++++++++
+|  2 files changed, 193 insertions(+), 2 deletions(-)
+| 
+* commit 938304bf4a867959f8358b49b23af9a99c7115a2
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Jun 18 03:45:21 2026 +0700
+| 
+|     feat(FR17): domain analysis step 2-3 - EP classes
+| 
+|  qa-artifacts/ai-audit/FR17-ai-audit.md            |  76 ++++++++-
+|  .../domain-analysis/FR17-domain-analysis.md       | 178 ++++++++++++++++++--
+|  .../requirements/FR17-requirement-analysis.md     |   4 +-
+|  3 files changed, 237 insertions(+), 21 deletions(-)
+| 
+* commit 52a86adff44b809f1e310ecfc855e4d92c3785eb
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Jun 18 01:50:12 2026 +0700
+| 
+|     feat(FR17): domain analysis step 1 - variables
+| 
+|  backend/database.sqlite                           | Bin 0 -> 36864 bytes
+|  qa-artifacts/ai-audit/FR17-ai-audit.md            |  57 +++++++++++++++++-
+|  .../domain-analysis/FR17-domain-analysis.md       |  62 ++++++++++++++++++++
+|  3 files changed, 117 insertions(+), 2 deletions(-)
+| 
+* commit cce00302c90171c5277a981bb68523ef29d1fa67
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Jun 18 01:31:28 2026 +0700
+| 
+|     feat(FR17): requirement analysis
+| 
+|  qa-artifacts/ai-audit/FR17-ai-audit.md            |  61 ++++++++++
+|  .../requirements/FR17-requirement-analysis.md     | 125 ++++++++++++++++++++
+|  2 files changed, 186 insertions(+)
+| 
+* commit c63760e96cbdf8d8e001a83d01823005fd0a6b82
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Jun 18 00:24:32 2026 +0700
+| 
+|     feat(FR07): done
+| 
+|  backend/database.sqlite                           | Bin 36864 -> 0 bytes
+|  evidence/screenshots/FR07/BUG-003-after.png       | Bin 0 -> 85511 bytes
+|  evidence/screenshots/FR07/BUG-003-before.png      | Bin 0 -> 103963 bytes
+|  evidence/screenshots/FR07/BUG-004.png             | Bin 0 -> 95491 bytes
+|  evidence/screenshots/FR07/BUG-005.png             | Bin 0 -> 90296 bytes
+|  evidence/screenshots/FR07/BUG-006.png             | Bin 0 -> 167811 bytes
+|  evidence/screenshots/FR07/BUG-007.png             | Bin 0 -> 170630 bytes
+|  qa-artifacts/ai-audit/FR07-ai-audit.md            |  57 +-
+|  qa-artifacts/bug-reports/FR07-bugs.md             |  56 +-
+|  scripts/github-issues/FR01-github-issues-guide.md |  28 +-
+|  scripts/github-issues/FR07-github-issues-guide.md | 784 ++++++++++++++++++++
+|  11 files changed, 881 insertions(+), 44 deletions(-)
+| 
+* commit 205aa940796af9dd5dc932ce0e0c27faa791f5e7
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Wed Jun 17 19:22:50 2026 +0700
+| 
+|     feat(FR07): generate all bug reports
+| 
+|  qa-artifacts/ai-audit/FR07-ai-audit.md |  50 ++-
+|  qa-artifacts/bug-reports/FR01-bugs.md  |   3 +-
+|  qa-artifacts/bug-reports/FR07-bugs.md  | 608 +++++++++++++++++++++++++++++++
+|  3 files changed, 656 insertions(+), 5 deletions(-)
+| 
+* commit 8d1b15b3133062b52dcfb0e841e73459cc949cba
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Wed Jun 17 18:49:04 2026 +0700
+| 
+|     feat(FR07): add evidences for FR07
+| 
+|  backend/database.sqlite                  | Bin 36864 -> 36864 bytes
+|  evidence/scripts/FR07/FR07-api-tests.md  | 384 +++++++++++++++++++++++++++++
+|  evidence/scripts/FR07/FR07-dom-checks.md |  13 +
+|  3 files changed, 397 insertions(+)
+| 
+* commit 50f1961420539fa0fe679ed9a365ded8858eae5c
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Wed Jun 17 18:40:10 2026 +0700
+| 
+|     feat(FR07): record observed results
+| 
+|  qa-artifacts/ai-audit/FR07-ai-audit.md            |  52 +++-
+|  .../execution-results/FR07-execution-results.md   | 104 ++++----
+|  qa-artifacts/test-cases/FR07-test-cases.md        | 252 ++++++++++----------
+|  3 files changed, 223 insertions(+), 185 deletions(-)
+| 
+* commit f66d14731aa477c940aa44e95071b855a564eff5
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Wed Jun 17 18:15:54 2026 +0700
+| 
+|     feat(FR07): test cases executed
+| 
+|  backend/database.sqlite                           | Bin 36864 -> 36864 bytes
+|  .../api-responses/FR07/FR07-BVA-001-response.json |   1 +
+|  .../api-responses/FR07/FR07-BVA-002-response.json |   1 +
+|  .../api-responses/FR07/FR07-BVA-003-response.json |   1 +
+|  .../api-responses/FR07/FR07-BVA-004-response.json |   1 +
+|  .../api-responses/FR07/FR07-BVA-005-response.json |   1 +
+|  .../api-responses/FR07/FR07-BVA-006-response.json |   1 +
+|  .../api-responses/FR07/FR07-BVA-007-response.json |   1 +
+|  .../api-responses/FR07/FR07-BVA-008-response.json |   1 +
+|  .../api-responses/FR07/FR07-BVA-009-response.json |   1 +
+|  .../api-responses/FR07/FR07-BVA-010-response.json |   1 +
+|  .../api-responses/FR07/FR07-BVA-011-response.json |   1 +
+|  .../api-responses/FR07/FR07-BVA-012-response.json |   1 +
+|  .../api-responses/FR07/FR07-BVA-013-response.json |   1 +
+|  .../api-responses/FR07/FR07-BVA-014-response.json |   1 +
+|  .../api-responses/FR07/FR07-BVA-015-response.json |   1 +
+|  .../api-responses/FR07/FR07-BVA-016-response.json |   1 +
+|  .../api-responses/FR07/FR07-BVA-017-response.json |   1 +
+|  .../api-responses/FR07/FR07-BVA-018-response.json |   1 +
+|  .../api-responses/FR07/FR07-BVA-019-response.json |   1 +
+|  .../api-responses/FR07/FR07-BVA-020-response.json |   1 +
+|  .../api-responses/FR07/FR07-EP-001-response.json  |   1 +
+|  .../api-responses/FR07/FR07-EP-002-response.json  |   1 +
+|  .../api-responses/FR07/FR07-EP-006-response.json  |   1 +
+|  .../api-responses/FR07/FR07-EP-007-response.json  |   1 +
+|  .../api-responses/FR07/FR07-EP-008-response.json  |   1 +
+|  .../api-responses/FR07/FR07-EP-009-response.json  |   1 +
+|  .../api-responses/FR07/FR07-EP-010-response.json  |   1 +
+|  .../api-responses/FR07/FR07-EP-011-response.json  |   1 +
+|  .../api-responses/FR07/FR07-EP-012-response.json  |   1 +
+|  .../api-responses/FR07/FR07-EP-013-response.json  |   1 +
+|  .../api-responses/FR07/FR07-EP-014-response.json  |   1 +
+|  .../api-responses/FR07/FR07-EP-015-response.json  |   1 +
+|  .../api-responses/FR07/FR07-EP-016-response.json  |   1 +
+|  .../api-responses/FR07/FR07-EP-017-response.json  |   1 +
+|  .../api-responses/FR07/FR07-EP-018-response.json  |   1 +
+|  .../api-responses/FR07/FR07-EP-019-response.json  |   1 +
+|  .../api-responses/FR07/FR07-EP-020-response.json  |   1 +
+|  .../api-responses/FR07/FR07-EP-021-response.json  |   1 +
+|  .../api-responses/FR07/FR07-EP-022-response.json  |   1 +
+|  .../execution-results/FR01-execution-results.md   |  77 ---
+|  .../execution-results/FR07-execution-results.md   |  69 +++
+|  qa-artifacts/test-cases/FR07-test-cases.md        | 322 ++++++------
+|  scripts/curl/FR07-api-tests.sh                    | 544 ++++++++++++++++++++
+|  scripts/curl/FR07-dom-checks.js                   |  99 ++++
+|  45 files changed, 912 insertions(+), 238 deletions(-)
+| 
+* commit 7afc5b110fe118ee7e1de6fb254af618cbc09ff1
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Wed Jun 17 01:54:21 2026 +0700
+| 
+|     chore: update agent skills
+| 
+|  .agents/skills/test-execution-assistant/SKILL.md |   46 +-
+|  qa-artifacts/test-cases/FR07-test-cases.md       | 1214 ++++++++++----------
+|  2 files changed, 615 insertions(+), 645 deletions(-)
+| 
+* commit 57b36c216bbffdefaf9bdfbdc4041826dae04b60
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Jun 16 18:57:53 2026 +0700
+| 
+|     feat(FR07): test cases reviewed and approved
+| 
+|  qa-artifacts/ai-audit/FR07-ai-audit.md     | 63 +++++++++++++++++++++++++++-
+|  qa-artifacts/test-cases/FR01-test-cases.md |  4 +-
+|  qa-artifacts/test-cases/FR07-test-cases.md | 40 ++++++++++++++++++
+|  3 files changed, 103 insertions(+), 4 deletions(-)
+| 
+* commit 29107d9e0cb56499bca19d8394ea7cb60bcfcded
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Jun 16 18:47:29 2026 +0700
+| 
+|     feat(FR07): test cases generated
+| 
+|  qa-artifacts/ai-audit/FR07-ai-audit.md            |  62 +-
+|  .../boundary-analysis/FR07-boundary-analysis.md   |  26 +-
+|  .../domain-analysis/FR07-domain-analysis.md       |  78 +--
+|  .../requirements/FR07-requirement-analysis.md     |   4 +-
+|  qa-artifacts/test-cases/FR07-test-cases.md        | 712 ++++++++++++++++++++
+|  5 files changed, 826 insertions(+), 56 deletions(-)
+| 
+* commit 8b13f92ee634d0b368af4b4b537c4e9184af5ad9
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Jun 16 18:04:05 2026 +0700
+| 
+|     feat(FR07): domain coverage review and AI gap analysis
+| 
+|  qa-artifacts/ai-audit/FR07-ai-audit.md            | 68 ++++++++++++++++-
+|  .../domain-analysis/FR07-domain-analysis.md       | 83 +++++++++++++++++++++
+|  2 files changed, 149 insertions(+), 2 deletions(-)
+| 
+* commit e4b9151735f3338541a6feb62a5a881ae7991b21
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Jun 16 17:46:14 2026 +0700
+| 
+|     feat(FR07): boundary analysis - BVA 9-point
+| 
+|  qa-artifacts/ai-audit/FR07-ai-audit.md            | 63 +++++++++++++++++-
+|  .../boundary-analysis/FR07-boundary-analysis.md   | 71 +++++++++++++++++++++
+|  2 files changed, 132 insertions(+), 2 deletions(-)
+| 
+* commit 5195897772be9798a455b7491a463d54c9090437
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Jun 16 17:27:19 2026 +0700
+| 
+|     feat(FR07): domain analysis step 2-3 - EP classes
+| 
+|  qa-artifacts/ai-audit/FR07-ai-audit.md            |  59 +++++++-
+|  .../domain-analysis/FR07-domain-analysis.md       | 153 ++++++++++++++++++++
+|  2 files changed, 210 insertions(+), 2 deletions(-)
+| 
+* commit 17b1c509718bf84a927e2a626f1af62cb20d3698
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Jun 16 17:03:04 2026 +0700
+| 
+|     feat(FR07): domain analysis step 1 - variables
+| 
+|  qa-artifacts/ai-audit/FR07-ai-audit.md            | 58 +++++++++++++-
+|  .../domain-analysis/FR07-domain-analysis.md       | 87 +++++++++++++++++++++
+|  2 files changed, 143 insertions(+), 2 deletions(-)
+| 
+* commit f86627bfc46e995d169a85d2865592ad56911754
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Jun 16 16:37:18 2026 +0700
+| 
+|     feat(FR07): requirement analysis
+| 
+|  qa-artifacts/ai-audit/FR07-ai-audit.md            |  62 +++++++++
+|  .../requirements/FR01-requirement-analysis.md     |   2 +-
+|  .../requirements/FR07-requirement-analysis.md     | 139 ++++++++++++++++++++
+|  3 files changed, 202 insertions(+), 1 deletion(-)
+| 
+* commit 855dedc68e8eef300563d3114fcebed89ba1d270
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Jun 16 15:53:51 2026 +0700
+| 
+|     chore: update agent skills
+| 
+|  .agents/skills/boundary-value-analysis/SKILL.md   |  6 +-
+|  .../boundary-analysis/FR01-boundary-analysis.md   | 10 ---
+|  .../domain-analysis/FR01-domain-analysis.md       | 40 ++-------
+|  .../requirements/FR01-requirement-analysis.md     | 12 ---
+|  qa-artifacts/test-cases/FR01-test-cases.md        | 90 ---------------------
+|  5 files changed, 11 insertions(+), 147 deletions(-)
+| 
+* commit 9bac1653fd78edcd154d10eb95f78022d1ce0e5b
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Jun 16 15:36:44 2026 +0700
+| 
+|     feat(FR01): done
+| 
+|  .agents/skills/github-issue-writer/SKILL.md       |   10 +-
+|  .agents/skills/test-summary-generator/SKILL.md    |  397 ++++---
+|  evidence/screenshots/FR01/BUG-004.png             |  Bin 0 -> 109603 bytes
+|  evidence/screenshots/FR01/BUG-005.png             |  Bin 0 -> 97874 bytes
+|  evidence/screenshots/FR01/BUG-006.png             |  Bin 0 -> 107578 bytes
+|  evidence/screenshots/FR01/BUG-007.png             |  Bin 0 -> 87458 bytes
+|  evidence/screenshots/FR01/BUG-008.png             |  Bin 0 -> 169010 bytes
+|  evidence/screenshots/FR01/BUG-009.png             |  Bin 0 -> 170114 bytes
+|  evidence/screenshots/FR01/BUG-010.png             |  Bin 0 -> 169258 bytes
+|  qa-artifacts/ai-audit/FR01-ai-audit.md            |  219 ++--
+|  qa-artifacts/bug-reports/FR01-bugs.md             |  859 ++++++++++++++
+|  .../execution-results/FR01-execution-results.md   |    3 +-
+|  scripts/curl/FR01-dom-checks.js                   |    6 +-
+|  scripts/github-issues/FR01-github-issues-guide.md | 1142 +++++++++++++++++++
+|  14 files changed, 2363 insertions(+), 273 deletions(-)
+| 
+* commit 76cc1750666051fc8f8540787773ef499e71f3ac
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Jun 16 03:05:10 2026 +0700
+| 
+|     chore: update agent skills
+| 
+|  .agents/skills/bug-report-writer/SKILL.md         | 439 +++++++++++---------
+|  .agents/skills/github-issue-writer/SKILL.md       | 368 +++++++++++-----
+|  .../skills/traceability-matrix-generator/SKILL.md | 304 +++++++++-----
+|  qa-artifacts/ai-audit/FR01-ai-audit.md            |  54 +++
+|  .../execution-results/FR01-execution-results.md   |   2 +-
+|  5 files changed, 770 insertions(+), 397 deletions(-)
+| 
+* commit a88fb9c3824e0a76044b2fe0957b4f9d023fc9ea
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sun Jun 14 19:08:29 2026 +0700
+| 
+|     feat(FR01): executed all test cases
+| 
+|  .agents/skills/test-execution-assistant/SKILL.md  | 115 +++-
+|  backend/database.sqlite                           | Bin 36864 -> 36864 bytes
+|  .../api-responses/FR01/FR01-BVA-001-response.json |   1 +
+|  .../api-responses/FR01/FR01-BVA-002-response.json |   1 +
+|  .../api-responses/FR01/FR01-BVA-003-response.json |   1 +
+|  .../api-responses/FR01/FR01-BVA-004-response.json |   1 +
+|  .../api-responses/FR01/FR01-BVA-005-response.json |   1 +
+|  .../api-responses/FR01/FR01-BVA-006-response.json |   1 +
+|  .../api-responses/FR01/FR01-BVA-007-response.json |   1 +
+|  .../api-responses/FR01/FR01-BVA-008-response.json |   1 +
+|  .../api-responses/FR01/FR01-BVA-009-response.json |   1 +
+|  .../api-responses/FR01/FR01-BVA-010-response.json |   1 +
+|  .../api-responses/FR01/FR01-BVA-011-response.json |   1 +
+|  .../api-responses/FR01/FR01-BVA-012-response.json |   1 +
+|  .../api-responses/FR01/FR01-BVA-013-response.json |   1 +
+|  .../api-responses/FR01/FR01-BVA-014-response.json |   1 +
+|  .../api-responses/FR01/FR01-BVA-015-response.json |   1 +
+|  .../api-responses/FR01/FR01-BVA-016-response.json |   1 +
+|  .../api-responses/FR01/FR01-BVA-017-response.json |   1 +
+|  .../api-responses/FR01/FR01-BVA-018-response.json |   1 +
+|  .../api-responses/FR01/FR01-EP-001-response.json  |   1 +
+|  .../api-responses/FR01/FR01-EP-002-response.json  |   1 +
+|  .../api-responses/FR01/FR01-EP-003-response.json  |   1 +
+|  .../api-responses/FR01/FR01-EP-004-response.json  |   1 +
+|  .../api-responses/FR01/FR01-EP-005-response.json  |   1 +
+|  .../api-responses/FR01/FR01-EP-006-response.json  |   1 +
+|  .../api-responses/FR01/FR01-EP-007-response.json  |   1 +
+|  .../api-responses/FR01/FR01-EP-008-response.json  |   1 +
+|  .../api-responses/FR01/FR01-EP-009-response.json  |   1 +
+|  .../api-responses/FR01/FR01-EP-010-response.json  |   1 +
+|  .../api-responses/FR01/FR01-EP-011-response.json  |   1 +
+|  .../api-responses/FR01/FR01-EP-012-response.json  |   1 +
+|  .../api-responses/FR01/FR01-EP-013-response.json  |   1 +
+|  .../api-responses/FR01/FR01-EP-014-response.json  |   1 +
+|  .../api-responses/FR01/FR01-EP-015-response.json  |   1 +
+|  .../api-responses/FR01/FR01-EP-016-response.json  |   1 +
+|  .../api-responses/FR01/FR01-EP-017-response.json  |   1 +
+|  .../api-responses/FR01/FR01-EP-020-response.json  |   1 +
+|  evidence/scripts/FR01/FR01-api-tests.md           | 418 +++++++++++++
+|  evidence/scripts/FR01/FR01-dom-checks.md          |  15 +
+|  .../execution-results/FR01-execution-results.md   | 612 ++++++++++++++++++++
+|  qa-artifacts/test-cases/FR01-test-cases.md        | 364 ++++++------
+|  scripts/curl/FR01-api-tests.sh                    | 498 ++++++++++++++++
+|  scripts/curl/FR01-dom-checks.js                   | 126 ++++
+|  44 files changed, 1982 insertions(+), 202 deletions(-)
+| 
+* commit cd824f8df61d368124540de02ad36f8bebd14acd
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sat Jun 13 23:50:28 2026 +0700
+| 
+|     chore: update test-execution-assistant skill
+| 
+|  .agents/skills/test-execution-assistant/SKILL.md | 1143 ++++++++++++--------
+|  qa-artifacts/test-cases/FR01-test-cases.md       |    8 +-
+|  2 files changed, 677 insertions(+), 474 deletions(-)
+| 
+* commit cc2e3e96e7f0fcdadf514badf0e4ab93d57703f6
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sat Jun 13 16:46:34 2026 +0700
+| 
+|     chore: update package for backend and frontend
+| 
+|  .agents/skills/bug-report-writer/SKILL.md        |  59 +-
+|  .agents/skills/test-execution-assistant/SKILL.md | 725 ++++++++++++++-------
+|  backend/package-lock.json                        |  13 +
+|  frontend-admin/package-lock.json                 |  78 ++-
+|  frontend-mobile/package-lock.json                |   6 -
+|  frontend-web/package-lock.json                   |  78 ++-
+|  qa-artifacts/test-cases/FR01-test-cases.md       |  96 +--
+|  7 files changed, 713 insertions(+), 342 deletions(-)
+| 
+* commit c9bad5ec66ef6373665ae226a20441e994862002
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Jun 12 18:37:34 2026 +0700
+| 
+|     feat(FR01): test cases reviewed and approved
+| 
+|  qa-artifacts/ai-audit/FR01-ai-audit.md     |   71 ++
+|  qa-artifacts/test-cases/FR01-test-cases.md | 1005 +++++++++++++++-----------
+|  2 files changed, 659 insertions(+), 417 deletions(-)
+| 
+* commit a0db1ffd9e90b5a7abbc97bffa8420419e8b4f4c
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Jun 12 17:42:42 2026 +0700
+| 
+|     feat(FR01): test cases generated
+| 
+|  qa-artifacts/ai-audit/FR01-ai-audit.md     |  74 +++
+|  qa-artifacts/test-cases/FR01-test-cases.md | 721 +++++++++++++++++++++++++++
+|  2 files changed, 795 insertions(+)
+| 
+* commit d04a60ca98a6870b7cf9fdf10d9096ca89c08c92
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Jun 12 16:55:06 2026 +0700
+| 
+|     feat(FR01): domain coverage review and AI gap analysis
+| 
+|  qa-artifacts/ai-audit/FR01-ai-audit.md            |  81 +++++++-
+|  .../boundary-analysis/FR01-boundary-analysis.md   |   4 +-
+|  .../domain-analysis/FR01-domain-analysis.md       | 205 ++++++++++++++++++--
+|  3 files changed, 264 insertions(+), 26 deletions(-)
+| 
+* commit 43cac0fe8409f15d0f3768ce1f3d1ce3dbe0aaad
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Jun 12 14:17:53 2026 +0700
+| 
+|     feat(FR01): boundary analysis - BVA 9-point
+| 
+|  frontend-mobile/App.js                            |  2 +-
+|  qa-artifacts/ai-audit/FR01-ai-audit.md            | 77 +++++++++++++++++-
+|  .../boundary-analysis/FR01-boundary-analysis.md   | 89 +++++++++++++++++++++
+|  3 files changed, 166 insertions(+), 2 deletions(-)
+| 
+* commit 05239281652cef56fe9d70199bf47f7cc40c76d2
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Jun 12 12:30:34 2026 +0700
+| 
+|     feat(FR01): domain analysis step 2-3 - EP classes
+| 
+|  qa-artifacts/ai-audit/FR01-ai-audit.md            |  79 ++++++++++-
+|  .../domain-analysis/FR01-domain-analysis.md       | 149 +++++++++++++++++++-
+|  2 files changed, 225 insertions(+), 3 deletions(-)
+| 
+* commit cf60c6c81dab591c23a497e774adebd2c115bc9f
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Jun 12 04:38:26 2026 +0700
+| 
+|     feat(FR01): domain analysis step 1 - variables
+| 
+|  qa-artifacts/ai-audit/FR01-ai-audit.md            | 72 +++++++++++++++++-
+|  .../domain-analysis/FR01-domain-analysis.md       | 82 +++++++++++++++++++++
+|  2 files changed, 153 insertions(+), 1 deletion(-)
+| 
+* commit c60396de3758e5ff8d94443636b1afeebeab0b35
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Jun 12 03:52:16 2026 +0700
+| 
+|     feat(FR01): requirement analysis
+| 
+|  .agents/skills/ai-audit-logger/SKILL.md           |  23 ++--
+|  qa-artifacts/ai-audit/FR01-ai-audit.md            |  73 ++++++++++++
+|  .../requirements/FR01-requirement-analysis.md     | 118 ++++++++++++++++++++
+|  3 files changed, 203 insertions(+), 11 deletions(-)
+| 
+* commit 2d44b3c3365e07d7f171e4ed33a5c65a1f7a6458
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Jun 11 18:55:10 2026 +0700
+| 
+|     feat: add all 13 agent skills
+| 
+|  .agents/skills/ai-audit-logger/SKILL.md           | 228 ++++++++++++
+|  .agents/skills/boundary-value-analysis/SKILL.md   | 209 +++++++++++
+|  .agents/skills/bug-report-writer/SKILL.md         | 269 ++++++++++++++
+|  .agents/skills/domain-coverage-reviewer/SKILL.md  | 233 ++++++++++++
+|  .agents/skills/domain-identifier/SKILL.md         | 166 +++++++++
+|  .agents/skills/equivalence-partitioning/SKILL.md  | 257 ++++++++++++++
+|  .agents/skills/github-issue-writer/SKILL.md       | 179 ++++++++++
+|  .agents/skills/requirement-analyzer/SKILL.md      | 203 +++++++++++
+|  .agents/skills/test-case-generator/SKILL.md       | 234 ++++++++++++
+|  .agents/skills/test-case-reviewer/SKILL.md        | 215 +++++++++++
+|  .agents/skills/test-execution-assistant/SKILL.md  | 372 ++++++++++++++++++++
+|  .agents/skills/test-summary-generator/SKILL.md    | 212 +++++++++++
+|  .../skills/traceability-matrix-generator/SKILL.md | 165 +++++++++
+|  13 files changed, 2942 insertions(+)
+| 
+* commit 350a4e976f679dd93cb14e6eb7aeb5c369238fb2
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Wed Jun 10 17:54:43 2026 +0700
+| 
+|     docs: add AGENTS and GEMINI for AI rules
+| 
+|  AGENTS.md | 268 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+|  GEMINI.md | 305 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+|  2 files changed, 573 insertions(+)
+| 
+* commit 4930af7fc43043a46bdbc36938e9907ed2256c48
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Jun 9 23:44:26 2026 +0700
+| 
+|     chore: init project structure
+| 
+|  .agents/context/eshop-api-spec.md         | 214 +++++++
+|  .agents/context/eshop-srs.md              | 286 +++++++++
+|  .agents/context/hw02-requirements.md      | 161 +++++
+|  .agents/context/theory-domain-testing.md  | 301 +++++++++
+|  .agents/context/theory-test-report.md     | 326 ++++++++++
+|  .agents/context/theory-testcase-design.md | 206 ++++++
+|  .gitignore                                |   3 +
+|  AGENTS.md                                 |   0
+|  GEMINI.md                                 |   0
+|  backend/database.sqlite                   | Bin 36864 -> 36864 bytes
+|  backend/package-lock.json                 |  13 -
+|  frontend-admin/package-lock.json          |  35 +-
+|  frontend-mobile/package-lock.json         | 941 +++++++++++++++-------------
+|  frontend-mobile/package.json              |   2 +-
+|  frontend-web/package-lock.json            |  35 +-
+|  setup_guide.md                            |   2 +-
+|  16 files changed, 2028 insertions(+), 497 deletions(-)
