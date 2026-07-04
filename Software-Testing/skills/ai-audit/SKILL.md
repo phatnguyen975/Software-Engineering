@@ -8,7 +8,7 @@ description: >
   model performance, and revision patterns over time.
 ---
 
-# AI Audit Logger
+# AI Audit Skill
 
 Logs AI interactions into `docs/audit/ai/ai-audit-YYYY-MM.log.md` with structured entries and monthly statistics.
 
@@ -102,5 +102,5 @@ See [`resources/quality-checklist.md`](resources/quality-checklist.md) before fi
 
 ## Example Session
 
-See [`examples/example-session.md`](examples/example-session.md) for a full walkthrough.
+See [`examples/example-session.md`](examples/example-session.md) for a full walkthrough.  
 See [`examples/sample-ai-audit-2026-07.log.md`](examples/sample-ai-audit-2026-07.log.md) for a populated log file.

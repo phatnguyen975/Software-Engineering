@@ -23,7 +23,7 @@ Example: `docs/audit/ai/ai-audit-2026-07.log.md`
 ```markdown
 # AI Audit Log — [Month Year]
 
-> Last updated: YYYY-MM-DDTHH:MM:SS+07:00
+> **Last updated:** YYYY-MM-DDTHH:MM:SS+07:00
 
 ## Monthly Statistics
 

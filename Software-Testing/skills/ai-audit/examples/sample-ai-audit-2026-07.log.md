@@ -1,6 +1,6 @@
 # AI Audit Log — July 2026
 
-> Last updated: 2026-07-04T16:45:00+07:00
+> **Last updated:** 2026-07-04T16:45:00+07:00
 
 ## Monthly Statistics
 
