@@ -29,22 +29,22 @@ Two complementary goals:
 ## Invoke Syntax
 
 ```
-/decision-table [--file="path/to/output.md"]
+/decision-table-testing [--file="path/to/output.md"]
 ```
 
 **Modes:**
 
-| Mode                   | Syntax                                       | Behavior                                                                                                                                                                                                   |
-| ---------------------- | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Default (conversation) | `/decision-table`                            | All analysis and test case tables are printed inline in the conversation as Markdown                                                                                                                       |
-| File output            | `/decision-table --file="path/to/output.md"` | All output (Conditions & Actions List, Full Decision Table, Reduced Decision Table, Test Case Suite) is written to the specified file instead of printed inline. AI confirms the file path before writing. |
+| Mode                   | Syntax                                               | Behavior                                                                                                                                                                                                   |
+| ---------------------- | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Default (conversation) | `/decision-table-testing`                            | All analysis and test case tables are printed inline in the conversation as Markdown                                                                                                                       |
+| File output            | `/decision-table-testing --file="path/to/output.md"` | All output (Conditions & Actions List, Full Decision Table, Reduced Decision Table, Test Case Suite) is written to the specified file instead of printed inline. AI confirms the file path before writing. |
 
 **Notes:**
 
 - `--file` mode requires a file-capable environment (e.g., claude.ai with computer tools enabled). If file tools are unavailable, AI will notify the user and fall back to conversation output.
 - The path in `--file` is the desired output location. If the file already exists, AI will ask before overwriting.
 - Both modes produce identical content — only the delivery differs.
-- `--file` can be combined with any input: `/decision-table --file="tests/discount-rules.md"` then paste the requirements.
+- `--file` can be combined with any input: `/decision-table-testing --file="tests/discount-rules.md"` then paste the requirements.
 
 ## When to Use
 
@@ -87,14 +87,14 @@ Before applying this skill, you must have:
 
 ## Design Process
 
-Follow these steps sequentially. Do not skip steps.
+Follow these steps sequentially. Do not skip any steps.
 
 ### Step 1 — Analyze Requirements and Identify Conditions and Actions
 
 Parse all requirements, BRs, and user stories. Extract:
 
-- **Conditions:** The independent variables that affect system behavior. Look for: "if", "when", "given", "provided that", boolean flags, status fields, membership types, numeric thresholds (after EP grouping).
-- **Actions:** The dependent outcomes triggered by combinations of conditions. Look for: "then", "resulting in", "the system will", "display", "calculate", "reject", "grant access". Include ALL possible outcomes — both positive and negative (error states, rejections, no-action cases).
+- **Conditions:** The independent variables that affect system behavior. **Look for:** "if", "when", "given", "provided that", boolean flags, status fields, membership types, numeric thresholds (after EP grouping).
+- **Actions:** The dependent outcomes triggered by combinations of conditions. **Look for:** "then", "resulting in", "the system will", "display", "calculate", "reject", "grant access". Include ALL possible outcomes — both positive and negative (error states, rejections, no-action cases).
 
 **Critical tasks at this step:**
 
@@ -113,7 +113,7 @@ Construct the complete table before any reduction:
    - **Limited Entry:** Condition values are binary only (T/F, Y/N, 0/1). Simplest form; total rules = 2ⁿ for n binary conditions.
    - **Extended Entry:** Condition values can be multi-valued (e.g., status = ACTIVE / INACTIVE / SUSPENDED). Total rules = product of all value counts per condition.
 2. **Calculate total number of rules:** For n binary conditions → 2ⁿ rules. Fill condition rows with all possible combinations systematically (use binary counting pattern for limited entry).
-3. **Fill in actions per rule:** For each rule (column), evaluate the requirement and mark every applicable action. Use consistent notation: `X` or `✓` for "action applies"; blank or `—` for "action does not apply"; specify exact values for extended entry tables.
+3. **Fill in actions per rule:** For each rule (column), evaluate the requirement and mark every applicable action. **Use consistent notation:** `X` or `✓` for "action applies"; _blank_ or `—` for "action does not apply"; specify exact values for extended entry tables.
 4. **Mark impossible rules** (do not remove yet — removal happens in Step 3).
 
 → See [`resources/table-construction.md`](resources/table-construction.md) for notation standards, entry types, and construction patterns.
@@ -154,10 +154,10 @@ Translate each remaining column (rule) in the reduced table into one test case:
 - **One rule = one test case** (no exceptions)
 - **Conditions → Test inputs / preconditions / test data**
 - **Actions → Expected results / assertions**
-- For Don't Care conditions: choose the most revealing concrete value (typically the one most likely to expose a defect if the condition were to matter unexpectedly)
-- For extended entry tables: the specific value in the cell is the test data
+- **For Don't Care conditions:** Choose the most revealing concrete value (typically the one most likely to expose a defect if the condition were to matter unexpectedly)
+- **For extended entry tables:** The specific value in the cell is the test data
 
-Assign each test case: ID, description, all input values (including Don't Care choices), expected outputs, and traceability to rule number and requirement.
+**Assign each test case:** ID, description, all input values (including Don't Care choices), expected outputs, and traceability to rule number and requirement.
 
 → Use [`resources/output-template.md`](resources/output-template.md) for the recommended format.
 

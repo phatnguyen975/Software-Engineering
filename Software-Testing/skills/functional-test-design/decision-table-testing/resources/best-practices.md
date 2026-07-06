@@ -58,19 +58,16 @@ Best practices for applying Decision Table Testing effectively and correctly. Th
 ```
 Impossible Rule R1+R2: C1=T AND C2=T
 Type: Type 1 (Structurally impossible)
-Rationale: BR-001 states "a loyalty card requires at least one prior purchase;
-new customers have no prior purchases" — these conditions are mutually exclusive by spec definition.
+Rationale: BR-001 states "a loyalty card requires at least one prior purchase; new customers have no prior purchases" — these conditions are mutually exclusive by spec definition.
 Source: BR-001. Stakeholder confirmation: not required.
 
 Impossible Rule R9: C3=CANCELLED AND C4=PAYMENT_SUCCEEDED
 Type: Type 2 (Assumed impossible)
-Rationale: Inferred — a cancelled order should not have a succeeded payment.
-Not explicitly prohibited in spec; race condition or admin override could allow it.
-Confirmed with: Jane Smith (PO), 2024-11-15. Scope: new system only; legacy data excluded.
+Rationale: Inferred — a cancelled order should not have a succeeded payment. Not explicitly prohibited in spec; race condition or admin override could allow it.
+Confirmed with: Jane Smith (PO), 2026-07-09. Scope: new system only; legacy data excluded.
 
 Don't Care in R3+4: C3=—
-Rationale: BR-003 prohibits coupon use for new customers. Whether C3=T or C3=F,
-the action set is {A1: 15%} only. Verified: R3 actions={A1}, R4 actions={A1} — identical.
+Rationale: BR-003 prohibits coupon use for new customers. Whether C3=T or C3=F, the action set is {A1: 15%} only. Verified: R3 actions={A1}, R4 actions={A1} — identical.
 Covers original rules: R3 (C3=T), R4 (C3=F).
 ```
 
@@ -103,6 +100,8 @@ Finding these issues during table construction is significantly cheaper than fin
 - **Action:** Confirm with at least one stakeholder (PO, BA, or developer) before removing. Ask: "Can this combination ever occur — through any path, including admin tools, API calls, data migration, or legacy data?"
 - **Signal:** "I believe this combination is impossible because..." (note: belief, not proof)
 
+**Why Type 1 does not need confirmation:** Asking a stakeholder to confirm something already proven by the spec they wrote adds friction without adding quality. The spec is the confirmation.
+
 **Why Type 2 always needs confirmation:** What appears logically impossible may be achievable through:
 
 - Direct API calls bypassing UI validation
@@ -110,8 +109,6 @@ Finding these issues during table construction is significantly cheaper than fin
 - Administrative override functions
 - Legacy records predating a constraint
 - Race conditions in concurrent systems
-
-**Why Type 1 does not need confirmation:** Asking a stakeholder to confirm something already proven by the spec they wrote adds friction without adding quality. The spec is the confirmation.
 
 **Documentation requirement:** Both types must be documented in the full table with their type label and rationale. This enables re-evaluation when requirements change.
 

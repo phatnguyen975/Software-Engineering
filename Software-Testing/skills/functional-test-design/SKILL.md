@@ -8,8 +8,7 @@ description: >
   this", "test this feature", "test this requirement", "test this API", "test this flow",
   "test this business rule", or any request to systematically design a test suite for a
   functional requirement — regardless of the specific technique needed. If you know which
-  sub-skill to use (e.g., "use decision table testing"), invoke that sub-skill directly
-  instead. This skill covers test case DESIGN only — not implementation or automation.
+  sub-skill to use, invoke that sub-skill directly instead.
 ---
 
 # Functional Test Design Skill
@@ -22,7 +21,7 @@ This skill is the **parent router** for five specialized test design techniques,
 
 | Technique                     | ISTQB Classification | Primary Focus                                                |
 | ----------------------------- | -------------------- | ------------------------------------------------------------ |
-| **Domain Testing** (EP + BVA) | Black-Box            | Input/output value ranges, formats, and classes              |
+| **Domain Testing (EP + BVA)** | Black-Box            | Input/output value ranges, formats, and classes              |
 | **Decision Table Testing**    | Black-Box            | Multiple interacting conditions producing different outcomes |
 | **State Transition Testing**  | Black-Box            | System behavior that depends on prior history (states)       |
 | **Use Case Testing**          | Black-Box            | End-to-end actor-system interaction flows                    |
@@ -81,13 +80,13 @@ Use this guide to identify which sub-skill(s) to apply to a given requirement. R
 - Defines mandatory/optional fields
 - Any BR with the words: range, length, format, minimum, maximum, at least, at most
 
-**Apply:** [`domain-testing/SKILL.md`](domain-testing/SKILL.md) — EP + BVA for all constrained input/output variables
+**Apply:** [`domain-testing`](domain-testing/SKILL.md) — EP + BVA for all constrained input/output variables
 
 **Example signals:**
 
-> "Age must be between 18 and 60" → Domain Testing  
-> "Password must be 8–30 characters, contain uppercase, lowercase, digit, and special character" → Domain Testing  
-> "Product code must start with 2 uppercase letters followed by 4–10 alphanumeric characters" → Domain Testing
+- "Age must be between 18 and 60" → Domain Testing
+- "Password must be 8–30 characters, contain uppercase, lowercase, digit, and special character" → Domain Testing
+- "Product code must start with 2 uppercase letters followed by 4–10 alphanumeric characters" → Domain Testing
 
 ### Signal 2: Multiple Conditions Controlling Different Outcomes → Decision Table Testing
 
@@ -99,13 +98,13 @@ Use this guide to identify which sub-skill(s) to apply to a given requirement. R
 - Eligibility, pricing, discount, routing, or access control logic
 - The same input can produce different results depending on other flags or states
 
-**Apply:** [`decision-table-testing/SKILL.md`](decision-table-testing/SKILL.md) — systematic enumeration of all condition combinations
+**Apply:** [`decision-table-testing`](decision-table-testing/SKILL.md) — systematic enumeration of all condition combinations
 
 **Example signals:**
 
-> "New customers get 15% off; loyalty members get 10%; coupons add 20% — but coupons cannot be combined with new customer discounts" → Decision Table Testing  
-> "Loan eligibility depends on age, employment status, and credit score" → Decision Table Testing  
-> "Access level is determined by role AND subscription tier AND account status" → Decision Table Testing
+- "New customers get 15% off; loyalty members get 10%; coupons add 20% — but coupons cannot be combined with new customer discounts" → Decision Table Testing
+- "Loan eligibility depends on age, employment status, and credit score" → Decision Table Testing
+- "Access level is determined by role AND subscription tier AND account status" → Decision Table Testing
 
 ### Signal 3: System Behavior Depends on Prior History (States) → State Transition Testing
 
@@ -117,13 +116,13 @@ Use this guide to identify which sub-skill(s) to apply to a given requirement. R
 - Object/entity has a lifecycle: account statuses, order statuses, session states, device modes
 - Requirements describe workflows with defined entry/exit conditions
 
-**Apply:** [`state-transition-testing/SKILL.md`](state-transition-testing/SKILL.md) — FSM modeling, STD + STT, valid and invalid transition coverage
+**Apply:** [`state-transition-testing`](state-transition-testing/SKILL.md) — FSM modeling, STD + STT, valid and invalid transition coverage
 
 **Example signals:**
 
-> "An order can be Confirmed only when in Pending status; a Shipped order cannot be Cancelled" → State Transition Testing  
-> "After 3 failed login attempts, the account is Locked; a Locked account cannot be Logged In without an admin unlock" → State Transition Testing  
-> "A subscription moves from Trial → Active → Suspended → Cancelled; transitions are event-driven" → State Transition Testing
+- "An order can be Confirmed only when in Pending status; a Shipped order cannot be Cancelled" → State Transition Testing
+- "After 3 failed login attempts, the account is Locked; a Locked account cannot be Logged In without an admin unlock" → State Transition Testing
+- "A subscription moves from Trial → Active → Suspended → Cancelled; transitions are event-driven" → State Transition Testing
 
 ### Signal 4: Actor-System Interaction Flow Toward a Goal → Use Case Testing
 
@@ -135,13 +134,13 @@ Use this guide to identify which sub-skill(s) to apply to a given requirement. R
 - Testing a complete end-to-end feature rather than an isolated field or rule
 - Requirement describes integration between multiple system components through a user journey
 
-**Apply:** [`use-case-testing/SKILL.md`](use-case-testing/SKILL.md) — flow analysis, scenario matrix, path-based test cases
+**Apply:** [`use-case-testing`](use-case-testing/SKILL.md) — flow analysis, scenario matrix, path-based test cases
 
 **Example signals:**
 
-> "User registers, verifies email, logs in, adds items to cart, and completes purchase" → Use Case Testing  
-> "Loan officer submits application → system validates → underwriter reviews → decision issued" → Use Case Testing  
-> "Patient books appointment → receives confirmation → attends → receives follow-up" → Use Case Testing
+- "User registers, verifies email, logs in, adds items to cart, and completes purchase" → Use Case Testing
+- "Loan officer submits application → system validates → underwriter reviews → decision issued" → Use Case Testing
+- "Patient books appointment → receives confirmation → attends → receives follow-up" → Use Case Testing
 
 ### Signal 5: Supplementary Defect-Targeted Cases → Error Guessing
 
@@ -153,15 +152,15 @@ Use this guide to identify which sub-skill(s) to apply to a given requirement. R
 - The feature involves: complex integrations, third-party services, concurrency, configuration-dependent behavior, or known defect-prone constructs
 - The question is "what else might go wrong?" rather than "what does the spec require?"
 
-**Apply:** [`error-guessing/SKILL.md`](error-guessing/SKILL.md) — structured Fault Attack using error taxonomy + historical data
+**Apply:** [`error-guessing`](error-guessing/SKILL.md) — structured Fault Attack using error taxonomy + historical data
 
 **Important:** Error Guessing is always supplementary. It is applied **after** systematic techniques have been completed, never instead of them.
 
 **Example signals:**
 
-> "After designing domain and use case tests for the payment flow, what else should we test?" → Error Guessing  
-> "We've had bugs before with null handling and currency rounding — let's target those" → Error Guessing  
-> "The API has a new third-party integration — what failure modes should we cover beyond the spec?" → Error Guessing
+- "After designing domain and use case tests for the payment flow, what else should we test?" → Error Guessing
+- "We've had bugs before with null handling and currency rounding — let's target those" → Error Guessing
+- "The API has a new third-party integration — what failure modes should we cover beyond the spec?" → Error Guessing
 
 ## When to Use This Parent Skill
 
@@ -186,50 +185,50 @@ Use a **sub-skill directly** when:
 
 ## Sub-Skills Reference
 
-### [`domain-testing/`](domain-testing/SKILL.md)
+### [`domain-testing`](domain-testing/SKILL.md)
 
-**Technique:** Equivalence Partitioning (EP) + Boundary Value Analysis (BVA)
-**ISTQB:** Black-Box Test Design Technique (FL v4.0, Section 4.2)
-**Use when:** Any variable has defined constraints — range, length, format, valid set
-**Output:** Variable Inventory Table → Equivalence Class Table → Test Case Suite
-**Key principle:** One representative per class is sufficient; boundaries are highest risk
-**Invoke:** `/domain-testing`
+- **Technique:** Equivalence Partitioning (EP) + Boundary Value Analysis (BVA)
+- **ISTQB:** Black-Box Test Design Technique
+- **Use when:** Any variable has defined constraints — range, length, format, valid set
+- **Output:** Variable Inventory Table → Equivalence Class Table → Test Case Suite
+- **Key principle:** One representative per class is sufficient; boundaries are highest risk
+- **Invoke:** `/domain-testing`
 
-### [`decision-table-testing/`](decision-table-testing/SKILL.md)
+### [`decision-table-testing`](decision-table-testing/SKILL.md)
 
-**Technique:** Decision Table Testing
-**ISTQB:** Black-Box Test Design Technique (FL v4.0, Section 4.3)
-**Use when:** 2+ conditions interact to produce different outcomes
-**Output:** Conditions & Actions List → Full Table → Reduced Table → Test Case Suite
-**Key principle:** Build the full table before reducing; one rule = one test case after reduction
-**Invoke:** `/decision-table-testing`
+- **Technique:** Decision Table Testing
+- **ISTQB:** Black-Box Test Design Technique
+- **Use when:** 2+ conditions interact to produce different outcomes
+- **Output:** Conditions & Actions List → Full Table → Reduced Table → Test Case Suite
+- **Key principle:** Build the full table before reducing; one rule = one test case after reduction
+- **Invoke:** `/decision-table-testing`
 
-### [`state-transition/`](state-transition-testing/SKILL.md)
+### [`state-transition`](state-transition-testing/SKILL.md)
 
-**Technique:** State Transition Testing
-**ISTQB:** Black-Box Test Design Technique (FL v4.0, Section 4.4)
-**Use when:** System behavior depends on its current state (prior history matters)
-**Output:** FSM Component List → STD → STT → Coverage Plan → Test Case Suite
-**Key principle:** STD shows valid transitions; STT exposes invalid ones — both are required
-**Invoke:** `/state-transition-testing`
+- **Technique:** State Transition Testing
+- **ISTQB:** Black-Box Test Design Technique
+- **Use when:** System behavior depends on its current state (prior history matters)
+- **Output:** FSM Component List → STD → STT → Coverage Plan → Test Case Suite
+- **Key principle:** STD shows valid transitions; STT exposes invalid ones — both are required
+- **Invoke:** `/state-transition-testing`
 
-### [`use-case-testing/`](use-case-testing/SKILL.md)
+### [`use-case-testing`](use-case-testing/SKILL.md)
 
-**Technique:** Use Case Testing
-**ISTQB:** Black-Box Test Design Technique (FL v3.1, Section 4.6)
-**Use when:** Testing complete actor-system interaction flows toward a defined goal
-**Output:** Flow Inventory → Scenario Matrix → Test Case Suite → RTM
-**Key principle:** Flow structure first (which paths), then data selection (which values per path)
-**Invoke:** `/use-case-testing`
+- **Technique:** Use Case Testing
+- **ISTQB:** Black-Box Test Design Technique
+- **Use when:** Testing complete actor-system interaction flows toward a defined goal
+- **Output:** Flow Inventory → Scenario Matrix → Test Case Suite → RTM
+- **Key principle:** Flow structure first (which paths), then data selection (which values per path)
+- **Invoke:** `/use-case-testing`
 
-### [`error-guessing/`](error-guessing/SKILL.md)
+### [`error-guessing`](error-guessing/SKILL.md)
 
-**Technique:** Error Guessing (Fault Attack)
-**ISTQB:** Experience-Based Test Design Technique (FL v4.0, Section 4.5.2)
-**Use when:** Supplementing a complete systematic test suite with defect-targeted cases
-**Output:** Fault List (by category and priority) → Supplementary Test Case Suite
-**Key principle:** Structured guessing via error taxonomy; always supplements, never replaces systematic techniques
-**Invoke:** `/error-guessing`
+- **Technique:** Error Guessing (Fault Attack)
+- **ISTQB:** Experience-Based Test Design Technique
+- **Use when:** Supplementing a complete systematic test suite with defect-targeted cases
+- **Output:** Fault List (by category and priority) → Supplementary Test Case Suite
+- **Key principle:** Structured guessing via error taxonomy; always supplements, never replaces systematic techniques
+- **Invoke:** `/error-guessing`
 
 ## Technique Combination Patterns
 
@@ -240,9 +239,9 @@ Most real features require more than one technique. Apply them in this order:
 **Applies to:** Forms, APIs, or endpoints with both input constraints and conditional processing rules
 
 ```
-Step 1: /domain-testing      → test data classes and boundaries for each input field
-Step 2: /decision-table-testing      → test combinations of conditions that control processing outcomes
-Step 3: /error-guessing      → supplement with defect-targeted cases
+Step 1: /domain-testing          → test data classes and boundaries for each input field
+Step 2: /decision-table-testing  → test combinations of conditions that control processing outcomes
+Step 3: /error-guessing          → supplement with defect-targeted cases
 ```
 
 **Example:** A loan application form where each field has constraints (Domain Testing) and eligibility depends on multiple fields in combination (Decision Table Testing).
@@ -252,9 +251,9 @@ Step 3: /error-guessing      → supplement with defect-targeted cases
 **Applies to:** Features with lifecycle states where inputs within each state also have constraints
 
 ```
-Step 1: /state-transition-testing   → test valid/invalid transitions across states
-Step 2: /domain-testing             → test input value constraints within specific states/events
-Step 3: /error-guessing             → supplement with defect-targeted cases
+Step 1: /state-transition-testing  → test valid/invalid transitions across states
+Step 2: /domain-testing            → test input value constraints within specific states/events
+Step 3: /error-guessing            → supplement with defect-targeted cases
 ```
 
 **Example:** A bank account with states (Active, Suspended, Closed) where the Withdraw event also has guard conditions involving amount ranges (Domain Testing within the guard).
@@ -264,9 +263,9 @@ Step 3: /error-guessing             → supplement with defect-targeted cases
 **Applies to:** Complete user journeys where each step also involves field-level data entry
 
 ```
-Step 1: /use-case-testing    → identify all flows (main + alternate) and build scenario matrix
-Step 2: /domain-testing      → select specific test data values for each data-entry step in each scenario
-Step 3: /error-guessing      → supplement with integration failure modes and edge cases
+Step 1: /use-case-testing  → identify all flows (main + alternate) and build scenario matrix
+Step 2: /domain-testing    → select specific test data values for each data-entry step in each scenario
+Step 3: /error-guessing    → supplement with integration failure modes and edge cases
 ```
 
 **Example:** An e-commerce checkout flow (Use Case Testing for the paths) where each step has field-level constraints like address format and payment card format (Domain Testing for the data).
@@ -276,10 +275,10 @@ Step 3: /error-guessing      → supplement with integration failure modes and e
 **Applies to:** Use cases where one or more steps involve multi-condition business logic
 
 ```
-Step 1: /use-case-testing    → identify all flows and scenarios
-Step 2: /decision-table-testing      → for steps with multi-condition logic, enumerate all rule combinations
-Step 3: /domain-testing      → for steps with input constraints, derive boundary test data
-Step 4: /error-guessing      → supplement
+Step 1: /use-case-testing        → identify all flows and scenarios
+Step 2: /decision-table-testing  → for steps with multi-condition logic, enumerate all rule combinations
+Step 3: /domain-testing          → for steps with input constraints, derive boundary test data
+Step 4: /error-guessing          → supplement
 ```
 
 **Example:** An insurance claim flow (Use Case Testing) where the "Assess Eligibility" step involves multiple conditions (Decision Table Testing) and the claim amount has numeric constraints (Domain Testing).
@@ -290,7 +289,7 @@ Step 4: /error-guessing      → supplement
 
 ```
 Step 1: Review existing test suite (what is already covered)
-Step 2: /error-guessing      → identify and test gaps using structured Fault Attack
+Step 2: /error-guessing  → identify and test gaps using structured Fault Attack
 ```
 
 ## Technique Interaction Rules
