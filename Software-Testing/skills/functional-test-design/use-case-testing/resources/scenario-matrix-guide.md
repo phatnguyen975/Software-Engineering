@@ -109,13 +109,13 @@ For alternate flows of the same type (e.g., three different "invalid input" flow
 
 After completing the matrix:
 
-- [ ] S1 exists and equals the Main Flow only
-- [ ] Every alternate flow appears in at least one scenario (not necessarily all combinations)
-- [ ] All impossible combinations are documented as impossible (not silently absent)
-- [ ] All low-priority combinations that will not be tested are documented as acknowledged
-- [ ] No scenario starts mid-flow (every scenario begins at the use case's starting trigger)
-- [ ] No scenario is a partial path (every scenario has a defined endpoint)
-- [ ] Priority assignments are justified (high-risk paths are not marked low-priority without rationale)
+- [ ] S1 exists and equals the Main Flow only.
+- [ ] Every alternate flow appears in at least one scenario (not necessarily all combinations).
+- [ ] All impossible combinations are documented as impossible (not silently absent).
+- [ ] All low-priority combinations that will not be tested are documented as acknowledged.
+- [ ] No scenario starts mid-flow (every scenario begins at the use case's starting trigger).
+- [ ] No scenario is a partial path (every scenario has a defined endpoint).
+- [ ] Priority assignments are justified (high-risk paths are not marked low-priority without rationale).
 
 ## Scenario Matrix Template
 
@@ -125,15 +125,15 @@ Coverage target: [All flows / Risk-based selection / Pairwise]
 Total alternate flows identified: [N]
 Total scenarios in matrix: [M]
 
-┌──────┬─────────────────────────────────────────┬────────────┬──────────┬──────────────────────────┐
-│  ID  │  Path Composition                       │  Priority  │  Endpoint│  Status                  │
-├──────┼─────────────────────────────────────────┼────────────┼──────────┼──────────────────────────┤
-│  S1  │  Main Flow                              │  Critical  │  Success │  Test                    │
-│  S2  │  MF + AF-1: [short description]         │  High      │  [type]  │  Test                    │
-│  S3  │  MF + AF-2: [short description]         │  High      │  [type]  │  Test                    │
-│  S4  │  MF + AF-3: [short description]         │  Medium    │  [type]  │  Test                    │
-│  S5  │  MF + AF-1 + AF-3: [description]        │  Medium    │  [type]  │  Test                    │
-│  S6  │  MF + AF-2 + AF-3: [description]        │  Low       │  [type]  │  Acknowledged; not tested│
+┌──────┬─────────────────────────────────────────┬────────────┬──────────┬─────────────────────────────────────────────────┐
+│  ID  │  Path Composition                       │  Priority  │  Endpoint│  Status                                         │
+├──────┼─────────────────────────────────────────┼────────────┼──────────┼─────────────────────────────────────────────────┤
+│  S1  │  Main Flow                              │  Critical  │  Success │  Test                                           │
+│  S2  │  MF + AF-1: [short description]         │  High      │  [type]  │  Test                                           │
+│  S3  │  MF + AF-2: [short description]         │  High      │  [type]  │  Test                                           │
+│  S4  │  MF + AF-3: [short description]         │  Medium    │  [type]  │  Test                                           │
+│  S5  │  MF + AF-1 + AF-3: [description]        │  Medium    │  [type]  │  Test                                           │
+│  S6  │  MF + AF-2 + AF-3: [description]        │  Low       │  [type]  │  Acknowledged; not tested                       │
 │  —   │  MF + AF-1 + AF-2: [description]        │  —         │  —       │  IMPOSSIBLE: AF-1 terminates before AF-2 branch │
-└──────┴─────────────────────────────────────────┴────────────┴──────────┴──────────────────────────┘
+└──────┴─────────────────────────────────────────┴────────────┴──────────┴─────────────────────────────────────────────────┘
 ```

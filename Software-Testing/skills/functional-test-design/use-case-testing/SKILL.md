@@ -16,16 +16,15 @@ description: >
 
 ## Overview
 
-Use Case Testing is a **black-box test design technique** defined in ISTQB Foundation Level Syllabus (v3.1, Section 4.6) where test cases are derived from use case specifications. A use case describes an interaction between one or more **actors** (human users or external systems) and the **system under test (SUT)** to achieve a specific **goal**.
+**Use Case Testing** is a **black-box test design technique** defined in ISTQB Foundation Level Syllabus where test cases are derived from use case specifications. A use case describes an interaction between one or more **actors** (human users or external systems) and the **system under test (SUT)** to achieve a specific **goal**.
 
 The technique systematically derives test cases by identifying all meaningful paths through the use case — the **main flow** (the happy path) and all **alternate flows** (deviations due to optional choices, validation failures, or exception conditions) — then combining them into **scenarios** that represent complete end-to-end journeys from the use case's starting point to an endpoint.
 
 **Core purpose:** Verify that the system correctly delivers business value to actors through every meaningful path — not just the happy path — ensuring all flows are exercised and all preconditions/postconditions are verified.
 
-**Role of Use Case Testing vs. other techniques:**
-Use Case Testing is responsible for identifying **which flows and paths to test**. It does not design the specific data values used within those paths. Once scenarios are identified, use Domain Testing (EP/BVA) to select specific test data for input fields, and Decision Table Testing for steps with multiple simultaneous conditions. These techniques are complementary: Use Case Testing provides the flow structure; other techniques populate the data.
+**Role of Use Case Testing vs. other techniques:** Use Case Testing is responsible for identifying **which flows and paths to test**. It does not design the specific data values used within those paths. Once scenarios are identified, use Domain Testing (EP/BVA) to select specific test data for input fields, and Decision Table Testing for steps with multiple simultaneous conditions. These techniques are complementary: Use Case Testing provides the flow structure; other techniques populate the data.
 
-→ Full theoretical background: [`resources/theory.md`](resources/theory.md)
+→ For full theoretical background, see [`resources/theory.md`](resources/theory.md).
 
 ## Invoke Syntax
 
@@ -49,22 +48,22 @@ Use Case Testing is responsible for identifying **which flows and paths to test*
 
 ## When to Use
 
-- A **use case specification** (UC spec) exists with defined: actor(s), preconditions, main flow, alternate flows, postconditions
-- A **user story with acceptance criteria** that describes actor-system interactions toward a goal (can be treated as an informal use case spec)
-- Testing a **feature end-to-end** where the behavior is defined as a sequence of actor-system interactions
-- When the goal is to verify **complete business flows** — not isolated field validation or individual API endpoints
-- When **integration between system components** needs to be exercised through a realistic actor journey
-- As the primary technique for **acceptance testing** — verifying the system delivers the intended business value
+- A **use case specification** (UC spec) exists with defined: actor(s), preconditions, main flow, alternate flows, postconditions.
+- A **user story with acceptance criteria** that describes actor-system interactions toward a goal (can be treated as an informal use case spec).
+- Testing a **feature end-to-end** where the behavior is defined as a sequence of actor-system interactions.
+- When the goal is to verify **complete business flows** — not isolated field validation or individual API endpoints.
+- When **integration between system components** needs to be exercised through a realistic actor journey.
+- As the primary technique for **acceptance testing** — verifying the system delivers the intended business value.
 
 **Key signal:** If the requirement describes _what an actor does step-by-step and what the system does in response_ — Use Case Testing is the right technique.
 
 ## When NOT to Use
 
-- No use case specification or equivalent exists — use requirements cannot be mapped to actor-goal-flow structure → clarify requirements first
-- The requirement describes **only input field constraints** with no multi-step interaction → use Domain Testing (EP/BVA) instead
-- The requirement describes **combinations of simultaneous conditions** with no sequence → use Decision Table Testing instead
-- The requirement describes **system state transitions over time** → use State Transition Testing instead
-- **Do not** use Use Case Testing as a complete test strategy alone — combine with Domain Testing for input data selection within steps, and Error Guessing for additional negative paths
+- No use case specification or equivalent exists — use requirements cannot be mapped to actor-goal-flow structure → clarify requirements first.
+- The requirement describes **only input field constraints** with no multi-step interaction → use Domain Testing (EP/BVA) instead.
+- The requirement describes **combinations of simultaneous conditions** with no sequence → use Decision Table Testing instead.
+- The requirement describes **system state transitions over time** → use State Transition Testing instead.
+- **Do not** use Use Case Testing as a complete test strategy alone — combine with Domain Testing for input data selection within steps, and Error Guessing for additional negative paths.
 
 ## Inputs Required
 
@@ -94,40 +93,33 @@ Before applying this skill:
 
 ## Design Process
 
-Follow these steps sequentially. Do not skip steps.
+Follow these steps sequentially. Do not skip any steps.
 
 ### Step 1 — Parse and Validate the Use Case Specification
 
 Read the use case specification thoroughly. For each section, perform validation:
 
-**Actor(s):** Is every actor identified? Could the same use case be initiated by different actor types with different behavior?
-
-**Preconditions:** Are they specific and testable? Can each be set up reliably before test execution? If a precondition is vague ("system is operational"), clarify what observable condition confirms it.
-
-**Main Flow:** Is each step clearly defined as actor action or system response? Are there any implicit steps (actions the spec assumes but does not state)?
-
-**Alternate Flows:** Does each alternate flow reference the specific Main Flow step where it branches? Does it define an endpoint (does it rejoin Main Flow, or terminate)? Are any alternate flows missing — conditions the system must handle but the spec does not document?
-
-**Business Rules / Constraints:** Are they complete? Do they define behavior for boundary conditions?
-
-**Postconditions:** Do they include backend state verification requirements (database changes, audit logs, notifications)?
+- **Actor(s):** Is every actor identified? Could the same use case be initiated by different actor types with different behavior?
+- **Preconditions:** Are they specific and testable? Can each be set up reliably before test execution? If a precondition is vague ("system is operational"), clarify what observable condition confirms it.
+- **Main Flow:** Is each step clearly defined as actor action or system response? Are there any implicit steps (actions the spec assumes but does not state)?
+- **Alternate Flows:** Does each alternate flow reference the specific Main Flow step where it branches? Does it define an endpoint (does it rejoin Main Flow, or terminate)? Are any alternate flows missing — conditions the system must handle but the spec does not document?
+- **Business Rules / Constraints:** Are they complete? Do they define behavior for boundary conditions?
+- **Postconditions:** Do they include backend state verification requirements (database changes, audit logs, notifications)?
 
 Document all gaps and ambiguities found. Raise them with the product owner or BA before proceeding to test design.
 
-→ See [`resources/spec-and-flow-guide.md`](resources/spec-and-flow-guide.md) — Part 1 for validation checklist and common spec gaps
+→ See [`resources/spec-and-flow-guide.md`](resources/spec-and-flow-guide.md) — **Part 1** for validation checklist and common spec gaps.
 
 ### Step 2 — Analyze and Enumerate All Flows
 
 Produce a complete **Flow Inventory**:
 
 1. **Main Flow:** Number each step explicitly (Step 1, Step 2, Step 3...). Identify the single success endpoint.
-
 2. **Alternate Flows:** For each alternate flow:
    - Assign an ID (e.g., AF-1, AF-2, AF-3)
    - Identify the Main Flow step it branches from (e.g., "Branches from Step 2")
    - Classify as: **Optional Flow** (valid but non-default path) or **Exception Flow** (error, rule violation, system failure)
    - Identify the endpoint: Rejoins Main Flow at step N / Terminates use case / Loops back
-
 3. **Discover hidden alternate flows:** Look for:
    - Every step in the Main Flow where the system performs a conditional action
    - Every Business Rule that implies a rejection case
@@ -135,7 +127,7 @@ Produce a complete **Flow Inventory**:
    - System/network failure scenarios at each step
    - Concurrent access scenarios if applicable
 
-→ See [`resources/spec-and-flow-guide.md`](resources/spec-and-flow-guide.md) — Part 2 for flow enumeration patterns and hidden flow discovery
+→ See [`resources/spec-and-flow-guide.md`](resources/spec-and-flow-guide.md) — **Part 2** for flow enumeration patterns and hidden flow discovery.
 
 ### Step 3 — Build the Scenario Matrix
 
@@ -159,7 +151,7 @@ Construct the **Scenario Matrix** — a systematic enumeration of all meaningful
 - **Risk-based path selection:** Prioritize flows by probability of defect × business impact. High-risk flows get individual scenarios; low-risk flows may be bundled.
 - **Pairwise coverage:** Ensure every pair of alternate flows is covered in at least one scenario — mathematically reduces the scenario count while maintaining high defect detection.
 
-→ See [`resources/scenario-matrix-guide.md`](resources/scenario-matrix-guide.md) for construction procedure and combinatorial reduction strategies
+→ See [`resources/scenario-matrix-guide.md`](resources/scenario-matrix-guide.md) for construction procedure and combinatorial reduction strategies.
 
 ### Step 4 — Design Test Cases from Scenarios
 
@@ -179,15 +171,15 @@ Translate each scenario into one or more executable test cases:
 - **Postconditions:** All backend state assertions to verify after the final step: database record changes, audit log entries, email/notification delivery, state of related entities.
 - **Alternate flow trigger:** For non-happy-path scenarios, document exactly what input or condition forces the system into the alternate flow.
 
-→ Use [`resources/output-template.md`](resources/output-template.md) for test case format
+→ Use [`resources/output-template.md`](resources/output-template.md) for test case format.
 
 ### Step 5 — Apply Domain Testing for Test Data Selection
 
 For each test case that involves data entry steps:
 
-- Apply **Equivalence Partitioning** to identify valid and invalid data classes for each input field
-- Apply **BVA** to select specific values at boundaries of ordered classes
-- Select the data value that best exercises the intended path: for valid paths, use a nominal valid value; for alternate flows triggered by invalid data, use the specific invalid class representative or boundary value
+- Apply **Equivalence Partitioning** to identify valid and invalid data classes for each input field.
+- Apply **BVA** to select specific values at boundaries of ordered classes.
+- Select the data value that best exercises the intended path: for valid paths, use a nominal valid value; for alternate flows triggered by invalid data, use the specific invalid class representative or boundary value.
 
 This step **refines test data within scenarios already identified** — it does not add new scenarios. If applying EP/BVA reveals a data class that would exercise a _different_ alternate flow not yet in the scenario matrix, add that flow to the matrix first (Step 3), then design its test case here.
 
@@ -255,17 +247,17 @@ Before finalizing, verify against both checklists in [`resources/quality-checkli
 
 _Use this to verify the design methodology was applied correctly._
 
-- [ ] Use case specification was validated before test design (all fields present, no vague preconditions, all alternate flows have defined endpoints)
-- [ ] All gaps and ambiguities in the spec were raised and resolved or documented before proceeding
-- [ ] Complete Flow Inventory produced: main flow steps numbered, all alternate flows identified and classified (optional vs. exception)
-- [ ] Hidden alternate flows were actively searched for at each main flow step
-- [ ] Scenario Matrix constructed before writing any test case
-- [ ] S1 = Main Flow only (no alternate flows injected)
-- [ ] Every alternate flow appears in at least one scenario
-- [ ] Risk-based prioritization applied to scenario selection — low-risk combinations documented as acknowledged if not tested
-- [ ] Alternate flow trigger specified for every non-happy-path test case
-- [ ] Domain Testing (EP/BVA) applied to select test data for each data-entry step
-- [ ] All postconditions from the use case spec have explicit test assertions (not just UI assertions)
+- [ ] Use case specification was validated before test design (all fields present, no vague preconditions, all alternate flows have defined endpoints).
+- [ ] All gaps and ambiguities in the spec were raised and resolved or documented before proceeding.
+- [ ] Complete Flow Inventory produced: main flow steps numbered, all alternate flows identified and classified (optional vs. exception).
+- [ ] Hidden alternate flows were actively searched for at each main flow step.
+- [ ] Scenario Matrix constructed before writing any test case.
+- [ ] S1 = Main Flow only (no alternate flows injected).
+- [ ] Every alternate flow appears in at least one scenario.
+- [ ] Risk-based prioritization applied to scenario selection — low-risk combinations documented as acknowledged if not tested.
+- [ ] Alternate flow trigger specified for every non-happy-path test case.
+- [ ] Domain Testing (EP/BVA) applied to select test data for each data-entry step.
+- [ ] All postconditions from the use case spec have explicit test assertions (not just UI assertions).
 
 ## Common Rationalizations to Reject
 

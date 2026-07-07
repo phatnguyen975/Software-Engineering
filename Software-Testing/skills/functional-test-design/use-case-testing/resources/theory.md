@@ -2,9 +2,9 @@
 
 ## 1. Definition and ISTQB Classification
 
-Use Case Testing is a **black-box test design technique** formally defined in ISTQB Foundation Level Syllabus (v3.1, Section 4.6). In ISTQB FL v4.0, the technique was replaced by "Collaboration-Based Test Approaches" (BDD/acceptance criteria focused), but Use Case Testing remains widely used in industry and is covered in ISTQB Agile Tester and Advanced Level syllabi.
+**Use Case Testing** is a **black-box test design technique** formally defined in ISTQB Foundation Level Syllabus (v3.1, Section 4.6). In ISTQB FL v4.0, the technique was replaced by "Collaboration-Based Test Approaches" (BDD/acceptance criteria focused), but Use Case Testing remains widely used in industry and is covered in ISTQB Agile Tester and Advanced Level syllabi.
 
-**ISTQB FL v3.1 definition:**
+**ISTQB FL definition:**
 
 > "Test cases can be designed from use cases. A use case describes interactions between actors (users or systems) that produce a result of value to a system user or stakeholder. Use cases can be described at the abstract (business) level (business use case) or at the system level (system use case)."
 
@@ -93,7 +93,7 @@ ISTQB uses interchangeable terminology — both are correct:
 
 - "Alternate flow" and "alternative flow" — same concept
 - "Exception flow" — a sub-type of alternate flow (the error/failure case)
-- Some sources use "extension" (UML <<extend>> notation) and "inclusion" (UML <<include>>)
+- Some sources use "extension" (UML `<<extend>>` notation) and "inclusion" (UML `<<include>>`)
 
 For practical Use Case Testing purposes, the key distinction is: **optional flows** (valid alternative paths) vs. **exception flows** (error/rejection paths). Both require test scenarios.
 

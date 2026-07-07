@@ -10,16 +10,16 @@ Validate the use case specification before starting test design. A defective spe
 
 #### Actor(s)
 
-- [ ] At least one primary actor is identified
-- [ ] The actor is clearly defined — who or what initiates the use case
-- [ ] If multiple actor types can initiate the same use case with different behavior, each is listed separately
-- [ ] Secondary actors (systems the SUT interacts with during the use case) are identified if their behavior affects the flow
+- [ ] At least one primary actor is identified.
+- [ ] The actor is clearly defined — who or what initiates the use case.
+- [ ] If multiple actor types can initiate the same use case with different behavior, each is listed separately.
+- [ ] Secondary actors (systems the SUT interacts with during the use case) are identified if their behavior affects the flow.
 
 #### Preconditions
 
-- [ ] All preconditions are specific and testable — not vague ("system is available")
-- [ ] Each precondition can be verified before test execution
-- [ ] Each precondition can be set up reliably (via DB script, API call, UI setup, or test fixture)
+- [ ] All preconditions are specific and testable — not vague ("system is available").
+- [ ] Each precondition can be verified before test execution.
+- [ ] Each precondition can be set up reliably (via DB script, API call, UI setup, or test fixture).
 - [ ] The preconditions are necessary — would test results be affected if a precondition were not met?
 
 **Common spec gaps to raise:**
@@ -30,11 +30,11 @@ Validate the use case specification before starting test design. A defective spe
 
 #### Main Flow
 
-- [ ] Steps are numbered explicitly
-- [ ] Each step is clearly either an actor action or a system response — not mixed
-- [ ] No implicit steps (steps the spec assumes but does not state)
-- [ ] The flow leads to a single, clearly defined success endpoint
-- [ ] No branching conditions in the main flow — branching belongs in alternate flows
+- [ ] Steps are numbered explicitly.
+- [ ] Each step is clearly either an actor action or a system response — not mixed.
+- [ ] No implicit steps (steps the spec assumes but does not state).
+- [ ] The flow leads to a single, clearly defined success endpoint.
+- [ ] No branching conditions in the main flow — branching belongs in alternate flows.
 
 **Common spec gaps to raise:**
 
@@ -44,10 +44,10 @@ Validate the use case specification before starting test design. A defective spe
 
 #### Alternate Flows
 
-- [ ] Each alternate flow has a unique ID (AF-1, AF-2, etc.)
-- [ ] Each alternate flow references the specific main flow step where it branches ("Branches from Step 2")
-- [ ] Each alternate flow is classified: optional flow or exception flow
-- [ ] Each alternate flow defines its endpoint: rejoins main flow at step N / terminates use case
+- [ ] Each alternate flow has a unique ID (AF-1, AF-2, etc.).
+- [ ] Each alternate flow references the specific main flow step where it branches ("Branches from Step 2").
+- [ ] Each alternate flow is classified: optional flow or exception flow.
+- [ ] Each alternate flow defines its endpoint: rejoins main flow at step N / terminates use case.
 - [ ] If it rejoins the main flow: which step does it rejoin at?
 
 **Common spec gaps to raise:**
@@ -58,17 +58,17 @@ Validate the use case specification before starting test design. A defective spe
 
 #### Business Rules / Constraints
 
-- [ ] All business rules are explicit (not "as per business logic")
-- [ ] Boundary conditions in business rules are numerically specified (e.g., "max 5 attempts", not "several")
-- [ ] The behavior for rule violations is specified (reject? warn? limit?)
+- [ ] All business rules are explicit (not "as per business logic").
+- [ ] Boundary conditions in business rules are numerically specified (e.g., "max 5 attempts", not "several").
+- [ ] The behavior for rule violations is specified (reject? warn? limit?).
 
 #### Postconditions
 
-- [ ] Success postconditions are listed (what the system state is after successful completion)
-- [ ] Failure/abandonment postconditions are listed (what the system state is after each failure endpoint)
-- [ ] Database state changes are specified (not just UI state)
-- [ ] Audit/logging events are specified if the system produces them
-- [ ] Email/notification behaviors are specified if applicable
+- [ ] Success postconditions are listed (what the system state is after successful completion).
+- [ ] Failure/abandonment postconditions are listed (what the system state is after each failure endpoint).
+- [ ] Database state changes are specified (not just UI state).
+- [ ] Audit/logging events are specified if the system produces them.
+- [ ] Email/notification behaviors are specified if applicable.
 
 ### Handling Spec Gaps
 

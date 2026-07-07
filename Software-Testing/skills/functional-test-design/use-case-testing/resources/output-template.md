@@ -77,10 +77,10 @@ Use at **Steps 4–6** to document each executable test case. One test case per 
 
 **Step formatting notes:**
 
-- Actor actions describe what the human user or external system does
-- System responses describe what the SUT produces — observable from the outside
-- Use `<br>` to separate multiple input fields within one cell
-- Expected responses must be specific: "HTTP 201 with body `{order_id: ...}`" not "success"
+- Actor actions describe what the human user or external system does.
+- System responses describe what the SUT produces — observable from the outside.
+- Use `<br>` to separate multiple input fields within one cell.
+- Expected responses must be specific: "HTTP 201 with body `{order_id: ...}`" not "success".
 
 ### Footer Section
 
@@ -106,8 +106,8 @@ Use after test case design to document full traceability from business requireme
 
 ## Notes on Template Usage
 
-- Templates can be implemented in any format: Markdown, spreadsheet, or test management tool (TestRail, Jira Xray, Zephyr)
-- The Scenario Matrix must be completed before any test case is written — it is the prerequisite artifact for test case derivation
-- TC IDs should use the `TC-UCT-` prefix to distinguish use case test cases from systematic technique test cases (e.g., `TC-DT-` for domain testing, `TC-ST-` for state transition)
-- For multi-field inputs, use `<br>` to separate fields within a single cell: `username="john_doe"`<br>`password="Secret@1"`
-- Postconditions must be listed as verifiable assertions, not narrative descriptions — "the user is logged in" is not a postcondition; "a valid JWT token is returned in the response body AND `sessions.last_active` is updated in the DB" is
+- Templates can be implemented in any format: Markdown, spreadsheet, or test management tool (TestRail, Jira Xray, Zephyr).
+- The Scenario Matrix must be completed before any test case is written — it is the prerequisite artifact for test case derivation.
+- TC IDs should use the `TC-UCT-` prefix to distinguish use case test cases from systematic technique test cases (e.g., `TC-DT-` for domain testing, `TC-ST-` for state transition).
+- For multi-field inputs, use `<br>` to separate fields within a single cell: `username="john_doe"`<br>`password="Secret@1"`.
+- Postconditions must be listed as verifiable assertions, not narrative descriptions — "the user is logged in" is not a postcondition; "a valid JWT token is returned in the response body AND `sessions.last_active` is updated in the DB" is.

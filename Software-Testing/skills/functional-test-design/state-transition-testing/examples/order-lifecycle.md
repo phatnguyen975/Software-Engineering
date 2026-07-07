@@ -434,4 +434,4 @@ stateDiagram-v2
 - **Valid transitions:** 5 / 5 = **100%**
 - **Invalid transitions:** 15 / 15 = **100%**
 - **States visited:** 5 / 5 = **100%**
-- **Total test cases:** **12**
+- **Total test cases:** 12
