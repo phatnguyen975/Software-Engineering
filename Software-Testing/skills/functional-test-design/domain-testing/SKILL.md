@@ -141,7 +141,7 @@ Before finalizing, verify the test suite against the **Test Case Quality Checkli
 
 ## Anti-Patterns
 
-→ Full detail: [`resources/anti-patterns.md`](resources/anti-patterns.md)
+→ **Full detail:** [`resources/anti-patterns.md`](resources/anti-patterns.md)
 
 **Critical anti-patterns:**
 
@@ -156,7 +156,7 @@ Before finalizing, verify the test suite against the **Test Case Quality Checkli
 
 ## Best Practices
 
-→ Full detail: [`resources/best-practices.md`](resources/best-practices.md)
+→ **Full detail:** [`resources/best-practices.md`](resources/best-practices.md)
 
 **Key best practices:**
 
@@ -165,12 +165,12 @@ Before finalizing, verify the test suite against the **Test Case Quality Checkli
 - Use **3-value BVA** (LB-1, LB, LB+1) for high-risk or complex systems; **2-value BVA** for simpler/lower-risk scenarios.
 - Supplement boundary tests with **technical boundary testing** (system min/max values beyond business logic) — but treat these as Error Guessing additions, not standard BVA.
 - Document the rationale for every equivalence class — enables easy update when requirements change.
-- Always validate: does the spec explicitly define behavior for invalid inputs? If not, clarify before designing test cases.
+- Always validate: _Does the spec explicitly define behavior for invalid inputs?_ If not, clarify before designing test cases.
 - For multi-variable inputs, design a **variable inventory table** before jumping to test cases.
 
 ## Process Quality Checklist
 
-_Use this to verify you followed the design process correctly — separate from test case quality._ Full **Process Quality Checklist** in [`resources/quality-checklist.md`](resources/quality-checklist.md) must be verified.
+_Use this to verify you followed the design process correctly — separate from test case quality._
 
 - [ ] All input AND output variables have been identified.
 - [ ] Every variable has at least one valid and one invalid equivalence class (unless it's a truly optional field with no constraints).
@@ -183,6 +183,8 @@ _Use this to verify you followed the design process correctly — separate from 
 - [ ] Every test case traces to a requirement, BR, or constraint.
 - [ ] No two test cases are identical in both input and expected result.
 - [ ] Technical constraints (DB limits, field size limits) were considered beyond business rule constraints.
+
+→ For full checklist must be verified, see [`resources/quality-checklist.md`](resources/quality-checklist.md).
 
 ## Common Rationalizations to Reject
 
@@ -211,12 +213,10 @@ Stop and re-evaluate the design if you observe:
 The design process produces:
 
 1. **Variable Inventory Table** — all input/output variables with type and constraints
-2. **Equivalence Class Table** — per variable, with Valid/Invalid classification and rationale
+2. **Equivalence Class Table** — per variable, with valid/invalid classification and rationale
 3. **Test Case Suite** — using the template in [`resources/output-template.md`](resources/output-template.md)
-
-Each test case must include: ID, description, variable(s) under test, equivalence class(es) covered, input values, expected output, and requirement traceability.
 
 ## Examples
 
 → [`examples/product-code.md`](examples/product-code.md) — Multi-condition string validation (format + length + character set rules)  
-→ [`examples/login.md`](examples/login.md) — Multi-variable (username + password), demonstrates `<br>`-separated Input Value(s) format and isolation strategy across two fields
+→ [`examples/login-form.md`](examples/login-form.md) — Multi-variable (username + password), demonstrates Input Value(s) format and isolation strategy across two fields
