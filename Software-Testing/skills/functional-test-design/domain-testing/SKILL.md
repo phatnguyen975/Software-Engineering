@@ -13,7 +13,7 @@ description: >
 
 ## Overview
 
-**Domain Testing** is a black-box test design approach that applies Equivalence Partitioning (EP) and Boundary Value Analysis (BVA) to structure large or infinite input domains into manageable partitions. Test cases are then selected from within these partitions, with particular emphasis on boundary values where defects are more likely to occur.
+**Domain Testing** is a black-box test design approach that applies **Equivalence Partitioning (EP)** and **Boundary Value Analysis (BVA)** to structure large or infinite input domains into manageable partitions. Test cases are then selected from within these partitions, with particular emphasis on boundary values where defects are more likely to occur.
 
 - **Equivalence Partitioning (EP):** Divides input/output space into classes where all values are expected to trigger identical behavior. Testing one representative per class is sufficient.
 - **Boundary Value Analysis (BVA):** Targets the edges of equivalence classes, where off-by-one errors and mis-specified conditions most frequently occur.
@@ -126,7 +126,7 @@ Apply test case combination rules:
 
 Before finalizing, verify the test suite against the **Test Case Quality Checklist** in [`resources/quality-checklist.md`](resources/quality-checklist.md).
 
-This step checks: completeness of coverage, correct boundary points, isolation of invalid classes, traceability, and absence of redundant test cases.
+**This step checks:** completeness of coverage, correct boundary points, isolation of invalid classes, traceability, and absence of redundant test cases.
 
 ## Design Rules
 
@@ -218,6 +218,5 @@ Each test case must include: ID, description, variable(s) under test, equivalenc
 
 ## Examples
 
-→ [`examples/age-validation.md`](examples/age-validation.md) — Numeric range validation (age field with business rule constraint)  
 → [`examples/product-code.md`](examples/product-code.md) — Multi-condition string validation (format + length + character set rules)  
 → [`examples/login.md`](examples/login.md) — Multi-variable (username + password), demonstrates `<br>`-separated Input Value(s) format and isolation strategy across two fields
