@@ -40,7 +40,7 @@ The goal is to achieve effective coverage of the input domain while reducing the
 - `--file` mode requires a file-capable environment (e.g., claude.ai with computer tools enabled). If file tools are unavailable, AI will notify the user and fall back to conversation output.
 - The path in `--file` is the desired output location. If the file already exists, AI will ask before overwriting.
 - Both modes produce identical content — only the delivery differs.
-- `--file` can be combined with any input: `/domain-testing --file="tests/login-domain.md"` then paste the requirements.
+- `--file` can be combined with any input: `/domain-testing --file="path/to/output.md"` then paste the requirements.
 
 ## When to Use
 
@@ -126,8 +126,6 @@ Apply test case combination rules:
 
 Before finalizing, verify the test suite against the **Test Case Quality Checklist** in [`resources/quality-checklist.md`](resources/quality-checklist.md).
 
-**This step checks:** completeness of coverage, correct boundary points, isolation of invalid classes, traceability, and absence of redundant test cases.
-
 ## Design Rules
 
 | Rule                                   | Description                                                               |
@@ -184,7 +182,7 @@ _Use this to verify you followed the design process correctly — separate from 
 - [ ] No two test cases are identical in both input and expected result.
 - [ ] Technical constraints (DB limits, field size limits) were considered beyond business rule constraints.
 
-→ For full checklist must be verified, see [`resources/quality-checklist.md`](resources/quality-checklist.md).
+→ For the full **Process Quality Checklist** should be verified, see [`resources/quality-checklist.md`](resources/quality-checklist.md).
 
 ## Common Rationalizations to Reject
 
