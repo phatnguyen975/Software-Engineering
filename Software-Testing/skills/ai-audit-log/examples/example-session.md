@@ -1,16 +1,26 @@
 # Example Session Walkthrough
 
-> **Two examples:** a single interaction (`--last=1`) and a multi-interaction run (`--last=3`).
+> **Three examples:** single interaction, multi-interaction (`--last=3`), and custom file path (`--file`).
 
-## Example A: `/ai-audit` (default, --last=1)
+## Example A: `/ai-audit-log` (default, `--last=1`)
 
 ### Step 1 — Human invokes the skill
 
 ```
-/ai-audit
+/ai-audit-log
 ```
 
-### Step 2 — AI detects the last interaction and confirms
+### Step 2 — AI resolves fullname, then detects interactions
+
+Since no fullname is found in context, AI asks first:
+
+```
+What is your full name? (Used for the log filename)
+```
+
+**Human answers:** `Tấn Phát`
+
+**AI normalizes:** `tan-phat` → **Output file:** `docs/audit/ai/tan-phat-2026-07.log.md`
 
 ```
 I detected 1 interaction to log:
@@ -110,12 +120,12 @@ def validate_jwt(token: str, secret: str) -> dict:
 | Revision | Added try/except block to catch `jwt.DecodeError` and normalized error message format |
 ````
 
-## Example B: `/ai-audit --last=3`
+## Example B: `/ai-audit-log --last=3`
 
-### Step 1 — Human invokes with --last=3
+### Step 1 — Human invokes with `--last=3`
 
 ```
-/ai-audit --last=3
+/ai-audit-log --last=3
 ```
 
 ### Step 2 — AI detects 3 interactions
@@ -223,10 +233,57 @@ AI appends entries `[AI-AUDIT-002]`, `[AI-AUDIT-003]`, `[AI-AUDIT-004]` to the l
 - **Failure Rate:** 0%
 ```
 
+## Example C: `/ai-audit-log --file="path/to/output.md"` (custom file path)
+
+### Step 1 — Human invokes with --file flag
+
+```
+/ai-audit-log --file="reports/ai/july-review.md"
+```
+
+### Step 2 — AI uses the specified path directly
+
+```
+Output path set to: reports/ai/july-review.md
+
+I detected 1 interaction to log:
+  #1 — "Refactor the payment service to use the repository pattern"
+       Output type: code
+
+Please fill in the evaluation form below and paste it back.
+
+─── Interaction 1 ───
+Prompt excerpt: "Refactor the payment service to use the repository pattern"
+Output type: code
+
+Tags (pick 1–3):
+  Domain:  backend · frontend · mobile · data · devops · infra · security · performance · design
+  Task:    code-gen · refactor · debugging · testing · planning · review · documentation · analysis · research · prompt-engineering
+  Output:  file-output · script · query · config · diagram · report
+>
+
+Status:
+  ✅ VALID       — Output correct, used as-is
+  ⚠️ PARTIAL     — Partially correct, minor fixes needed
+  🔄 REVISED     — Output sufficient but required significant edits before use
+  ❌ INVALID     — Incorrect, not used
+  🔲 INCOMPLETE  — AI did not finish the task (cut off, timeout, etc.)
+  ⏳ PENDING     — Not yet evaluated
+>
+
+Reason (why this status?):
+>
+
+Revision (what did you change? Leave blank if VALID/INVALID/INCOMPLETE/PENDING):
+>
+```
+
+Human fills in the form and pastes back, then AI writes the log entry to `reports/ai/july-review.md`, creating intermediate directories if they do not exist.
+
 ## Edge Case: `--last=7` (exceeds limit)
 
 ```
-Human: /ai-audit --last=7
+Human: /ai-audit-log --last=7
 
 AI: "--last=7 exceeds the maximum of 5. Running with --last=5 instead."
     [proceeds with last 5 interactions]

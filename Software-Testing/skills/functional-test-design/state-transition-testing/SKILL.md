@@ -165,10 +165,7 @@ Translate each test path into one executable test case:
 
 ### Step 6 — Review Against Quality Checklists
 
-Before finalizing, verify against both checklists in [`resources/quality-checklist.md`](resources/quality-checklist.md):
-
-- **Process Quality Checklist** — was the design methodology applied correctly?
-- **Test Case Quality Checklist** — are the resulting test cases correct, complete, and executable?
+Before finalizing, verify the test suite against the **Test Case Quality Checklist** in [`resources/quality-checklist.md`](resources/quality-checklist.md).
 
 ## Design Rules
 
@@ -229,6 +226,8 @@ _Use this to verify the design methodology was applied correctly — before revi
 - [ ] Test paths optimized — multiple transitions covered per test case where possible.
 - [ ] Every test case has an explicit precondition (starting state).
 - [ ] STD reviewed with at least one stakeholder (PO, developer, or BA) before test case derivation.
+
+→ For the full **Process Quality Checklist** should be verified, see [`resources/quality-checklist.md`](resources/quality-checklist.md).
 
 ## Common Rationalizations to Reject
 

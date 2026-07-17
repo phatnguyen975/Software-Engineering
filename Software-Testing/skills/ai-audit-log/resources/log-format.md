@@ -2,11 +2,25 @@
 
 ## File Naming
 
+**Default (no `--file` flag):**
+
 ```
-docs/audit/ai/ai-audit-YYYY-MM.log.md
+docs/audit/ai/<fullname>-YYYY-MM.log.md
 ```
 
-Example: `docs/audit/ai/ai-audit-2026-07.log.md`
+**With `--file` flag:**
+
+```
+<exactly the path specified by human>
+```
+
+**Fullname normalization:** lowercase · remove diacritics · spaces → `-`
+
+| Raw input         | Normalized filename              |
+| ----------------- | -------------------------------- |
+| `Tấn Phát`        | `tan-phat-2026-07.log.md`        |
+| `Nguyễn Tấn Phát` | `nguyen-tan-phat-2026-07.log.md` |
+| `John Doe`        | `john-doe-2026-07.log.md`        |
 
 ## File Structure
 
@@ -83,8 +97,8 @@ Example: `docs/audit/ai/ai-audit-2026-07.log.md`
 
 [For file output:]
 
-- `filename.ext` — one-line description of content
-- `filename.ext` — one-line description of content
+- `filename.ext` — detailed description of content
+- `filename.ext` — detailed description of content
 
 ### Evaluation
 

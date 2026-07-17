@@ -199,10 +199,7 @@ For each test case, confirm:
 
 ### Step 7 — Review Against Quality Checklists
 
-Before finalizing, verify against both checklists in [`resources/quality-checklist.md`](resources/quality-checklist.md):
-
-- **Process Quality Checklist** — was the design methodology applied correctly?
-- **Test Case Quality Checklist** — are the resulting test cases correct, complete, and executable?
+Before finalizing, verify the test suite against the **Test Case Quality Checklist** in [`resources/quality-checklist.md`](resources/quality-checklist.md).
 
 ## Design Rules
 
@@ -258,6 +255,8 @@ _Use this to verify the design methodology was applied correctly._
 - [ ] Alternate flow trigger specified for every non-happy-path test case.
 - [ ] Domain Testing (EP/BVA) applied to select test data for each data-entry step.
 - [ ] All postconditions from the use case spec have explicit test assertions (not just UI assertions).
+
+→ For the full **Process Quality Checklist** should be verified, see [`resources/quality-checklist.md`](resources/quality-checklist.md).
 
 ## Common Rationalizations to Reject
 
