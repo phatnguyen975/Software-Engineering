@@ -166,25 +166,25 @@ One test case per reduced rule:
 
 ### Process Quality Checklist
 
-- [x] All conditions identified including mutual exclusion (C1+C2)
-- [x] Implied condition complement covered (e.g., C1=F cases)
-- [x] All actions identified including implied default A4 (0%)
-- [x] Spec gap on BR-003 coupon behavior raised and resolved before construction
-- [x] Full table constructed first (8 rules, confirmed 2³)
-- [x] All action cells consciously marked — no ambiguous blanks
-- [x] Impossible rules R1, R2 confirmed with stakeholder before removal
-- [x] Don't Care merge R3+R4 satisfies both criteria (identical actions, one differing condition)
-- [x] Don't Care rationale documented
-- [x] Post-reduction coverage check: all 6 non-impossible full rules covered by reduced table
+- [x] All conditions identified including mutual exclusion (C1+C2).
+- [x] Implied condition complement covered (e.g., C1=F cases).
+- [x] All actions identified including implied default A4 (0%).
+- [x] Spec gap on BR-003 coupon behavior raised and resolved before construction.
+- [x] Full table constructed first (8 rules, confirmed 2³).
+- [x] All action cells consciously marked — no ambiguous blanks.
+- [x] Impossible rules R1, R2 confirmed with stakeholder before removal.
+- [x] Don't Care merge R3+R4 satisfies both criteria (identical actions, one differing condition).
+- [x] Don't Care rationale documented.
+- [x] Post-reduction coverage check: all 6 non-impossible full rules covered by reduced table.
 
 ### Test Case Quality Checklist
 
-- [x] All 5 reduced rules have exactly one test case
-- [x] Every action appears as expected result in at least one test case
-- [x] All expected results are specific and verifiable (percentage values, UI elements)
-- [x] Don't Care condition has concrete value (C3=T) with documented rationale
-- [x] No duplicate input combinations in test suite
-- [x] All conditions fully specified in every test case
+- [x] All 5 reduced rules have exactly one test case.
+- [x] Every action appears as expected result in at least one test case.
+- [x] All expected results are specific and verifiable (percentage values, UI elements).
+- [x] Don't Care condition has concrete value (C3=T) with documented rationale.
+- [x] No duplicate input combinations in test suite.
+- [x] All conditions fully specified in every test case.
 
 ## Coverage Summary
 

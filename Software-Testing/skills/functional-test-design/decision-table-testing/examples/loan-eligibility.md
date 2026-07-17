@@ -243,25 +243,25 @@ One test case per reduced rule. Rules with Don't Care conditions require a concr
 
 ### Process Quality Checklist
 
-- [x] All conditions identified: Age (binary), Employment (3 values), Credit (3 values with EP applied)
-- [x] Implied conditions covered: "18 or older" complement (Under 18)
-- [x] All actions identified including multiple simultaneous rejections per BR-105
-- [x] Spec gap (part-time + good credit tier resolution) confirmed with BA before construction
-- [x] Full table built first: 18 rules, confirmed 2 × 3 × 3 = 18
-- [x] No impossible rules — all 18 combinations can realistically occur (Type 1 and Type 2 analysis performed)
-- [x] Merge analysis performed systematically across all three condition dimensions (C1, C2, C3) — not C3 only
-- [x] 9 merges verified across 2 rounds: Round 1 (8 direct merges) + Round 2 (1 cascading merge)
-- [x] Don't Care rationale documented for all 7 merged rules with scope limitations noted (e.g., "FT/PT only — UE excluded")
-- [x] Post-reduction coverage check: all 18 full rules covered by exactly one reduced rule (R14 covered by two merged rules — redundant coverage documented and acceptable)
-- [x] Full table: 18 rules → Reduced: 10 rules
+- [x] All conditions identified: Age (binary), Employment (3 values), Credit (3 values with EP applied).
+- [x] Implied conditions covered: "18 or older" complement (Under 18).
+- [x] All actions identified including multiple simultaneous rejections per BR-105.
+- [x] Spec gap (part-time + good credit tier resolution) confirmed with BA before construction.
+- [x] Full table built first: 18 rules, confirmed 2 × 3 × 3 = 18.
+- [x] No impossible rules — all 18 combinations can realistically occur (Type 1 and Type 2 analysis performed).
+- [x] Merge analysis performed systematically across all three condition dimensions (C1, C2, C3) — not C3 only.
+- [x] 9 merges verified across 2 rounds: Round 1 (8 direct merges) + Round 2 (1 cascading merge).
+- [x] Don't Care rationale documented for all 7 merged rules with scope limitations noted (e.g., "FT/PT only — UE excluded").
+- [x] Post-reduction coverage check: all 18 full rules covered by exactly one reduced rule (R14 covered by two merged rules — redundant coverage documented and acceptable).
+- [x] Full table: 18 rules → Reduced: 10 rules.
 
 ### Test Case Quality Checklist
 
-- [x] All 10 reduced rules have exactly one test case
-- [x] Every action (A1–A5) appears in at least one test case
-- [x] All expected results specify decision (APPROVED/REJECTED) and specific reason(s)
-- [x] Don't Care values chosen with documented rationale for all 8 applicable cases
-- [x] No duplicate input combinations in final suite
+- [x] All 10 reduced rules have exactly one test case.
+- [x] Every action (A1–A5) appears in at least one test case.
+- [x] All expected results specify decision (APPROVED/REJECTED) and specific reason(s).
+- [x] Don't Care values chosen with documented rationale for all 8 applicable cases.
+- [x] No duplicate input combinations in final suite.
 
 ## Coverage Summary
 

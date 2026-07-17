@@ -44,7 +44,7 @@ The technique systematically derives test cases by identifying all meaningful pa
 - `--file` mode requires a file-capable environment (e.g., claude.ai with computer tools enabled). If file tools are unavailable, AI will notify the user and fall back to conversation output.
 - The path in `--file` is the desired output location. If the file already exists, AI will ask before overwriting.
 - Both modes produce identical content — only the delivery differs.
-- `--file` can be combined with any input: `/use-case-testing --file="tests/online-purchase.md"` then paste the requirements.
+- `--file` can be combined with any input: `/use-case-testing --file="path/to/output.md"` then paste the requirements.
 
 ## When to Use
 
