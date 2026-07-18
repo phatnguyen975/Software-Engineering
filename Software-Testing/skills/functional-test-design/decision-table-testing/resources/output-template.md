@@ -1,14 +1,5 @@
 # Decision Table Testing — Output Templates
 
-## Overview
-
-The decision table design process produces four artifacts in sequence. Each artifact is an input to the next.
-
-1. **Conditions and Actions List** — extracted from requirements (Step 1)
-2. **Full Decision Table** — all possible combinations (Step 2)
-3. **Reduced Decision Table** — after impossible rule removal and Don't Care merges (Step 3)
-4. **Test Case Suite** — one test case per reduced rule (Step 4)
-
 ## Template 1: Conditions and Actions List
 
 Use at **Step 1** before constructing any table.
