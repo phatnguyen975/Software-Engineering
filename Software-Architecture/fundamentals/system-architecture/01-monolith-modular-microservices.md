@@ -1,4 +1,4 @@
-# System Architecture: Monolith, Modular Monolith & Microservices
+# Monolith, Modular Monolith & Microservices
 
 ## Mục lục
 
@@ -77,58 +77,59 @@ shopflow/
 ### 2.3. Sơ đồ kiến trúc
 
 ```mermaid
-graph TB
-    subgraph Client
-        WEB[Web Browser]
-        MOB[Mobile App]
+flowchart TB
+    subgraph Client["Client"]
+        WEB["Web Browser"]
+        MOB["Mobile App"]
     end
-
-    subgraph Monolith["🏛️ ShopFlow Monolith (Single Deployable Unit)"]
+    subgraph Presentation["Presentation Layer"]
+        PC["ProductController"]
+        OC["OrderController"]
+        UC["UserController"]
+        PAC["PaymentController"]
+    end
+    subgraph Business["Business Logic Layer"]
+        PS["ProductService"]
+        OS["OrderService"]
+        US["UserService"]
+        PAS["PaymentService"]
+        NS["NotificationService"]
+    end
+    subgraph Persistence["Persistence Layer"]
+        PR["ProductRepo"]
+        OR["OrderRepo"]
+        UR["UserRepo"]
+        PAR["PaymentRepo"]
+    end
+    subgraph Monolith["ShopFlow Monolith (Single Deployable Unit)"]
         direction TB
-        subgraph Presentation["Presentation Layer"]
-            PC[ProductController]
-            OC[OrderController]
-            UC[UserController]
-            PAC[PaymentController]
-        end
-        subgraph Business["Business Logic Layer"]
-            PS[ProductService]
-            OS[OrderService]
-            US[UserService]
-            PAS[PaymentService]
-            NS[NotificationService]
-        end
-        subgraph Persistence["Persistence Layer"]
-            PR[ProductRepo]
-            OR[OrderRepo]
-            UR[UserRepo]
-            PAR[PaymentRepo]
-        end
+            Presentation
+            Business
+            Persistence
     end
-
     subgraph DB["Database"]
-        SINGLE_DB[("🗄️ Single Shared Database\n(MySQL / PostgreSQL)")]
+        SINGLE_DB[("Single Shared Database\n(MySQL / PostgreSQL)")]
     end
 
-    WEB --> PC
-    WEB --> OC
+    WEB --> PC & OC
     MOB --> UC
     PC --> PS
     OC --> OS
     UC --> US
     PS --> PR
-    OS --> OR
-    OS --> PS
-    OS --> US
-    OS --> PAS
+    OS --> OR & PS & US & PAS
     PAS --> PAR
     PR --> SINGLE_DB
     OR --> SINGLE_DB
     UR --> SINGLE_DB
     PAR --> SINGLE_DB
 
-    style Monolith fill:#fff3cd,stroke:#ffc107
-    style DB fill:#d1ecf1,stroke:#0c5460
+    style Presentation stroke:#BBDEFB
+    style Business stroke:#BBDEFB
+    style Persistence stroke:#BBDEFB
+    style Monolith stroke:#BBDEFB
+    style Client stroke:#BBDEFB
+    style DB stroke:#BBDEFB
 ```
 
 ### 2.4. Database
