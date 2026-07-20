@@ -1,8 +1,4 @@
-# Bài Tập 01
-
-## CHỦ ĐỀ: Từ Yêu Cầu Mơ Hồ Đến Quyết Định Kiến Trúc Có Cơ Sở
-
-### Hệ thống: AI Teaching Assistant — Môn Kiến Trúc Phần Mềm
+# Bài Tập 01: Từ Yêu Cầu Mơ Hồ Đến Quyết Định Kiến Trúc Có Cơ Sở — AI Teaching Assistant
 
 ## ĐỀ BÀI
 
@@ -22,7 +18,7 @@ Sinh viên không chỉ nêu định nghĩa, mà phải biết vận dụng vào
 
 ### 2. Tình huống bài tập
 
-Trường đại học muốn xây dựng một **hệ thống AI Teaching Assistant** hỗ trợ sinh viên học môn Kiến trúc phần mềm.
+Trường đại học muốn xây dựng một hệ thống **AI Teaching Assistant** hỗ trợ sinh viên học môn Kiến trúc phần mềm.
 
 **Hệ thống có các chức năng dự kiến:**
 
@@ -33,7 +29,7 @@ Trường đại học muốn xây dựng một **hệ thống AI Teaching Assis
 - Hệ thống có thể thống kê những chủ đề sinh viên hỏi nhiều.
 - Hệ thống có thể tích hợp với LMS của trường.
 
-**Bảy yêu cầu ban đầu của stakeholder:**
+**7 yêu cầu ban đầu của stakeholder:**
 
 | #   | Yêu cầu                                                                   |
 | --- | ------------------------------------------------------------------------- |
@@ -64,19 +60,13 @@ Trước khi phân loại, cần nắm rõ định nghĩa từng nhóm:
 
 | Yêu cầu                                                                            | Loại yêu cầu                                                                                                     | Giải thích chi tiết                                                                                                                                                                                                                                                                                                                                                                        |
 | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **YC1.** Hệ thống phải trả lời nhanh.                                              | **Thuộc tính chất lượng (Performance)** — Có thể là **ASR tiềm năng**                                            | Đây là yêu cầu về _performance/latency_ nhưng đang ở dạng mơ hồ vì "nhanh" chưa có thước đo. Trở thành ASR khi được cụ thể hóa trong bối cảnh tuần thi (xem YC5), lúc đó ảnh hưởng trực tiếp đến quyết định caching, load balancing, và số lượng LLM instances.                                                                                                                            |
+| **YC1.** Hệ thống phải trả lời nhanh.                                              | **Thuộc tính chất lượng (Performance)** — Có thể là **ASR tiềm năng**                                            | Đây là yêu cầu về _performance/latency_ nhưng đang ở dạng mơ hồ vì "nhanh" chưa có thước đo. Trở thành ASR khi được cụ thể hóa trong bối cảnh tuần thi (YC5), lúc đó ảnh hưởng trực tiếp đến quyết định caching, load balancing, và số lượng LLM instances.                                                                                                                                |
 | **YC2.** AI không được bịa thông tin.                                              | **Thuộc tính chất lượng (Reliability / Groundedness)** — **ASR tiềm năng mạnh**                                  | Đây không phải chỉ là vấn đề prompt engineering. Yêu cầu này ảnh hưởng đến toàn bộ kiến trúc retrieval pipeline: phải có vector database chứa tài liệu được phê duyệt, cơ chế grounding (chỉ trả lời dựa trên tài liệu trong corpus), output validation layer để detect hallucination, và source citation requirement. Sai từ đầu sẽ cần redesign toàn bộ pipeline.                        |
 | **YC3.** AI không được làm lộ điểm số hoặc dữ liệu cá nhân của sinh viên.          | **Ràng buộc** (bắt buộc pháp lý/đạo đức) — **Thuộc tính chất lượng (Security/Privacy)** — **ASR tiềm năng mạnh** | Đây vừa là ràng buộc cứng (tuân thủ quy định FERPA/PDPA về bảo vệ dữ liệu sinh viên) vừa là QA về security/privacy. Là ASR mạnh vì ảnh hưởng đến: thiết kế knowledge base (điểm số không được đưa vào corpus), access control trước retrieval, LLM context filtering, và audit log. Nếu bỏ qua từ đầu, khi hệ thống đã có dữ liệu nhạy cảm sẽ rất khó retrofit bảo mật.                    |
 | **YC4.** Hệ thống phải dễ cập nhật khi giảng viên thay đổi slide.                  | **Thuộc tính chất lượng (Modifiability)** — **ASR tiềm năng**                                                    | Là QA về modifiability. Trở thành ASR vì ảnh hưởng đến quyết định kiến trúc của knowledge pipeline: cần thiết kế ingestion pipeline tách biệt với serving pipeline, hỗ trợ partial update (chỉ re-index tài liệu thay đổi), versioning tài liệu, và UI cho giảng viên upload mà không cần can thiệp kỹ thuật. Nếu không thiết kế từ đầu, mỗi lần cập nhật slide sẽ cần engineer can thiệp. |
 | **YC5.** Hệ thống phải phục vụ được nhiều sinh viên cùng lúc vào tuần thi.         | **Thuộc tính chất lượng (Scalability / Availability)** — **ASR tiềm năng mạnh**                                  | Đây là QA về scalability — cụ thể hơn YC1. Là ASR vì tải đột biến trong tuần thi (có thể gấp 10–20x ngày thường) ảnh hưởng đến toàn bộ quyết định về horizontal scaling, caching strategy, LLM rate limiting, và resource provisioning. Nếu thiết kế single-instance từ đầu, khi cần scale sẽ phải refactor hoàn toàn.                                                                     |
 | **YC6.** Nếu câu hỏi nằm ngoài tài liệu môn học, AI phải xử lý an toàn.            | **Thuộc tính chất lượng (Safety / Reliability)** — **ASR tiềm năng**                                             | Đây là QA về _safety_ và _out-of-scope handling_. Là ASR vì yêu cầu có guardrail layer riêng: phân loại câu hỏi là in-scope hay out-of-scope trước khi gọi LLM, định nghĩa rõ "xử lý an toàn" là gì (từ chối lịch sự? escalate? cảnh báo?), và có thể cần fallback mechanism. Ảnh hưởng đến thiết kế của request routing và safety layer.                                                  |
 | **YC7.** Giảng viên cần truy vết được vì sao AI đưa ra một câu trả lời quan trọng. | **Thuộc tính chất lượng (Observability / Accountability)** — **ASR tiềm năng**                                   | Là QA về observability và explainability. Là ASR vì yêu cầu này buộc hệ thống phải log đủ thông tin ở mỗi bước của pipeline: câu hỏi gốc → đoạn tài liệu được retrieve → prompt được gửi LLM → câu trả lời. Nếu không thiết kế từ đầu, audit trail sẽ thiếu hụt và không thể retrofit sau khi hệ thống đã chạy.                                                                            |
-
-### Nhận xét tổng hợp sau phân loại
-
-Điều đáng chú ý: **không có yêu cầu nào trong 7 yêu cầu là thuần túy chức năng**. Tất cả đều mang tính chất lượng hoặc ràng buộc. Điều này phản ánh đặc điểm của hệ thống AI: phần khó không nằm ở "làm được gì" mà ở "làm điều đó an toàn và đáng tin đến mức nào".
-
-Các **chức năng** của hệ thống nằm ở phần mô tả ban đầu (sinh viên hỏi, AI trả lời, giảng viên cập nhật tài liệu...) — không phải ở 7 yêu cầu stakeholder nêu ra.
 
 ## Phần 2: Viết Quality Attribute Scenario
 
@@ -263,13 +253,6 @@ Có. Cần:
 - **PII scrubbing:** Sanitize mọi input trước khi đưa vào LLM context
 - **Immutable audit logging:** Mọi request/response được ghi lại để audit
 
-### Bảng tổng hợp ASR
-
-| ASR                                        | Vì sao là ASR?                                                                                                                                                          | Thành phần kiến trúc bị ảnh hưởng                                                                  |
-| ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| **AI không được bịa thông tin** (YC2)      | Ảnh hưởng toàn bộ retrieval pipeline; sai từ đầu → redesign tốn nhiều tháng; vi phạm → mất niềm tin toàn hệ thống; cần RAG architecture + vector DB + output validation | Knowledge base, retrieval service, LLM gateway, output validator, source citation module           |
-| **AI không được lộ dữ liệu cá nhân** (YC3) | Ràng buộc pháp lý + đạo đức; ảnh hưởng toàn bộ data architecture; vi phạm → hậu quả pháp lý; cần data isolation + access control + intent classifier từ ngày đầu        | Data architecture, query intent classifier, access control layer, LLM context assembler, audit log |
-
 ## Phần 4: Đề xuất Tactic và Phân tích Trade-off
 
 ### Tactics cho ASR 1: AI không được bịa thông tin
@@ -316,15 +299,6 @@ Có. Cần:
 | **Trade-off / Rủi ro** | **Accuracy của classifier:** False positive → từ chối câu hỏi vô hại (ví dụ: "Điểm quan trọng nhất trong kiến trúc phần mềm là gì?" bị nhầm với hỏi điểm số). False negative → bỏ sót câu hỏi nhạy cảm được viết khéo (prompt injection). **Maintenance:** Classifier cần được update khi pattern tấn công thay đổi. **Latency:** Thêm một inference step nhỏ, dù ít (~50ms). |
 | **Khi nào phù hợp**    | Dùng kết hợp với Tactic 2.A như lớp bảo vệ thứ hai. Một mình không đủ.                                                                                                                                                                                                                                                                                                        |
 
-### Bảng tổng hợp Tactic và Trade-off
-
-| ASR                                | Tactic đề xuất                                          | Cải thiện thuộc tính                                   | Trade-off / Rủi ro phát sinh                                                                              |
-| ---------------------------------- | ------------------------------------------------------- | ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------- |
-| **Không bịa thông tin** (YC2)      | **1.A** RAG + Relevance threshold                       | Groundedness, Reliability, Trustworthiness             | Tăng latency (+200–500ms); Giảm flexibility (từ chối câu hỏi ngoài corpus); Cần threshold tuning liên tục |
-| **Không bịa thông tin** (YC2)      | **1.B** Source citation requirement + Output validation | Accountability, Groundedness, Trustworthiness          | Tăng latency và token cost (retry logic); Response dài hơn, ít tự nhiên hơn                               |
-| **Không lộ dữ liệu cá nhân** (YC3) | **2.A** Data isolation by design                        | Privacy, Security, Compliance                          | Giảm personalization; Hạn chế tích hợp với LMS; AI không biết tiến độ học cá nhân                         |
-| **Không lộ dữ liệu cá nhân** (YC3) | **2.B** Query intent classifier + Pre-retrieval filter  | Security (defense in depth), Observability, Compliance | False positive/negative của classifier; Cần maintenance khi pattern thay đổi; Thêm nhẹ latency            |
-
 ### Ưu tiên khi nguồn lực có hạn
 
 Nếu phải chọn 2 trong 4 thuộc tính: **Performance, Privacy, Groundedness, Modifiability**, lựa chọn cho hệ thống AI Teaching Assistant là:
@@ -339,8 +313,6 @@ Nếu phải chọn 2 trong 4 thuộc tính: **Performance, Privacy, Groundednes
 - **Modifiability** quan trọng nhưng có thể được address ở giai đoạn sau khi hệ thống đã stable về chất lượng.
 
 ## Phần 5: Kết luận
-
-### Ba thuộc tính chất lượng quan trọng nhất của AI Teaching Assistant
 
 Với hệ thống AI Teaching Assistant phục vụ sinh viên học môn Kiến trúc phần mềm tại trường đại học, ba thuộc tính chất lượng quan trọng nhất là **Groundedness (tính xác thực thông tin)**, **Privacy (bảo mật dữ liệu cá nhân)** và **Scalability (khả năng mở rộng)**. Groundedness quan trọng nhất vì hệ thống AI trong môi trường học thuật có trách nhiệm trực tiếp đến chất lượng kiến thức của sinh viên — một câu trả lời sai được tin tưởng vì đến từ "AI của trường" có thể gây hại nghiêm trọng hơn không có hệ thống. Privacy là ràng buộc không thể thương lượng vì liên quan đến quy định pháp lý bảo vệ dữ liệu sinh viên. Scalability cần thiết vì tải hệ thống có tính seasonal — thấp trong năm học, đột biến vào tuần thi — đòi hỏi thiết kế có khả năng co giãn.
 

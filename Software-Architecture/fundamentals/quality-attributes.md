@@ -387,9 +387,7 @@ Thước đo: Hoàn thành tích hợp trong ≤ 3 ngày làm việc | Không s�
 > - **Monitoring** = Biết khi nào hệ thống lỗi (reactive)
 > - **Observability** = Hiểu **tại sao** hệ thống lỗi (proactive + investigative)
 
-**Ba trụ cột của Observability:**
-
-**Logs (Nhật ký)**
+**Logs (Nhật ký):**
 
 - Bản ghi immutable, có timestamp của các sự kiện rời rạc
 - **Structured logging** (JSON) quan trọng hơn plain text → dễ query và parse
@@ -408,7 +406,7 @@ Thước đo: Hoàn thành tích hợp trong ≤ 3 ngày làm việc | Không s�
 }
 ```
 
-**Metrics (Chỉ số)**
+**Metrics (Chỉ số):**
 
 - Dữ liệu số học theo thời gian (time-series)
 - **4 golden signals** (Google SRE):
@@ -418,7 +416,7 @@ Thước đo: Hoàn thành tích hợp trong ≤ 3 ngày làm việc | Không s�
   - **Saturation:** Mức độ sử dụng tài nguyên
 - **Tools:** Prometheus + Grafana, Datadog, CloudWatch
 
-**Traces (Vết yêu cầu)**
+**Traces (Vết yêu cầu):**
 
 - Theo dõi một request qua toàn bộ các service trong hệ thống phân tán
 - Một **Trace** gồm nhiều **Spans** (mỗi span = một operation trong một service)
@@ -537,10 +535,10 @@ Tên quality attribute đơn thuần **không có giá trị thiết kế**:
 ### 5.2 Cấu trúc 6 phần của một Quality Attribute Scenario
 
 ```
-┌─────────┐   ┌────────────┐   ┌─────────────┐   ┌────────────┐   ┌──────────┐   ┌──────────┐
-│  NGUỒN  │ → │ KÍCH THÍCH │ → │ MÔI TRƯỜNG  │ → │ THÀNH PHẦN │ → │ PHẢN ỨNG │ → │ THƯỚC ĐO │
-│  Source │   │ Stimulus   │   │ Environment │   │ Artifact   │   │ Response │   │ Measure  │
-└─────────┘   └────────── ─┘   └─────────────┘   └────────────┘   └──────────┘   └──────────┘
+┌────────┐   ┌────────────┐   ┌─────────────┐   ┌────────────┐   ┌──────────┐   ┌──────────┐
+│ NGUỒN  │ → │ KÍCH THÍCH │ → │ MÔI TRƯỜNG  │ → │ THÀNH PHẦN │ → │ PHẢN ỨNG │ → │ THƯỚC ĐO │
+│ Source │   │ Stimulus   │   │ Environment │   │ Artifact   │   │ Response │   │ Measure  │
+└────────┘   └────────────┘   └─────────────┘   └────────────┘   └──────────┘   └──────────┘
 ```
 
 | Thành phần                   | Câu hỏi                   | Ví dụ                                            |
@@ -714,7 +712,7 @@ Tactic 4: Idempotency cho Payment
 
 ### 8.1 Nguyên tắc cơ bản
 
-> **"A good architecture is not the one that solves all problems perfectly. It is the one that explicitly acknowledges which problems it solves and which trade-offs it accepts."**
+> "A good architecture is not the one that solves all problems perfectly. It is the one that explicitly acknowledges which problems it solves and which trade-offs it accepts."
 
 Mọi quyết định kiến trúc đều là bài toán cân bằng:
 
@@ -733,13 +731,13 @@ Trong một distributed system, bạn **chỉ có thể đồng thời đảm b�
 
 ```
                 Consistency
-                     /\
-                    /  \
-                   / CA \
-                  /------\
-                 /CP    AP\
-                /__________\
- Partition Tolerance --- Availability
+                    /\
+                   /  \
+                  / CA \
+                 /      \
+                / CP  AP \
+               /__________\
+ Partition Tolerance — Availability
 ```
 
 - **CP (Consistency + Partition Tolerance):** HBase, Zookeeper, etcd — dùng khi tính đúng đắn của data quan trọng hơn (banking, inventory)
@@ -761,7 +759,7 @@ Trong một distributed system, bạn **chỉ có thể đồng thời đảm b�
 
 ### 8.4 Cách document Trade-off Decision
 
-Template ADR (Architecture Decision Record):
+Template **ADR (Architecture Decision Record)**:
 
 ```markdown
 # ADR-001: Dùng Event-Driven Architecture cho Payment Flow
@@ -844,16 +842,6 @@ Nếu error_budget dư nhiều:
 | **Errors**     | % request trả về 5xx        | Error rate > 1% trong 5 phút  |
 | **Saturation** | CPU/Memory/Disk utilization | > 80% trong 10 phút           |
 
-### 9.4 Netflix Case Study — Measuring Availability
-
-Netflix đo **availability** như sau:
-
-```
-Availability = Successful stream starts / Total stream start attempts
-```
-
-Không chỉ đo "server uptime" mà đo **user-facing outcome**. Đây là cách tiếp cận đúng đắn hơn cho quality measurement.
-
 ## 10. ATAM: Phương pháp đánh giá kiến trúc
 
 ### 10.1 Tổng quan
@@ -920,7 +908,7 @@ Hệ thống AI truyền thống và GenAI mang đến các vấn đề chất l
 #### Validity (Tính hợp lệ)
 
 - Model có phù hợp với mục đích sử dụng thực tế không?
-- Đo bằng: Precision, Recall, F1, Accuracy trên production distribution
+- **Đo bằng:** Precision, Recall, F1, Accuracy trên production distribution
 
 #### Reliability (Độ ổn định)
 
@@ -931,24 +919,24 @@ Hệ thống AI truyền thống và GenAI mang đến các vấn đề chất l
 #### Robustness (Độ bền vững)
 
 - Model có handle được input bất thường, adversarial, edge cases không?
-- Test với: Out-of-distribution inputs, adversarial examples, noisy data
+- **Test với:** Out-of-distribution inputs, adversarial examples, noisy data
 
 #### Fairness (Công bằng)
 
 - Model có đối xử công bằng với các nhóm người dùng khác nhau không?
-- Đo bằng: Demographic parity, equalized odds, calibration across groups
-- Quan trọng đặc biệt trong: hiring, lending, healthcare, criminal justice
+- **Đo bằng:** Demographic parity, equalized odds, calibration across groups
+- **Quan trọng đặc biệt trong:** hiring, lending, healthcare, criminal justice
 
 #### Safety (An toàn)
 
 - Model có tránh gây hại không?
 - Chatbot y tế không được chẩn đoán sai; AI tự lái không được đưa ra lệnh nguy hiểm
-- Cần: Guardrails, human-in-the-loop cho quyết định rủi ro cao
+- **Cần:** Guardrails, human-in-the-loop cho quyết định rủi ro cao
 
 #### Accountability (Trách nhiệm giải trình)
 
 - Khi model sai, ai chịu trách nhiệm? Làm thế nào để điều tra?
-- Cần: Audit log, explainability, model versioning, lineage tracking
+- **Cần:** Audit log, explainability, model versioning, lineage tracking
 
 ### 11.3 Rủi ro chất lượng đặc thù cho GenAI / LLM Systems
 
@@ -985,7 +973,7 @@ User Request
     │
     ├──────────────────────────► [6a] Audit Log (mọi request/response)
     │
-    ├──── [Nếu rủi ro cao] ───► [6b] Human Review Queue
+    ├──── [Nếu rủi ro cao] ────► [6b] Human Review Queue
     │
     ▼
 [7] Response + Source Citation  ← Reliability: luôn cần nguồn tham chiếu
@@ -1000,10 +988,8 @@ Nguồn:      Bệnh nhân
 Kích thích: Hỏi chatbot về triệu chứng cấp cứu (đau ngực dữ dội)
 Môi trường: Chatbot tư vấn y tế ban đầu, production
 Thành phần: Chatbot AI + Safety Guardrail Layer
-Phản ứng:   Chatbot nhận diện emergency keyword → từ chối chẩn đoán →
-            ngay lập tức hướng dẫn gọi cấp cứu (113)
-Thước đo:   0 trường hợp fail to escalate trên emergency test set |
-            100% emergency cases được redirect trong < 1s
+Phản ứng:   Chatbot nhận diện emergency keyword → từ chối chẩn đoán → ngay lập tức hướng dẫn gọi cấp cứu
+Thước đo:   0 trường hợp fail to escalate trên emergency test set | 100% emergency cases được redirect trong < 1s
 ```
 
 **Scenario — Reliability (Internal chatbot):**
@@ -1013,8 +999,7 @@ Nguồn:      Nhân viên
 Kích thích: Hỏi về chính sách nghỉ phép
 Môi trường: Chatbot nội bộ, knowledge base được cập nhật monthly
 Thành phần: RAG Pipeline, LLM, Source Citation Module
-Phản ứng:   Chatbot trả lời có kèm nguồn tài liệu; nếu không có nguồn phù hợp →
-            nói rõ "không đủ thông tin, vui lòng liên hệ HR"
+Phản ứng:   Chatbot trả lời có kèm nguồn tài liệu; nếu không có nguồn phù hợp → nói rõ "không đủ thông tin, vui lòng liên hệ HR"
 Thước đo:   ≥ 95% câu trả lời có nguồn hợp lệ | 0% hallucination trên policy Q&A test set
 ```
 
@@ -1041,7 +1026,7 @@ Netflix phục vụ hàng trăm triệu người dùng với yêu cầu availabi
 - State được lưu trong external stores (Cassandra, EVCache)
 
 **Graceful Degradation:**
-``
+
 - Khi recommendation service lỗi → hiển thị popular content thay vì lỗi 500
 - Khi user data service chậm → sử dụng cached profile
 
@@ -1083,18 +1068,6 @@ Netflix phục vụ hàng trăm triệu người dùng với yêu cầu availabi
 - Every dependency là một potential failure point → defensive programming
 - Health checks ở mọi level (instance, service, region)
 - Multi-AZ deployment là default, không phải option
-
-### 12.4 Tổng hợp Lessons Learned từ Big Tech
-
-| Principle                                        | Nguồn          | Áp dụng                                        |
-| ------------------------------------------------ | -------------- | ---------------------------------------------- |
-| Design for failure, not for success              | Netflix        | Chaos engineering, circuit breaker, fallback   |
-| Measure user-facing outcomes, not server metrics | Netflix        | SLI = successful stream starts / attempts      |
-| Error budgets create alignment                   | Google         | Feature freeze khi error budget < 25%          |
-| Services must be independently deployable        | Amazon         | Zero-downtime deployments, canary releases     |
-| Observability is a first-class citizen           | Google/Netflix | Build-in từ day 1, không phải afterthought     |
-| Stateless > Stateful for scalability             | Netflix/Amazon | Externalize state, design for horizontal scale |
-| CAP theorem is a real constraint                 | Amazon         | Chọn AP hoặc CP có ý thức, không vô tình       |
 
 ## 13. Checklist thực chiến cho kiến trúc sư
 
