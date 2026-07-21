@@ -82,12 +82,14 @@ flowchart TB
         WEB["Web Browser"]
         MOB["Mobile App"]
     end
+
     subgraph Presentation["Presentation Layer"]
         PC["ProductController"]
         OC["OrderController"]
         UC["UserController"]
         PAC["PaymentController"]
     end
+
     subgraph Business["Business Logic Layer"]
         PS["ProductService"]
         OS["OrderService"]
@@ -95,18 +97,21 @@ flowchart TB
         PAS["PaymentService"]
         NS["NotificationService"]
     end
+
     subgraph Persistence["Persistence Layer"]
         PR["ProductRepo"]
         OR["OrderRepo"]
         UR["UserRepo"]
         PAR["PaymentRepo"]
     end
+
     subgraph Monolith["ShopFlow Monolith (Single Deployable Unit)"]
         direction TB
             Presentation
             Business
             Persistence
     end
+
     subgraph DB["Database"]
         SINGLE_DB[("Single Shared Database\n(MySQL / PostgreSQL)")]
     end
@@ -124,12 +129,10 @@ flowchart TB
     UR --> SINGLE_DB
     PAR --> SINGLE_DB
 
-    style Presentation stroke:#BBDEFB
-    style Business stroke:#BBDEFB
-    style Persistence stroke:#BBDEFB
-    style Monolith stroke:#BBDEFB
-    style Client stroke:#BBDEFB
-    style DB stroke:#BBDEFB
+    style Presentation fill:#BBDEFB
+    style Business fill:#BBDEFB,stroke:#000000
+    style Persistence fill:#BBDEFB
+    style Monolith fill:#C8E6C9
 ```
 
 ### 2.4. Database
@@ -176,7 +179,7 @@ flowchart TB
 
 ✅ **Nên dùng khi:**
 
-- Team ≤ 5-10 developers
+- Team ≤ 3-5 developers
 - Dự án MVP hoặc proof-of-concept
 - Domain chưa được hiểu rõ (chưa biết cách chia service)
 - Startup cần tốc độ go-to-market
@@ -184,7 +187,7 @@ flowchart TB
 
 ❌ **Không nên dùng khi:**
 
-- Team > 20-30 người, nhiều team song song
+- Team > 10-20 người, nhiều team song song
 - Cần scale các phần khác nhau của hệ thống
 - Yêu cầu deploy độc lập giữa các feature
 - Cần đa dạng tech stack
@@ -285,36 +288,36 @@ graph TB
         MOB[Mobile App]
     end
 
-    subgraph ModularMonolith["🏛️ ShopFlow Modular Monolith (Single Deployable Unit)"]
+    subgraph ModularMonolith["ShopFlow Modular Monolith (Single Deployable Unit)"]
         direction TB
 
         API_GW[API Layer / Routes]
 
-        subgraph CatalogModule["📦 Catalog Module"]
-            CAT_API[CatalogFacade<br/><<public>>]
-            CAT_DOM[Domain Logic<br/><<private>>]
-            CAT_REPO[Repository<br/><<private>>]
+        subgraph CatalogModule["Catalog Module"]
+            CAT_API["CatalogFacade\n(public)"]
+            CAT_DOM["Domain Logic\n(private)"]
+            CAT_REPO["Repository\n(private)"]
         end
 
-        subgraph OrderModule["🛒 Order Module"]
-            ORD_API[OrderFacade<br/><<public>>]
-            ORD_DOM[Domain Logic<br/><<private>>]
-            ORD_REPO[Repository<br/><<private>>]
+        subgraph OrderModule["Order Module"]
+            ORD_API["OrderFacade\n(public)"]
+            ORD_DOM["Domain Logic\n(private)"]
+            ORD_REPO["Repository\n(private)"]
         end
 
-        subgraph PaymentModule["💳 Payment Module"]
-            PAY_API[PaymentFacade<br/><<public>>]
-            PAY_DOM[Domain Logic<br/><<private>>]
-            PAY_REPO[Repository<br/><<private>>]
+        subgraph PaymentModule["Payment Module"]
+            PAY_API["PaymentFacade\n(public)"]
+            PAY_DOM["Domain Logic\n(private)"]
+            PAY_REPO["Repository\n(private)"]
         end
 
-        subgraph InventoryModule["📊 Inventory Module"]
-            INV_API[InventoryFacade<br/><<public>>]
-            INV_DOM[Domain Logic<br/><<private>>]
-            INV_REPO[Repository<br/><<private>>]
+        subgraph InventoryModule["Inventory Module"]
+            INV_API["InventoryFacade\n(public)"]
+            INV_DOM["Domain Logic\n(private)"]
+            INV_REPO["Repository\n(private)"]
         end
 
-        subgraph SharedKernel["🔧 Shared Kernel & Event Bus"]
+        subgraph SharedKernel["Shared Kernel & Event Bus"]
             EVENTS[Internal Event Bus]
             TYPES[Shared Types / Value Objects]
         end
@@ -523,17 +526,17 @@ DDD là phương pháp luận được Eric Evans đề xuất (2003) để thi�
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                    STRATEGIC DDD                            │
-│   (Trả lời: TẠI SAO và Ở ĐÂU áp dụng?)                   │
-│   → Chia hệ thống, định nghĩa boundaries                   │
-│   → Bounded Contexts, Subdomains, Context Maps             │
+│   (Trả lời: TẠI SAO và Ở ĐÂU áp dụng?)                      │
+│   → Chia hệ thống, định nghĩa boundaries                    │
+│   → Bounded Contexts, Subdomains, Context Maps              │
 └─────────────────────────────────────────────────────────────┘
                             │
                             ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                    TACTICAL DDD                             │
-│   (Trả lời: NHƯ THẾ NÀO implement bên trong?)             │
-│   → Thiết kế domain model chi tiết trong 1 bounded context │
-│   → Entities, Value Objects, Aggregates, Domain Events     │
+│   (Trả lời: NHƯ THẾ NÀO implement bên trong?)               │
+│   → Thiết kế domain model chi tiết trong 1 bounded context  │
+│   → Entities, Value Objects, Aggregates, Domain Events      │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -556,27 +559,31 @@ ShopFlow Ubiquitous Language:
 
 ```mermaid
 graph TB
-    subgraph Domain["🌐 ShopFlow Domain (Toàn bộ hệ thống)"]
-        subgraph CoreSD["⭐ Core Subdomains (Tạo lợi thế cạnh tranh)"]
-            REC[Recommendation Engine<br/>Gợi ý sản phẩm thông minh]
-            PRICING[Dynamic Pricing<br/>Tính giá theo thời gian thực]
-            SEARCH[Intelligent Search<br/>Tìm kiếm ngữ nghĩa]
+    subgraph Domain["ShopFlow Domain (Toàn bộ hệ thống)"]
+        subgraph CoreSD["Core Subdomains (Tạo lợi thế cạnh tranh)"]
+            REC[Recommendation Engine\nGợi ý sản phẩm thông minh]
+            PRICING[Dynamic Pricing\nTính giá theo thời gian thực]
+            SEARCH[Intelligent Search\nTìm kiếm ngữ nghĩa]
         end
 
-        subgraph SupportSD["🔧 Supporting Subdomains (Cần thiết nhưng không khác biệt)"]
+        subgraph SupportSD["Supporting Subdomains (Cần thiết nhưng không khác biệt)"]
             ORD[Order Management]
             INV[Inventory Management]
             CAT[Catalog Management]
             SHIP[Shipping Management]
         end
 
-        subgraph GenericSD["⚙️ Generic Subdomains (Ai cũng cần, dùng off-the-shelf)"]
-            AUTH[Auth & Identity<br/>Dùng Keycloak/Auth0]
-            NOTIF[Notifications<br/>Dùng SendGrid/Twilio]
-            PAY[Payment Processing<br/>Dùng Stripe/VNPay]
-            REPORT[Reporting<br/>Dùng BI tools]
+        subgraph GenericSD["Generic Subdomains (Ai cũng cần, dùng off-the-shelf)"]
+            AUTH[Auth & Identity\nDùng Keycloak/Auth0]
+            NOTIF[Notifications\nDùng SendGrid/Twilio]
+            PAY[Payment Processing\nDùng Stripe/VNPay]
+            REPORT[Reporting\nDùng BI tools]
         end
     end
+
+    style CoreSD fill:#BBDEFB
+    style SupportSD fill:#BBDEFB
+    style GenericSD fill:#BBDEFB
 ```
 
 **Giải thích 3 loại Subdomain:**
@@ -652,7 +659,7 @@ Object có **identity** (ID) và **lifecycle** (có thể thay đổi theo thờ
 // Entity: Order - có identity (orderId), state thay đổi theo lifecycle
 public class Order {
     private final OrderId id;           // Identity
-    private OrderStatus status;          // State có thể thay đổi
+    private OrderStatus status;         // State có thể thay đổi
     private List<OrderItem> items;
     private Money totalAmount;
 
@@ -694,21 +701,21 @@ public final class Money {
 
 #### 4.3.3. Aggregate và Aggregate Root
 
-**Aggregate** là cluster của các Entity và Value Objects được treat như **một đơn vị nhất quán**. **Aggregate Root** là Entity duy nhất có thể được access từ bên ngoài.
+**Aggregate** là cụm của các Entity và Value Objects được xem như **một đơn vị nhất quán**. **Aggregate Root** là Entity duy nhất có thể được access từ bên ngoài.
 
 ```mermaid
 graph TB
     subgraph OrderAggregate["Order Aggregate"]
-        OR[Order<br/><<Aggregate Root>>]
+        OR["Order\n(Aggregate Root)"]
         OI1[OrderItem 1]
         OI2[OrderItem 2]
-        ADDR[ShippingAddress<br/><<Value Object>>]
-        DISC[Discount<br/><<Value Object>>]
+        ADDR["ShippingAddress\n(Value Object)"]
+        DISC["Discount\n(Value Object)"]
     end
 
     subgraph InventoryAggregate["Inventory Aggregate"]
-        STOCK[StockEntry<br/><<Aggregate Root>>]
-        LOC[WarehouseLocation<br/><<Value Object>>]
+        STOCK["StockEntry\n(Aggregate Root)"]
+        LOC["WarehouseLocation\n(Value Object)"]
         RES[Reservation]
     end
 
@@ -722,9 +729,9 @@ graph TB
 
 **Quy tắc thiết kế Aggregate:**
 
-1. External code chỉ reference Aggregate Root, không reference internal entities trực tiếp
-2. Một DB transaction chỉ nên thay đổi một Aggregate (đảm bảo consistency boundary)
-3. Communicate với Aggregate khác qua **Domain Events**, không qua direct reference
+1. External code chỉ reference Aggregate Root, không reference internal entities trực tiếp.
+2. Một DB transaction chỉ nên thay đổi một Aggregate (đảm bảo consistency boundary).
+3. Communicate với Aggregate khác qua **Domain Events**, không qua direct reference.
 
 #### 4.3.4. Domain Events
 
@@ -825,9 +832,9 @@ Microservices Architecture là kiến trúc trong đó ứng dụng được chi
 
 ### 5.2. Cách tổ chức code và triển khai
 
-```
 Mỗi service là một **independent repository và deployable unit**:
 
+```
 shopflow-catalog-service/
 ├── src/
 │   ├── domain/
@@ -857,24 +864,24 @@ graph TB
 
     subgraph EdgeLayer["Edge Layer"]
         CDN[CDN / CloudFront]
-        APIGW[API Gateway<br/>Auth, Rate Limit,<br/>Routing, SSL]
+        APIGW[API Gateway\nAuth, Rate Limit,\nRouting, SSL]
         BFF_WEB[BFF - Web]
         BFF_MOB[BFF - Mobile]
     end
 
     subgraph Services["Microservices"]
-        CAT_SVC[🏷️ Catalog Service<br/>:8001]
-        ORD_SVC[🛒 Order Service<br/>:8002]
-        PAY_SVC[💳 Payment Service<br/>:8003]
-        INV_SVC[📦 Inventory Service<br/>:8004]
-        USR_SVC[👤 User Service<br/>:8005]
-        NOTIF_SVC[📧 Notification Service<br/>:8006]
-        SHIP_SVC[🚚 Shipping Service<br/>:8007]
-        SEARCH_SVC[🔍 Search Service<br/>:8008]
+        CAT_SVC[Catalog Service\n:8001]
+        ORD_SVC[Order Service\n:8002]
+        PAY_SVC[Payment Service\n:8003]
+        INV_SVC[Inventory Service\n:8004]
+        USR_SVC[User Service\n:8005]
+        NOTIF_SVC[Notification Service\n:8006]
+        SHIP_SVC[Shipping Service\n:8007]
+        SEARCH_SVC[Search Service\n:8008]
     end
 
     subgraph Messaging["Message Broker"]
-        KAFKA[Apache Kafka<br/>Event Bus]
+        KAFKA[Apache Kafka\nEvent Bus]
     end
 
     subgraph Databases["Databases (Per Service)"]
@@ -932,20 +939,21 @@ graph TB
 
 ```
 Monolith / Modular Monolith:          Microservices:
-┌──────────────────────┐              ┌──────────────┐  ┌──────────────┐
-│    Order Service     │              │Order Service │  │Payment Svc   │
-│    Payment Service   │              └──────┬───────┘  └──────┬───────┘
-│    Catalog Service   │                     │                  │
-└──────────────────────┘              ┌──────▼───────┐  ┌──────▼───────┐
-           │                          │ Order DB     │  │ Payment DB   │
-           ▼                          │ (PostgreSQL) │  │ (PostgreSQL) │
-   ┌───────────────┐                  └──────────────┘  └──────────────┘
-   │ Shared DB     │
-   │ (PostgreSQL)  │              Mỗi service chọn DB tốt nhất cho use case:
-   └───────────────┘              - Catalog: PostgreSQL (relational)
-                                  - Search: Elasticsearch
-                                  - Inventory: MongoDB (flexible schema)
-                                  - Session: Redis
+┌──────────────────────┐              ┌───────────────┐  ┌─────────────────┐
+│    Order Service     │              │ Order Service │  │ Payment Service │
+│    Payment Service   │              └───────┬───────┘  └────────┬────────┘
+│    Catalog Service   │                      │                   │
+└──────────────────────┘                      ▼                   ▼
+            │                         ┌──────────────┐    ┌──────────────┐
+            ▼                         │ Order DB     │    │ Payment DB   │
+    ┌──────────────┐                  │ (PostgreSQL) │    │ (PostgreSQL) │
+    │ Shared DB    │                  └──────────────┘    └──────────────┘
+    │ (PostgreSQL) │
+    └──────────────┘                Mỗi service chọn DB tốt nhất cho use case:
+                                    - Catalog: PostgreSQL (relational)
+                                    - Search: Elasticsearch
+                                    - Inventory: MongoDB (flexible schema)
+                                    - Session: Redis
 ```
 
 **Hệ quả:** Không thể JOIN dữ liệu giữa services. Thay vào đó phải dùng:
@@ -1056,35 +1064,50 @@ Cô lập resources cho từng service, tránh cascade failure:
 Thread pool cho Payment: 20 threads
 Thread pool cho Catalog: 30 threads
 Thread pool cho Inventory: 10 threads
+```
 
 → Payment bị chậm chỉ ảnh hưởng 20 threads, không block Catalog hay Inventory
-```
 
 ### 5.9. Kỹ thuật phân rã thành Microservices
 
 1. **Decompose by Business Capability:** Mỗi service = một business capability
 
-   ```
-   Catalog Service: Quản lý sản phẩm, danh mục
-   Order Service: Đặt hàng, quản lý đơn
-   Payment Service: Xử lý thanh toán
-   ```
+Business capability là những gì doanh nghiệp làm để tạo ra giá trị (ví dụ: quản lý đơn hàng, xử lý thanh toán). Mẫu "Decompose by business capability" khuyến nghị mỗi dịch vụ đại diện cho một khả năng kinh doanh và do một đội nhỏ chịu trách nhiệm.
+
+Sử dụng khi mô hình tổ chức của bạn rõ ràng theo chức năng, khả năng. Các capability ổn định giúp kiến trúc ổn định và các nhóm có thể làm việc độc lập.
+
+```
+Catalog Service: Quản lý sản phẩm, danh mục
+Order Service: Đặt hàng, quản lý đơn
+Payment Service: Xử lý thanh toán
+```
 
 2. **Decompose by Bounded Context (DDD):** Dùng Bounded Contexts làm service boundaries
 
-   ```
-   Một Bounded Context = một Microservice candidate
-   (Nhưng có thể là nhiều services nếu bounded context quá lớn)
-   ```
+Domain-Driven Design (DDD) xác định "bounded context" – phạm vi mà một mô hình miền áp dụng Microservices nên được thiết kế theo các subdomain của miền ứng dụng. Mẫu "Decompose by subdomain" chỉ ra rằng một domain bao gồm nhiều subdomain:
+
+- Core (giá trị cốt lõi)
+- Supporting (hỗ trợ)
+- Generic (chung)
+
+_Mỗi subdomain tương ứng với một dịch vụ._
+
+Được ưa chuộng khi sử dụng DDD, đặc biệt là những hệ thống có miền phức tạp. Phân rã theo subdomain giúp kiến trúc ổn định, dịch vụ có cohesion cao và nhóm phát triển được tổ chức quanh giá trị kinh doanh.
+
+```
+Một Bounded Context = một Microservice candidate
+(Nhưng có thể là nhiều services nếu bounded context quá lớn)
+```
 
 3. **Strangler Fig Pattern:** Migrate dần từ monolith
-   ```
-   Bước 1: Identify module "đau nhất" (cần scale nhất, thay đổi nhiều nhất)
-   Bước 2: Extract module đó thành service riêng
-   Bước 3: Route traffic qua API Gateway
-   Bước 4: Lặp lại với module tiếp theo
-   Bước 5: Monolith "chết dần" như cây bị dây leo thắt
-   ```
+
+```
+Bước 1: Identify module "đau nhất" (cần scale nhất, thay đổi nhiều nhất)
+Bước 2: Extract module đó thành service riêng
+Bước 3: Route traffic qua API Gateway
+Bước 4: Lặp lại với module tiếp theo
+Bước 5: Monolith "chết dần" như cây bị dây leo thắt
+```
 
 ### 5.10. Ưu điểm
 
@@ -1160,8 +1183,8 @@ EDA không phải là một kiến trúc hệ thống độc lập như Monolith
 
 ```
 Event:   "Đơn hàng #123 đã được đặt lúc 10:30"  → Fact, immutable, ai cần thì dùng
-Command: "Hãy trừ tồn kho cho đơn #123"          → Directed to Inventory Service
-Query:   "Trạng thái của đơn #123 là gì?"         → Read-only
+Command: "Hãy trừ tồn kho cho đơn #123"         → Directed to Inventory Service
+Query:   "Trạng thái của đơn #123 là gì?"       → Read-only
 ```
 
 #### Anatomy of an Event
@@ -1171,7 +1194,7 @@ Query:   "Trạng thái của đơn #123 là gì?"         → Read-only
   "eventId": "evt-uuid-abc123", // Unique ID
   "eventType": "order.placed", // What happened
   "version": "1.0", // Schema version
-  "timestamp": "2024-01-15T10:30:00Z", // When it happened
+  "timestamp": "2026-01-15T10:30:00Z", // When it happened
   "source": "order-service", // Who raised it
   "correlationId": "req-xyz789", // Tracing ID
   "data": {
@@ -1390,7 +1413,7 @@ Pattern đơn giản nhất: Service chỉ **thông báo** rằng điều gì đ
 // Event chỉ thông báo - receiver phải gọi thêm để lấy data
 {
   "eventType": "order.placed",
-  "orderId": "ord-123"           // Chỉ ID, không có full data
+  "orderId": "ord-123" // Chỉ ID, không có full data
 }
 
 // Consumer phải gọi thêm:
@@ -1421,7 +1444,7 @@ Event **mang đầy đủ dữ liệu** cần thiết, consumer không cần g�
 }
 ```
 
-**Dùng khi:** Consumer cần data ngay, không muốn extra round-trip. Trade-off: payload lớn hơn, data có thể cũ.
+**Dùng khi:** Consumer cần data ngay, không muốn extra round-trip. **Trade-off:** payload lớn hơn, data có thể cũ.
 
 #### 6.5.3. CQRS – Command Query Responsibility Segregation
 
@@ -1627,7 +1650,7 @@ Trong hệ thống distributed, event có thể bị mất tại 3 điểm:
 graph LR
     subgraph OrderService["Order Service"]
         DOM[Domain Logic]
-        OUTBOX[Outbox Table\n(cùng DB với order)]
+        OUTBOX["Outbox Table\n(cùng DB với order)"]
         RELAY[Message Relay\nProcess]
     end
 
@@ -1660,7 +1683,7 @@ Với at-least-once delivery, consumer có thể nhận cùng event nhiều lầ
 // ❌ NOT idempotent
 void onPaymentCaptured(PaymentCapturedEvent e) {
     orderRepository.updateStatus(e.getOrderId(), PAID); // OK if called twice
-    inventoryRepository.deductStock(e.getItems());       // ❌ Deducts TWICE if called twice!
+    inventoryRepository.deductStock(e.getItems());      // ❌ Deducts TWICE if called twice!
 }
 
 // ✅ Idempotent với deduplication
@@ -1905,8 +1928,8 @@ graph TD
     Q1 -->|"> 30 người"| Q4
 
     Q2{Domain boundaries\nrõ ràng chưa?}
-    Q2 -->|"Chưa rõ / MVP"| MONOLITH[🏛️ Monolith]
-    Q2 -->|"Tương đối rõ"| MODULAR[📦 Modular Monolith]
+    Q2 -->|"Chưa rõ / MVP"| MONOLITH[Monolith]
+    Q2 -->|"Tương đối rõ"| MODULAR[Modular Monolith]
 
     Q3{Các phần cần\nscale khác nhau?}
     Q3 -->|"Không"| MODULAR
@@ -1914,7 +1937,7 @@ graph TD
 
     Q4{DevOps maturity?}
     Q4 -->|"Thấp"| MODULAR
-    Q4 -->|"Cao"| MICROSERVICES[🔧 Microservices]
+    Q4 -->|"Cao"| MICROSERVICES[Microservices]
 
     Q5{Có đủ DevOps\n& monitoring tools?}
     Q5 -->|"Chưa"| MODULAR
@@ -1956,43 +1979,13 @@ graph TD
 - [x] Contract testing (Pact)
 - [x] Feature flags và canary deployment
 
-### 8.3. ShopFlow: Lộ trình phát triển kiến trúc
-
-```
-📅 Tháng 1-6: MONOLITH
-   - 3-5 devs, 1 repo, PostgreSQL
-   - Validate product-market fit
-   - KPI: Ship features fast
-
-📅 Tháng 6-18: MODULAR MONOLITH
-   - 8-15 devs, vẫn 1 repo nhưng module rõ ràng
-   - Add ArchUnit tests để enforce boundaries
-   - Internal event bus cho notification/background jobs
-   - KPI: Team velocity, code quality
-
-📅 Tháng 18-30: SELECTIVE MICROSERVICES
-   - 20-35 devs, 3-4 squads
-   - Extract các service có nhu cầu rõ ràng:
-     • Search Service (Elasticsearch, cần scale riêng)
-     • Notification Service (fan-out, stateless, easy to separate)
-     • Payment Service (PCI compliance, separate team/repo)
-   - Còn lại vẫn là Modular Monolith
-   - KPI: Deploy frequency, incident rate
-
-📅 Tháng 30+: FULL MICROSERVICES (nếu cần)
-   - 50+ devs, 8+ squads
-   - Extract thêm khi thực sự có bottleneck
-   - Đầu tư Kubernetes, Kafka cluster, monitoring stack
-   - KPI: Scale, availability, team autonomy
-```
-
 ## 9. Case Study: Netflix
 
 ### 9.1. Tổng quan và lịch sử
 
 Netflix là một trong những case study điển hình nhất về hành trình từ Monolith đến Microservices. Phục vụ **300+ triệu subscribers** tại 190 quốc gia, xử lý hơn **15% global internet traffic**, và xử lý **2+ trillion events/ngày**.
 
-#### Timeline kiến trúc
+**Timeline kiến trúc:**
 
 ```
 2007: Monolith
@@ -2029,20 +2022,20 @@ Netflix là một trong những case study điển hình nhất về hành trìn
 
 ```mermaid
 graph TB
-    subgraph Clients["📱 Clients (500M+ devices)"]
+    subgraph Clients["Clients (500M+ devices)"]
         TV[Smart TV / TV OS]
         MOB[iOS / Android]
         WEB[Web Browser]
         GAME[Game Console]
     end
 
-    subgraph Edge["🌐 Edge Layer"]
+    subgraph Edge["Edge Layer"]
         DNS[DNS - Route 53\nGeo-routing]
         CDN[Open Connect CDN\n1000+ ISP locations\n8000+ OCAs]
         APIGW[API Gateway\nZuul 2.0\nAuth, Rate Limit, Routing]
     end
 
-    subgraph ControlPlane["☁️ Control Plane (AWS)"]
+    subgraph ControlPlane["Control Plane (AWS)"]
         direction TB
 
         subgraph Discovery["Service Discovery"]
@@ -2071,13 +2064,13 @@ graph TB
         end
     end
 
-    subgraph DataPlane["📡 Data Plane (Open Connect)"]
+    subgraph DataPlane["Data Plane (Open Connect)"]
         OCA[Open Connect Appliances\nEdge cache servers\nAt ISP locations]
     end
 
-    subgraph DataLayer["🗄️ Data & Streaming"]
+    subgraph DataLayer["Data & Streaming"]
         KAFKA[Kafka / Keystone\nEvent streaming pipeline\n2T events/day]
-        CASSANDRA[Cassandra\nUser data, viewing history\n(Global, multi-region)]
+        CASSANDRA["Cassandra\nUser data, viewing history\n(Global, multi-region)"]
         MYSQL[MySQL\nBilling, Account]
         ES[Elasticsearch\nSearch index]
         REDIS[Redis / EVCache\nCaching layer]
@@ -2085,14 +2078,14 @@ graph TB
         ICEBERG[Apache Iceberg\nData lake]
     end
 
-    subgraph Observability["👁️ Observability"]
+    subgraph Observability["Observability"]
         ATLAS[Atlas\nTime-series metrics]
         EDGAR[Edgar\nDistributed Tracing]
         MANTIS[Mantis\nReal-time streaming jobs]
     end
 
-    subgraph Deployment["🚀 Deployment"]
-        SPINNAKER[Spinnaker\nMulti-cloud CD platform\n(open-sourced by Netflix)]
+    subgraph Deployment["Deployment"]
+        SPINNAKER["Spinnaker\nMulti-cloud CD platform\n(open-sourced by Netflix)"]
     end
 
     TV --> DNS
@@ -2348,7 +2341,7 @@ Service B       →       ├── dispatch-matching-service
 Service C               ├── dispatch-geofence-service
 Service D               ├── dispatch-supply-service
 ...                     └── GATEWAY: dispatch-core
-                              (entry point duy nhất từ bên ngoài)
+                            (entry point duy nhất từ bên ngoài)
 ```
 
 Mỗi domain chứa 1 đến hàng chục microservices. External code chỉ được gọi qua **domain gateway**. Internal services communicate trực tiếp trong domain.
@@ -2539,11 +2532,8 @@ Matching: Rider tại hex "891f1d48177ffff" → tìm tất cả drivers trong he
 
 ### Nguyên tắc cuối cùng
 
-> **"Make it work, make it right, make it fast – in that order."**  
-> — Kent Beck
+> **"Make it work, make it right, make it fast – in that order."** — Kent Beck
 
 Với kiến trúc: **Make it simple (Monolith), make it structured (Modular Monolith), make it distributed (Microservices) – chỉ khi thực sự cần thiết.**
 
 Cả Netflix lẫn Uber đều dành **nhiều năm** để làm đúng việc này. Họ không bắt đầu với kiến trúc phức tạp – họ đến đó vì sự cần thiết thực sự. Đó là bài học quan trọng nhất.
-
-_Tài liệu này tổng hợp từ: Eric Evans - Domain-Driven Design, Martin Fowler - Microservices, Uber Engineering Blog (DOMA), Netflix Tech Blog, Microsoft Architecture Center, và các best practices từ thực tế._

@@ -2110,5 +2110,3 @@ Nguyên tắc core:
    → Microservices chỉ work khi teams structure match service structure
    → Kỹ thuật và tổ chức phải thay đổi song song
 ```
-
-_Tài liệu tổng hợp từ: Google SRE Book, Microservices Patterns (Chris Richardson), Building Microservices (Sam Newman), Netflix Tech Blog, Uber Engineering Blog, AWS Architecture Center, Microsoft Azure Architecture Center, Martin Fowler's bliki._

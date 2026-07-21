@@ -1186,20 +1186,20 @@ Khi số lượng services tăng lên, cần governance để tránh chaos.
 
 ```
 Internal Developer Portal (Backstage.io):
-┌─────────────────────────────────────────────────────────────┐
-│ Service: order-service                                      │
-│ Owner: Order Squad (team-order@shopflow.com)               │
-│ Tech: Java 17, Spring Boot 3, PostgreSQL                   │
-│ Repo: github.com/shopflow/order-service                    │
-│ Docs: confluence.shopflow.com/order-service                │
-│ API: api-docs.shopflow.com/order-service/v1                │
-│ Dashboard: grafana.shopflow.com/d/order-service           │
-│ Alerts: pagerduty.com/service/order-service                │
-│ Runbook: wiki.shopflow.com/runbook/order-service           │
-│ Dependencies: inventory-service, payment-service, kafka    │
+┌───────────────────────────────────────────────────────────┐
+│ Service: order-service                                    │
+│ Owner: Order Squad (team-order@shopflow.com)              │
+│ Tech: Java 17, Spring Boot 3, PostgreSQL                  │
+│ Repo: github.com/shopflow/order-service                   │
+│ Docs: confluence.shopflow.com/order-service               │
+│ API: api-docs.shopflow.com/order-service/v1               │
+│ Dashboard: grafana.shopflow.com/d/order-service           │ 
+│ Alerts: pagerduty.com/service/order-service               │
+│ Runbook: wiki.shopflow.com/runbook/order-service          │
+│ Dependencies: inventory-service, payment-service, kafka   │
 │ SLO: p99 < 500ms, availability > 99.9%                    │
 │ Deployment: Kubernetes, 3-10 replicas, auto-scaling       │
-└─────────────────────────────────────────────────────────────┘
+└───────────────────────────────────────────────────────────┘
 ```
 
 ### 6.2. API Standards Enforcement
@@ -1424,5 +1424,3 @@ Canary + Feature Flag = Maximum safety
 → Monitor, if OK → increase canary + flag %
 → 100% canary + 100% flag = full rollout
 ```
-
-_Tài liệu tổng hợp từ: Apache Kafka Documentation, Redis Documentation, AWS Prescriptive Guidance (Strangler Fig), Martin Fowler's Refactoring (Strangler Fig), Chris Richardson's Microservices Patterns, Google SRE Book, Istio Documentation, Backstage.io._
