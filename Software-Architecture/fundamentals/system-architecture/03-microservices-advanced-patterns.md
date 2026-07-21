@@ -117,8 +117,7 @@ Producer acks config:
 - acks=1:   Leader acknowledges (balanced)
 - acks=all: ALL in-sync replicas (ISR) acknowledge (safest, slowest)
 
-min.insync.replicas=2: Cần ít nhất 2 replicas (Leader + 1 Follower)
-                        xác nhận TRƯỚC KHI ack producer
+min.insync.replicas=2: Cần ít nhất 2 replicas (Leader + 1 Follower) xác nhận TRƯỚC KHI ack producer
 
 Khi Broker 1 (Leader) chết:
 → ZooKeeper / KRaft phát hiện → tự động elect leader mới từ ISR
@@ -668,10 +667,10 @@ Named after a fig tree species that grows around a host tree and eventually repl
 ```mermaid
 graph TB
     subgraph Phase0["Phase 0: Preparation (tháng 1)"]
-        PREP1[Add observability to monolith\n(logging, metrics, tracing)]
+        PREP1["Add observability to monolith\n(logging, metrics, tracing)"]
         PREP2[Map all bounded contexts]
         PREP3[Setup CI/CD infrastructure]
-        PREP4[Insert API Gateway\n(100% traffic → monolith, unchanged)]
+        PREP4["Insert API Gateway\n(100% traffic → monolith, unchanged)"]
     end
 
     subgraph Phase1["Phase 1: First Extraction (tháng 2-3)"]
@@ -689,7 +688,7 @@ graph TB
     end
 
     subgraph PhaseN["Phase N: Core Services (tháng 10+)"]
-        EXT9[Extract Order Service\n(most complex, last)]
+        EXT9["Extract Order Service\n(most complex, last)"]
         DONE[Monolith shrinks to nothing]
     end
 
@@ -766,7 +765,7 @@ graph LR
     end
 
     subgraph Monolith["Legacy Monolith (Messy model)"]
-        LEGACY[Legacy Order System\n- ORDER_RECORD table\n- status: int (1=placed, 2=confirmed)\n- amount: double (not Money)\n- customer_no: string]
+        LEGACY["Legacy Order System\n- ORDER_RECORD table\n- status: int (1=placed, 2=confirmed)\n- amount: double (not Money)\n- customer_no: string"]
     end
 
     ORD_DOM <-->|"Clean domain objects"| ACL
@@ -893,13 +892,13 @@ graph TB
     subgraph Strategy1["Strategy 1: Shared DB → Separate Schema → Separate DB"]
         S1A[Phase 1: Shared DB\n1 PostgreSQL instance\nservice owns catalog.* schema]
         S1B[Phase 2: Separate instance\nNew RDS instance for catalog\nMonolith reads via API only]
-        S1C[Phase 3: Polyglot\nSwitch to best-fit DB\n(e.g., Elasticsearch for search)]
+        S1C["Phase 3: Polyglot\nSwitch to best-fit DB\n(e.g., Elasticsearch for search)"]
         S1A --> S1B --> S1C
     end
 
     subgraph Strategy2["Strategy 2: Strangler Fig DB"]
         S2A[Dual-write period:\nMonolith writes to OLD + NEW schema\nNew service reads from NEW schema]
-        S2B[Verify consistency\n(data reconciliation job)]
+        S2B["Verify consistency\n(data reconciliation job)"]
         S2C[Stop writing to OLD\nRemove OLD tables]
         S2A --> S2B --> S2C
     end
@@ -991,7 +990,7 @@ List<Order> orders = orderRepository.findAllWithCustomers();
 ```
 Single DB (problem):
 All read queries → Primary DB (overloaded)
-Write queries   → Primary DB
+Write queries    → Primary DB
 
 With Read Replicas:
 Write queries           → Primary DB (strong consistency)
@@ -1007,7 +1006,7 @@ Analytics/reports       → Read Replica 2 (can be seconds behind)
 public DataSource dataSource() {
     HikariConfig config = new HikariConfig();
     config.setJdbcUrl("jdbc:postgresql://db:5432/shopflow");
-    config.setMaximumPoolSize(20);          // Max connections
+    config.setMaximumPoolSize(20);         // Max connections
     config.setMinimumIdle(5);              // Min idle connections
     config.setConnectionTimeout(30000);    // 30s to get connection
     config.setIdleTimeout(600000);         // 10min idle before close
@@ -1193,7 +1192,7 @@ Internal Developer Portal (Backstage.io):
 │ Repo: github.com/shopflow/order-service                   │
 │ Docs: confluence.shopflow.com/order-service               │
 │ API: api-docs.shopflow.com/order-service/v1               │
-│ Dashboard: grafana.shopflow.com/d/order-service           │ 
+│ Dashboard: grafana.shopflow.com/d/order-service           │
 │ Alerts: pagerduty.com/service/order-service               │
 │ Runbook: wiki.shopflow.com/runbook/order-service          │
 │ Dependencies: inventory-service, payment-service, kafka   │
@@ -1263,7 +1262,7 @@ Team Topologies model (Matthew Skelton):
 graph TB
     subgraph ActivePassive["Active-Passive (simpler)"]
         R1_P[Region 1: PRIMARY\nAll traffic]
-        R2_P[Region 2: STANDBY\nNo traffic (hot standby)]
+        R2_P["Region 2: STANDBY\nNo traffic (hot standby)"]
         DB1_P[(Primary DB\nAll writes)]
         DB2_P[(Replica DB\nRead-only sync)]
 
@@ -1319,16 +1318,17 @@ Lower RTO/RPO = Higher cost (more replication, active-active, faster failover)
 Chaos Engineering: Chủ động gây lỗi trong production để phát hiện điểm yếu
 
 Levels (từ thấp đến cao):
-Level 1: Kill random pod in Kubernetes
+
+- Level 1: Kill random pod in Kubernetes
   kubectl delete pod order-service-abc123
 
-Level 2: Inject network latency (Istio fault injection)
+- Level 2: Inject network latency (Istio fault injection)
   5s delay cho 10% traffic đến payment-service
 
-Level 3: Kill entire AZ (Availability Zone)
+- Level 3: Kill entire AZ (Availability Zone)
   Terminate all EC2 instances in us-east-1a
 
-Level 4: Full region outage simulation
+- Level 4: Full region outage simulation
   Block traffic to/from ap-southeast-1
 
 Tools:
@@ -1394,10 +1394,10 @@ Dùng REST/gRPC khi:
 ### 8.3. Caching Decision
 
 ```
-Cache-Aside:  Default choice. Read-heavy. DB là source of truth.
+Cache-Aside:   Default choice. Read-heavy. DB là source of truth.
 Write-Through: Cần cache luôn fresh sau write (cart, user profile).
-Write-Behind: Write-heavy, minor data loss OK (counters, analytics).
-No Cache:     Data thay đổi quá thường xuyên, mỗi read cần freshest data.
+Write-Behind:  Write-heavy, minor data loss OK (counters, analytics).
+No Cache:      Data thay đổi quá thường xuyên, mỗi read cần freshest data.
 
 TTL guidelines:
   Static config, categories:    6-24 hours

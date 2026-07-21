@@ -109,8 +109,9 @@ Resource naming (danh từ số nhiều):
 
 #### Pagination
 
+**Cursor-based (recommended cho large datasets):**
+
 ```
-Cursor-based (recommended cho large datasets):
 GET /orders?after=cursor_abc123&limit=20
 Response: {
   "data": [...],
@@ -120,8 +121,11 @@ Response: {
     "limit": 20
   }
 }
+```
 
-Offset-based (simple, nhưng có vấn đề khi data thay đổi):
+**Offset-based (simple, nhưng có vấn đề khi data thay đổi):**
+
+```
 GET /orders?page=2&pageSize=20
 Response: {
   "data": [...],
@@ -168,16 +172,16 @@ graph TB
 
 ### 1.3. gRPC vs REST
 
-| Tiêu chí            | REST/HTTP             | gRPC                              |
-| ------------------- | --------------------- | --------------------------------- |
-| **Protocol**        | HTTP/1.1, HTTP/2      | HTTP/2                            |
-| **Format**          | JSON (human-readable) | Protobuf (binary, compact)        |
-| **Performance**     | Baseline              | 2-10x nhanh hơn (smaller payload) |
-| **Streaming**       | Hạn chế               | ✅ Bidirectional streaming        |
-| **Type safety**     | Không (cần OpenAPI)   | ✅ Protobuf schema                |
-| **Browser support** | ✅ Native             | ❌ Cần gRPC-Web                   |
-| **Debug**           | Dễ (curl, Postman)    | Khó hơn (binary)                  |
-| **Phù hợp**         | External APIs, public | Internal service-to-service       |
+| Tiêu chí            | REST/HTTP                  | gRPC                                                                   |
+| ------------------- | -------------------------- | ---------------------------------------------------------------------- |
+| **Protocol**        | HTTP/1.1 hoặc HTTP/2       | HTTP/2                                                                 |
+| **Data format**     | JSON (human-readable)      | Protobuf (binary, compact)                                             |
+| **Performance**     | Tốt                        | Thường nhanh hơn nhờ Protobuf và HTTP/2                                |
+| **Streaming**       | Hạn chế (SSE/WebSocket)    | ✅ Client, Server và Bidirectional Streaming                           |
+| **Type safety**     | Cần OpenAPI/Swagger        | ✅ Schema `.proto`, sinh code tự động                                  |
+| **Browser support** | ✅ Native                  | ❌ Cần gRPC-Web                                                        |
+| **Debug**           | Dễ (curl, Postman)         | Khó hơn (binary, grpcurl...)                                           |
+| **Use case**        | Public API, Web/Mobile API | Internal microservices, service-to-service, hệ thống cần hiệu năng cao |
 
 **ShopFlow pattern:**
 
@@ -187,8 +191,6 @@ External (Client → API Gateway):  REST/JSON
 
 Internal (Service → Service):     gRPC (where latency matters)
                                   e.g., Dispatch → Pricing (high-frequency)
-
-  hoặc REST/JSON (đơn giản hơn, đủ dùng cho hầu hết cases)
 ```
 
 ## 2. API Gateway & Service Mesh
@@ -371,10 +373,10 @@ graph LR
 
 ```
 API Gateway = Border control (North-South)
-             External traffic vào cluster
+              External traffic vào cluster
 
 Service Mesh = Internal police (East-West)
-              Traffic giữa services
+               Traffic giữa services
 
 Dùng cả hai:
 External Client → API Gateway → [Service Mesh] → Services
@@ -472,8 +474,8 @@ RetryConfig config = RetryConfig.custom()
 
 **Quy tắc retry:**
 
-- ✅ Retry: Network timeout, 503 Service Unavailable, 429 Rate Limited
-- ❌ Không retry: 400 Bad Request, 401 Unauthorized, 404 Not Found, 409 Conflict
+- ✅ **Retry:** Network timeout, 503 Service Unavailable, 429 Rate Limited
+- ❌ **Không retry:** 400 Bad Request, 401 Unauthorized, 404 Not Found, 409 Conflict
 
 ### 3.3. Bulkhead Pattern
 
@@ -520,13 +522,16 @@ restTemplate.setRequestFactory(new SimpleClientHttpRequestFactory() {{
     setConnectTimeout(2000);    // Connection timeout: 2s (mạng chậm / service down)
     setReadTimeout(5000);       // Read timeout: 5s (service xử lý chậm)
 }});
+```
 
-// Timeout hierarchy (outer timeout > sum of inner timeouts):
-// API Gateway timeout:     10s
-// │── Order Service:        8s
-//     │── Inventory call:   3s (retry 1x = 6s max)
-//     │── Payment call:     4s
-//     └── Timeout budget:   2s remaining
+Timeout hierarchy (outer timeout > sum of inner timeouts):
+
+```
+API Gateway timeout:     10s
+└── Order Service:        8s
+    │── Inventory call:   3s (retry 1x = 6s max)
+    │── Payment call:     4s
+    └── Timeout budget:   2s remaining
 ```
 
 ### 3.5. Rate Limiting
@@ -539,16 +544,16 @@ Rate Limiting tại API Gateway:
 - Per Endpoint: POST /orders: 50/minute (prevent order flooding)
 
 Algorithms:
-Token Bucket:  Cho phép burst, phổ biến (AWS API Gateway, Kong)
-Sliding Window: Chính xác hơn, không cho burst
-Fixed Window:   Đơn giản nhất, có vấn đề ở boundary
+- Token Bucket:  Cho phép burst, phổ biến (AWS API Gateway, Kong)
+- Sliding Window: Chính xác hơn, không cho burst
+- Fixed Window:   Đơn giản nhất, có vấn đề ở boundary
 
 Response khi bị rate limit:
-HTTP 429 Too Many Requests
-Retry-After: 60
-X-RateLimit-Limit: 100
-X-RateLimit-Remaining: 0
-X-RateLimit-Reset: 1705316400
+- HTTP 429 Too Many Requests
+- Retry-After: 60
+- X-RateLimit-Limit: 100
+- X-RateLimit-Remaining: 0
+- X-RateLimit-Reset: 1705316400
 ```
 
 ### 3.6. Graceful Degradation & Fallback
@@ -601,11 +606,11 @@ sequenceDiagram
     APIGateway->>APIGateway: Validate JWT signature (local, no network call)
     APIGateway->>APIGateway: Check expiry, issuer, audience
     APIGateway->>OrderSvc: Forward request + decoded claims
-    Note over APIGateway,OrderSvc: X-User-Id: usr-123\nX-User-Roles: customer,premium
+    Note over APIGateway,OrderSvc: X-User-Id: usr-123<br>X-User-Roles: customer,premium
 
     OrderSvc->>OrderSvc: Check authorization (roles, ownership)
     OrderSvc->>InventorySvc: GET /stock (Service-to-Service JWT)
-    Note over OrderSvc,InventorySvc: mTLS (via Service Mesh)\nOR short-lived service JWT
+    Note over OrderSvc,InventorySvc: mTLS (via Service Mesh)<br>OR short-lived service JWT
     InventorySvc-->>OrderSvc: Stock data
     OrderSvc-->>Browser: Order data
 ```
@@ -639,8 +644,7 @@ sequenceDiagram
 ```
 Access Token:
   - Short-lived: 15 phút (không thể revoke trực tiếp)
-  - Signed bằng RS256 (asymmetric): private key ở Auth Server,
-    public key ở mọi service → verify locally không cần gọi Auth Server
+  - Signed bằng RS256 (asymmetric): private key ở Auth Server, public key ở mọi service → verify locally không cần gọi Auth Server
 
 Refresh Token:
   - Long-lived: 7-30 ngày
@@ -689,8 +693,7 @@ Level 1 - API Gateway (Coarse-grained):
   - Rate limiting per user/role
 
 Level 2 - Service Level (Fine-grained):
-  - Order Service: Can user #123 access order #456?
-    → Check if order.customerId == userId
+  - Order Service: Can user #123 access order #456? → Check if order.customerId == userId
   - Admin API: user must have 'admin' role
   - Premium features: user must have 'premium' subscription
 
@@ -711,7 +714,7 @@ public void deleteProduct(String productId) { ... }
 // Complex: decision dựa trên nhiều attributes (user, resource, environment)
 public boolean canAccessOrder(User user, Order order, Context ctx) {
     return user.getId().equals(order.getCustomerId())      // Ownership
-        || user.hasRole("ADMIN")                            // Admin override
+        || user.hasRole("ADMIN")                           // Admin override
         || (user.hasRole("SUPPORT") && !ctx.isWeekend());  // Support weekdays only
 }
 ```
@@ -781,7 +784,7 @@ Observability = Hiểu TẠI SAO hệ thống hoạt động như vậy (answer 
   "service": "payment-service",
   "version": "2.3.1",
   "environment": "production",
-  "traceId": "4bf92f3577b34da6",     // Distributed tracing correlation
+  "traceId": "4bf92f3577b34da6", // Distributed tracing correlation
   "spanId": "00f067aa0ba902b7",
   "userId": "usr-456",
   "orderId": "ord-123",
@@ -1899,8 +1902,8 @@ shared-library/
 └── InventoryChecker.java    ← business logic
 
 Vấn đề: Mọi services phụ thuộc shared-lib
-         Update lib → phải update và redeploy tất cả services
-         Tạo tight coupling không qua API
+        Update lib → phải update và redeploy tất cả services
+        Tạo tight coupling không qua API
 
 ✅ Acceptable shared libraries:
 - Logging utilities
@@ -1979,104 +1982,88 @@ Trước khi một microservice lên production, checklist này phải được 
 
 ### 11.1. API & Contract
 
-```
-[ ] API có versioning rõ ràng (v1, v2)
-[ ] Error responses theo chuẩn (error code, message, traceId)
-[ ] Pagination cho tất cả list endpoints
-[ ] Request validation với meaningful error messages
-[ ] API documentation (OpenAPI/Swagger)
-[ ] Contract tests với tất cả consumers (Pact)
-[ ] Backward compatibility verified
-```
+- [ ] API có versioning rõ ràng (v1, v2)
+- [ ] Error responses theo chuẩn (error code, message, traceId)
+- [ ] Pagination cho tất cả list endpoints
+- [ ] Request validation với meaningful error messages
+- [ ] API documentation (OpenAPI/Swagger)
+- [ ] Contract tests với tất cả consumers (Pact)
+- [ ] Backward compatibility verified
 
 ### 11.2. Resilience
 
-```
-[ ] Timeout cho tất cả external calls
-[ ] Circuit breaker cho mọi downstream dependency
-[ ] Retry logic với exponential backoff (chỉ cho idempotent operations)
-[ ] Bulkhead (thread pool isolation per dependency)
-[ ] Graceful degradation / fallback defined
-[ ] Graceful shutdown (SIGTERM handler, drain connections)
-[ ] Rate limiting tại API Gateway
-```
+- [ ] Timeout cho tất cả external calls
+- [ ] Circuit breaker cho mọi downstream dependency
+- [ ] Retry logic với exponential backoff (chỉ cho idempotent operations)
+- [ ] Bulkhead (thread pool isolation per dependency)
+- [ ] Graceful degradation / fallback defined
+- [ ] Graceful shutdown (SIGTERM handler, drain connections)
+- [ ] Rate limiting tại API Gateway
 
 ### 11.3. Security
 
-```
-[ ] Authentication (JWT validation tại Gateway)
-[ ] Authorization (role/ownership check tại service)
-[ ] Input validation (SQL injection, XSS prevention)
-[ ] Secrets in Vault / Secrets Manager (không hardcode)
-[ ] TLS 1.2+ cho tất cả connections
-[ ] mTLS giữa services (via Service Mesh hoặc explicit)
-[ ] Dependency vulnerability scan (Snyk / OWASP)
-[ ] No sensitive data in logs (PII masking)
-[ ] Security headers (CORS, Content-Security-Policy)
-```
+- [ ] Authentication (JWT validation tại Gateway)
+- [ ] Authorization (role/ownership check tại service)
+- [ ] Input validation (SQL injection, XSS prevention)
+- [ ] Secrets in Vault / Secrets Manager (không hardcode)
+- [ ] TLS 1.2+ cho tất cả connections
+- [ ] mTLS giữa services (via Service Mesh hoặc explicit)
+- [ ] Dependency vulnerability scan (Snyk / OWASP)
+- [ ] No sensitive data in logs (PII masking)
+- [ ] Security headers (CORS, Content-Security-Policy)
 
 ### 11.4. Observability
 
-```
-[ ] Structured JSON logging với correlation ID
-[ ] Log level configurable without restart
-[ ] /health (liveness + readiness) endpoint
-[ ] Metrics exposed (/metrics Prometheus format)
-[ ] Distributed tracing (OpenTelemetry instrumentation)
-[ ] Dashboard in Grafana (latency, error rate, throughput)
-[ ] Alerts configured (error rate > 1%, p99 > 500ms)
-[ ] Runbook per alert (what to do when alert fires)
-```
+- [ ] Structured JSON logging với correlation ID
+- [ ] Log level configurable without restart
+- [ ] /health (liveness + readiness) endpoint
+- [ ] Metrics exposed (/metrics Prometheus format)
+- [ ] Distributed tracing (OpenTelemetry instrumentation)
+- [ ] Dashboard in Grafana (latency, error rate, throughput)
+- [ ] Alerts configured (error rate > 1%, p99 > 500ms)
+- [ ] Runbook per alert (what to do when alert fires)
 
 ### 11.5. Data
 
-```
-[ ] Database connection pooling configured
-[ ] DB migrations managed (Flyway/Liquibase)
-[ ] DB migration tested backward compatible
-[ ] Backup policy defined và tested
-[ ] Read replica cho heavy read queries
-[ ] Idempotent event handlers (Kafka consumers)
-[ ] Outbox pattern cho reliable event publishing
-```
+- [ ] Database connection pooling configured
+- [ ] DB migrations managed (Flyway/Liquibase)
+- [ ] DB migration tested backward compatible
+- [ ] Backup policy defined và tested
+- [ ] Read replica cho heavy read queries
+- [ ] Idempotent event handlers (Kafka consumers)
+- [ ] Outbox pattern cho reliable event publishing
 
 ### 11.6. Deployment
 
-```
-[ ] Docker image built từ multi-stage Dockerfile (non-root user)
-[ ] Resource requests & limits set (CPU/Memory)
-[ ] HPA configured (min/max replicas, scale trigger)
-[ ] Liveness & Readiness probes configured
-[ ] Pod Disruption Budget (PDB) set (availability during maintenance)
-[ ] Rolling update hoặc Blue-Green / Canary strategy defined
-[ ] Rollback procedure documented và tested
-[ ] Feature flags cho high-risk features
-[ ] CI/CD pipeline hoàn chỉnh (unit → integration → contract → staging → prod)
-[ ] GitOps configured (ArgoCD / Flux)
-```
+- [ ] Docker image built từ multi-stage Dockerfile (non-root user)
+- [ ] Resource requests & limits set (CPU/Memory)
+- [ ] HPA configured (min/max replicas, scale trigger)
+- [ ] Liveness & Readiness probes configured
+- [ ] Pod Disruption Budget (PDB) set (availability during maintenance)
+- [ ] Rolling update hoặc Blue-Green / Canary strategy defined
+- [ ] Rollback procedure documented và tested
+- [ ] Feature flags cho high-risk features
+- [ ] CI/CD pipeline hoàn chỉnh (unit → integration → contract → staging → prod)
+- [ ] GitOps configured (ArgoCD / Flux)
 
 ### 11.7. Testing
 
-```
-[ ] Unit test coverage > 80% cho business logic
-[ ] Integration tests với Testcontainers
-[ ] Contract tests (Pact) cho tất cả service dependencies
-[ ] Performance test / load test (k6, Gatling)
-[ ] Chaos testing (kill random pods, inject latency)
-[ ] Disaster recovery drill (DB restore, full outage recovery)
-```
+- [ ] Unit test coverage > 80% cho business logic
+- [ ] Integration tests với Testcontainers
+- [ ] Contract tests (Pact) cho tất cả service dependencies
+- [ ] Performance test / load test (k6, Gatling)
+- [ ] Chaos testing (kill random pods, inject latency)
+- [ ] Disaster recovery drill (DB restore, full outage recovery)
 
 ### 11.8. Operations
 
-```
-[ ] Runbook: How to deploy, rollback, scale
-[ ] On-call rotation defined
-[ ] Incident response playbook
-[ ] SLO/SLA defined và monitored
-[ ] Error budget tracking
-[ ] Capacity planning (projected growth 6 months)
-[ ] Cost monitoring (AWS Cost Explorer / cloud billing alerts)
-```
+- [ ] Runbook: How to deploy, rollback, scale
+- [ ] On-call rotation defined
+- [ ] Incident response playbook
+- [ ] SLO/SLA defined và monitored
+- [ ] Error budget tracking
+- [ ] Capacity planning (projected growth 6 months)
+- [ ] Cost monitoring (AWS Cost Explorer / cloud billing alerts)
 
 ## Tổng kết – Production Microservices Philosophy
 
@@ -2100,13 +2087,11 @@ Nguyên tắc core:
    → Data-driven decisions, không gut feeling
 
 4. Keep it simple
-   "A two-service system with good observability beats
-    a six-service system nobody can explain"
+   "A two-service system with good observability beats a six-service system nobody can explain"
    → Chỉ thêm complexity khi pain vượt qua cost
 
 5. Organizational alignment
-   Conway's Law: "Organizations produce systems mirroring
-                  their communication structures"
+   Conway's Law: "Organizations produce systems mirroring their communication structures"
    → Microservices chỉ work khi teams structure match service structure
    → Kỹ thuật và tổ chức phải thay đổi song song
 ```
