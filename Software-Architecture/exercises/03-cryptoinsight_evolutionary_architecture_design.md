@@ -1,4 +1,5 @@
 # CryptoInsight – Thiết Kế Kiến Trúc Tiến Hóa Nền Tảng Phân Tích Thị Trường Tiền Mã Hóa
+
 ## Mục Lục
 
 1. [Phân Tích Yêu Cầu Nghiệp Vụ](#1-phân-tích-yêu-cầu-nghiệp-vụ)
@@ -63,7 +64,7 @@ Peak QPS ≈ QPS × peak_factor (thường 3–5x)
 | Cặp tiền                | 1     | 5      | 20      | 50        |
 | WebSocket connections   | 0     | ~100   | ~10.000 | ~100.000  |
 
-### 2.3 Ước Lượng Lưu Trữ (V4)
+### 2.3 Ước Lượng Lưu Trữ
 
 ```
 HTML gốc: 50.000 bài/ngày × 300KB × 365 ngày ≈ 5.4 TB/năm
@@ -92,7 +93,7 @@ Triển khai được nhanh nhất, chi phí thấp nhất, đủ để validate
 ```mermaid
 graph TB
     subgraph Client
-        Browser["🌐 Browser / SPA"]
+        Browser["Browser / SPA"]
     end
 
     subgraph "Single Server (VPS)"
@@ -328,7 +329,7 @@ Từ kết quả load test giả định:
 ```mermaid
 graph TB
     subgraph Client
-        Browser["🌐 Browser / SPA"]
+        Browser["Browser / SPA"]
     end
 
     subgraph "Server Layer"
@@ -503,7 +504,7 @@ sequenceDiagram
 ```mermaid
 graph TB
     subgraph Clients
-        Browser["🌐 Browsers"]
+        Browser["Browsers"]
     end
 
     subgraph "Edge Layer"
@@ -716,7 +717,7 @@ graph TD
 
     QualityCheck -->|"FAIL ≥ 1 tiêu chí"| DetectChange{"Drop rate của source\nnày > 20% trong 1h?"}
 
-    DetectChange -->|"Có → Extractor hỏng\ndo website thay đổi"| AlertTeam["🔔 Alert Team\n(Slack / PagerDuty)\n'Source X extractor degraded'"]
+    DetectChange -->|"Có → Extractor hỏng\ndo website thay đổi"| AlertTeam["Alert Team\n(Slack / PagerDuty)\n'Source X extractor degraded'"]
     AlertTeam --> LLMFallback
 
     DetectChange -->|"Không → Bài viết\nchất lượng thấp"| LLMFallback
@@ -809,7 +810,7 @@ graph LR
     Worker --> |"Fail attempt 2"| Retry2["Retry Queue\n(delay 5min)"]
     Retry2 --> Worker
     Worker --> |"Fail attempt 3"| DLQ["Dead-letter Queue\n(DLQ)"]
-    DLQ --> Alert["🔔 Alert / Manual Review"]
+    DLQ --> Alert["Alert / Manual Review"]
     DLQ --> Replay["Manual Replay\n(after fix)"]
 ```
 
@@ -1024,9 +1025,9 @@ graph TB
         AIService["AI Service"]
     end
 
-    Client["🌐 Clients\n(REST)"] --> CDN
+    Client["Clients\n(REST)"] --> CDN
     Client --> GlobalLB
-    ClientWS["🌐 Clients\n(WebSocket)"] --> GlobalWSLB
+    ClientWS["Clients\n(WebSocket)"] --> GlobalWSLB
 
     GlobalLB --> APIGW_A --> AppA1 & AppA2
     GlobalLB --> APIGW_B --> AppB1 & AppB2
@@ -1138,7 +1139,7 @@ graph TB
 
     subgraph "DB Replica Lag > 30s"
         D1["App Server"] --> |"Fallback read"| D2["DB Primary\n(temporary)"]
-        D1 --> |"Alert triggered"| D3["🔔 On-call"]
+        D1 --> |"Alert triggered"| D3["On-call"]
     end
 
     subgraph "AI Service Unavailable"

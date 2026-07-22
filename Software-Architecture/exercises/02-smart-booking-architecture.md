@@ -248,15 +248,15 @@ graph TB
 
 ### Bảng phân tích từng module
 
-| Module chức năng             | Nhiệm vụ chính                                                                                  | Có nên tách riêng ngay không?                                              | Lý do chi tiết                                                                                                                                                                                                                                        |
-| ---------------------------- | ----------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **User**                     | Quản lý tài khoản, xác thực (login/logout), thông tin cá nhân khách hàng                        | ❌ **Không – để trong Modular Monolith**                                   | User data được dùng bởi hầu hết modules (Booking cần userId, Staff cần xác thực). Tách sớm tạo nhiều network calls không cần thiết. Với 10K users, PostgreSQL đơn xử lý dễ dàng.                                                                      |
-| **Dịch vụ (Service)**        | Quản lý danh sách dịch vụ (tên, mô tả, giá, thời lượng), quản lý slot/lịch khả dụng             | ❌ **Không – để trong Modular Monolith**                                   | Service data ít thay đổi, read-heavy. Catalog nhỏ (vài chục đến vài trăm dịch vụ). Chỉ cần tách khi có hàng nghìn dịch vụ hoặc cần search engine riêng.                                                                                               |
-| **Đặt lịch (Booking)**       | Tạo lịch hẹn, kiểm tra slot trống, quản lý trạng thái booking (PENDING → CONFIRMED → CANCELLED) | ❌ **Không – là core, để trong Modular Monolith nhưng module riêng biệt**  | Đây là core domain. Tách sớm đòi hỏi distributed transaction với Payment → Saga complexity. Là ứng viên tách SAU CÙNG khi thực sự cần.                                                                                                                |
-| **Thanh toán (Payment)**     | Xử lý giao dịch, tích hợp payment gateway (VNPay/Stripe), hoàn tiền                             | ❌ **Không tách ngay, nhưng module riêng với ranh giới cứng**              | Payment liên kết chặt với Booking (đặt lịch phải trả tiền). Tách sớm cần Saga pattern. Giai đoạn đầu, để chung nhưng **schema riêng, không cho module khác truy cập trực tiếp**. Tách khi cần PCI compliance riêng hoặc team riêng xử lý payment.     |
-| **Thông báo (Notification)** | Gửi email/SMS xác nhận, nhắc nhở lịch hẹn, thông báo hủy                                        | ✅ **Có thể tách sớm nhất, nhưng ban đầu để trong Modular Monolith là OK** | Notification hoàn toàn async, stateless. Không blocking. Giai đoạn đầu, dùng Internal Event Bus + Redis queue là đủ. Khi cần scale (volume lớn), tách ra dễ nhất vì ranh giới rõ nhất.                                                                |
-| **Nhân viên (Staff)**        | Nhân viên xem lịch được giao, xác nhận/từ chối lịch hẹn, quản lý ca làm việc                    | ❌ **Không – để trong Modular Monolith**                                   | Staff module chủ yếu đọc dữ liệu từ Booking. Không có logic phức tạp riêng. Số lượng nhân viên nhỏ (startup). Tách ra không mang lại benefit gì.                                                                                                      |
-| **Báo cáo (Report)**         | Thống kê số lượng đặt lịch, doanh thu theo ngày/tháng, báo cáo cho quản trị viên                | ❌ **Không tách ngay, nhưng cần thiết kế để tách dễ**                      | Report là read-only, aggregate data. Với 10K users, query SQL trực tiếp đủ dùng. Khi lớn hơn, tách thành Analytics Service với DB riêng (read replica hoặc data warehouse). Giai đoạn đầu, update qua Events (async) để không ảnh hưởng booking flow. |
+| Module chức năng             | Nhiệm vụ chính                                                                                        | Có nên tách riêng ngay không?                                              | Lý do chi tiết                                                                                                                                                                                                                                        |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **User**                     | Quản lý tài khoản, xác thực (login/logout), thông tin cá nhân khách hàng                              | ❌ **Không – để trong Modular Monolith**                                   | User data được dùng bởi hầu hết modules (Booking cần userId, Staff cần xác thực). Tách sớm tạo nhiều network calls không cần thiết. Với 10K users, PostgreSQL đơn xử lý dễ dàng.                                                                      |
+| **Dịch vụ (Service)**        | Quản lý danh sách dịch vụ (tên, mô tả, giá, thời lượng), quản lý slot/lịch khả dụng                   | ❌ **Không – để trong Modular Monolith**                                   | Service data ít thay đổi, read-heavy. Catalog nhỏ (vài chục đến vài trăm dịch vụ). Chỉ cần tách khi có hàng nghìn dịch vụ hoặc cần search engine riêng.                                                                                               |
+| **Đặt lịch (Booking)**       | Tạo lịch hẹn, kiểm tra slot trống, quản lý trạng thái booking (`PENDING` → `CONFIRMED` → `CANCELLED`) | ❌ **Không – là core, để trong Modular Monolith nhưng module riêng biệt**  | Đây là core domain. Tách sớm đòi hỏi distributed transaction với Payment → Saga complexity. Là ứng viên tách SAU CÙNG khi thực sự cần.                                                                                                                |
+| **Thanh toán (Payment)**     | Xử lý giao dịch, tích hợp payment gateway (VNPay/Stripe), hoàn tiền                                   | ❌ **Không tách ngay, nhưng module riêng với ranh giới cứng**              | Payment liên kết chặt với Booking (đặt lịch phải trả tiền). Tách sớm cần Saga pattern. Giai đoạn đầu, để chung nhưng **schema riêng, không cho module khác truy cập trực tiếp**. Tách khi cần PCI compliance riêng hoặc team riêng xử lý payment.     |
+| **Thông báo (Notification)** | Gửi email/SMS xác nhận, nhắc nhở lịch hẹn, thông báo hủy                                              | ✅ **Có thể tách sớm nhất, nhưng ban đầu để trong Modular Monolith là OK** | Notification hoàn toàn async, stateless. Không blocking. Giai đoạn đầu, dùng Internal Event Bus + Redis queue là đủ. Khi cần scale (volume lớn), tách ra dễ nhất vì ranh giới rõ nhất.                                                                |
+| **Nhân viên (Staff)**        | Nhân viên xem lịch được giao, xác nhận/từ chối lịch hẹn, quản lý ca làm việc                          | ❌ **Không – để trong Modular Monolith**                                   | Staff module chủ yếu đọc dữ liệu từ Booking. Không có logic phức tạp riêng. Số lượng nhân viên nhỏ (startup). Tách ra không mang lại benefit gì.                                                                                                      |
+| **Báo cáo (Report)**         | Thống kê số lượng đặt lịch, doanh thu theo ngày/tháng, báo cáo cho quản trị viên                      | ❌ **Không tách ngay, nhưng cần thiết kế để tách dễ**                      | Report là read-only, aggregate data. Với 10K users, query SQL trực tiếp đủ dùng. Khi lớn hơn, tách thành Analytics Service với DB riêng (read replica hoặc data warehouse). Giai đoạn đầu, update qua Events (async) để không ảnh hưởng booking flow. |
 
 ### Kiến trúc thư mục (Modular Monolith)
 
@@ -368,16 +368,16 @@ sequenceDiagram
 
 ### Bảng phân loại: Xử lý ngay hay xử lý bằng sự kiện?
 
-| Bước xử lý                       | Sync hay Async?                   | Lý do chi tiết                                                                                                                                                                                                                 |
-| -------------------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Kiểm tra lịch trống**          | ✅ **Xử lý ngay (Sync)**          | Người dùng cần biết ngay slot còn hay hết để tiếp tục. Nếu async: người dùng không biết mình có đặt được không. Race condition: 2 người cùng đặt 1 slot → phải lock ngay lập tức.                                              |
-| **Tạo booking (PENDING)**        | ✅ **Xử lý ngay (Sync)**          | Cần trả về `bookingId` cho bước thanh toán tiếp theo. Đây là transactional boundary: tạo booking + lock slot phải cùng transaction.                                                                                            |
-| **Thanh toán**                   | ✅ **Xử lý ngay (Sync)**          | Người dùng đang chờ kết quả thanh toán. Cần biết thành công hay thất bại để quyết định bước tiếp. Kết quả ảnh hưởng trực tiếp đến trạng thái booking. Không thể async – ai sẽ xác nhận booking nếu không đợi payment response? |
-| **Xác nhận booking (CONFIRMED)** | ✅ **Xử lý ngay (Sync)**          | Sau khi payment thành công, phải cập nhật trạng thái booking ngay trong cùng transaction hoặc ngay sau. Đây là final state mà người dùng chờ.                                                                                  |
-| **Gửi email/SMS**                | 🔄 **Xử lý bằng sự kiện (Async)** | Gửi email không ảnh hưởng đến kết quả booking. Email chậm 5-10 giây người dùng không quan tâm. Nếu sync: email server chậm → booking cả flow bị chậm theo. Nếu email fail: không nên rollback booking đã thành công.           |
-| **Cập nhật báo cáo**             | 🔄 **Xử lý bằng sự kiện (Async)** | Báo cáo là dữ liệu phân tích, không cần real-time tuyệt đối. Người dùng không cần thấy báo cáo cập nhật ngay khi đặt lịch. Cho phép lag vài giây đến vài phút là hoàn toàn chấp nhận được.                                     |
-| **Ghi log / phân tích dữ liệu**  | 🔄 **Xử lý bằng sự kiện (Async)** | Log và analytics là background concern. Không bao giờ nên blocking main flow. Nếu log service chậm → không được ảnh hưởng booking flow.                                                                                        |
-| **Thông báo cho nhân viên**      | 🔄 **Xử lý bằng sự kiện (Async)** | Nhân viên không cần thấy lịch mới trong vòng mili-giây. Độ trễ vài giây hoàn toàn OK. Nhân viên thường refresh dashboard hoặc dùng polling.                                                                                    |
+| Bước xử lý                         | Sync hay Async?                   | Lý do chi tiết                                                                                                                                                                                                                 |
+| ---------------------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Kiểm tra lịch trống**            | ✅ **Xử lý ngay (Sync)**          | Người dùng cần biết ngay slot còn hay hết để tiếp tục. Nếu async: người dùng không biết mình có đặt được không. Race condition: 2 người cùng đặt 1 slot → phải lock ngay lập tức.                                              |
+| **Tạo booking (`PENDING`)**        | ✅ **Xử lý ngay (Sync)**          | Cần trả về `bookingId` cho bước thanh toán tiếp theo. Đây là transactional boundary: tạo booking + lock slot phải cùng transaction.                                                                                            |
+| **Thanh toán**                     | ✅ **Xử lý ngay (Sync)**          | Người dùng đang chờ kết quả thanh toán. Cần biết thành công hay thất bại để quyết định bước tiếp. Kết quả ảnh hưởng trực tiếp đến trạng thái booking. Không thể async – ai sẽ xác nhận booking nếu không đợi payment response? |
+| **Xác nhận booking (`CONFIRMED`)** | ✅ **Xử lý ngay (Sync)**          | Sau khi payment thành công, phải cập nhật trạng thái booking ngay trong cùng transaction hoặc ngay sau. Đây là final state mà người dùng chờ.                                                                                  |
+| **Gửi email/SMS**                  | 🔄 **Xử lý bằng sự kiện (Async)** | Gửi email không ảnh hưởng đến kết quả booking. Email chậm 5-10 giây người dùng không quan tâm. Nếu sync: email server chậm → booking cả flow bị chậm theo. Nếu email fail: không nên rollback booking đã thành công.           |
+| **Cập nhật báo cáo**               | 🔄 **Xử lý bằng sự kiện (Async)** | Báo cáo là dữ liệu phân tích, không cần real-time tuyệt đối. Người dùng không cần thấy báo cáo cập nhật ngay khi đặt lịch. Cho phép lag vài giây đến vài phút là hoàn toàn chấp nhận được.                                     |
+| **Ghi log / phân tích dữ liệu**    | 🔄 **Xử lý bằng sự kiện (Async)** | Log và analytics là background concern. Không bao giờ nên blocking main flow. Nếu log service chậm → không được ảnh hưởng booking flow.                                                                                        |
+| **Thông báo cho nhân viên**        | 🔄 **Xử lý bằng sự kiện (Async)** | Nhân viên không cần thấy lịch mới trong vòng mili-giây. Độ trễ vài giây hoàn toàn OK. Nhân viên thường refresh dashboard hoặc dùng polling.                                                                                    |
 
 **Nguyên tắc phân loại:**
 
@@ -450,7 +450,7 @@ graph LR
 | `BookingCreated`     | Booking Module      | Notification, Report                 | Notification: gửi email "Đang xử lý", Report: ghi nhận booking mới                                  | `{bookingId, userId, serviceId, slotId, createdAt}`                               |
 | `BookingConfirmed`   | Booking Module      | Notification, Report, Staff          | Notification: gửi email/SMS xác nhận; Report: cập nhật thống kê confirmed; Staff: hiển thị lịch mới | `{bookingId, userId, serviceId, staffId, confirmedAt, slotDateTime, serviceName}` |
 | `BookingCancelled`   | Booking Module      | Notification, Report, Staff          | Notification: gửi email thông báo hủy; Report: cập nhật thống kê; Staff: xóa lịch khỏi calendar     | `{bookingId, userId, reason, cancelledAt, refundAmount}`                          |
-| `PaymentSucceeded`   | Payment Module      | Booking Module, Notification, Report | Booking: chuyển status → CONFIRMED; Notification: gửi receipt; Report: ghi doanh thu                | `{paymentId, bookingId, amount, currency, method, transactionId, paidAt}`         |
+| `PaymentSucceeded`   | Payment Module      | Booking Module, Notification, Report | Booking: chuyển status → `CONFIRMED`; Notification: gửi receipt; Report: ghi doanh thu              | `{paymentId, bookingId, amount, currency, method, transactionId, paidAt}`         |
 | `PaymentFailed`      | Payment Module      | Booking Module, Notification         | Booking: hủy booking, release slot; Notification: email thông báo thất bại + hướng dẫn              | `{paymentId, bookingId, amount, failureReason, failedAt}`                         |
 | `NotificationSent`   | Notification Module | Report                               | Report: ghi nhận notification thành công                                                            | `{notificationId, bookingId, channel, sentAt, recipientEmail}`                    |
 | `NotificationFailed` | Notification Module | Report                               | Report: ghi nhận lỗi, lưu để retry sau                                                              | `{notificationId, bookingId, channel, failureReason, attemptCount, failedAt}`     |
@@ -543,8 +543,7 @@ graph TB
 
 ```
 Giai đoạn đầu (đơn giản):
-Booking → VNPay → Success/Fail
-→ Sync call đủ dùng
+Booking → VNPay → Success/Fail → Sync call đủ dùng
 
 Khi thanh toán phức tạp hơn (cần Orchestrator):
 Ví dụ: Đặt lịch cao cấp cần:
@@ -594,8 +593,7 @@ Không cần orchestrator chen vào giữa
 
 ### Lỗi 1: Thanh toán thành công nhưng Booking chưa được xác nhận
 
-**Tình huống:**
-Người dùng thanh toán xong (tiền đã bị trừ), nhưng hệ thống crash ngay sau khi nhận kết quả từ payment gateway trước khi cập nhật booking status = CONFIRMED.
+**Tình huống:** Người dùng thanh toán xong (tiền đã bị trừ), nhưng hệ thống crash ngay sau khi nhận kết quả từ payment gateway trước khi cập nhật booking `status = CONFIRMED`.
 
 **Hậu quả:**
 
@@ -644,8 +642,7 @@ Bước 4: Webhook từ Payment Gateway
 
 ### Lỗi 2: Gửi email/SMS bị lỗi
 
-**Tình huống:**
-Sau khi booking confirmed, hệ thống publish `BookingConfirmedEvent`. Notification module consume event và gọi SendGrid API, nhưng SendGrid đang bảo trì → trả về lỗi 503.
+**Tình huống:** Sau khi booking confirmed, hệ thống publish `BookingConfirmedEvent`. Notification module consume event và gọi SendGrid API, nhưng SendGrid đang bảo trì → trả về lỗi 503.
 
 **Hậu quả nếu không xử lý đúng:**
 
@@ -686,8 +683,7 @@ Bước 5: Idempotency khi retry
 
 ### Lỗi 3: Một sự kiện bị xử lý hai lần (Duplicate Event)
 
-**Tình huống:**
-Event Bus (Internal Event / Redis) đảm bảo at-least-once delivery. `BookingConfirmedEvent` được deliver 2 lần do network glitch. Report module cập nhật thống kê 2 lần → số liệu sai.
+**Tình huống:** Event Bus (Internal Event / Redis) đảm bảo at-least-once delivery. `BookingConfirmedEvent` được deliver 2 lần do network glitch. Report module cập nhật thống kê 2 lần → số liệu sai.
 
 **Hậu quả:**
 
@@ -728,8 +724,7 @@ Giải pháp 4: Idempotency key trong event schema
 
 ### Lỗi 4: Hệ thống thanh toán phản hồi chậm
 
-**Tình huống:**
-VNPay response time tăng từ 500ms lên 15 giây. Người dùng đang chờ kết quả thanh toán. Nếu không có timeout, thread bị block vô thời hạn → thread pool cạn kiệt → toàn hệ thống không respond.
+**Tình huống:** VNPay response time tăng từ 500ms lên 15 giây. Người dùng đang chờ kết quả thanh toán. Nếu không có timeout, thread bị block vô thời hạn → thread pool cạn kiệt → toàn hệ thống không respond.
 
 **Hậu quả nếu không xử lý:**
 
@@ -752,8 +747,7 @@ Bước 2: Circuit Breaker cho Payment Gateway
 
 Bước 3: Xử lý timeout cho người dùng
   → Khi timeout: Booking status = PENDING_PAYMENT (giữ nguyên)
-  → Trả về người dùng: "Hệ thống thanh toán đang chậm.
-     Vui lòng kiểm tra email trong 5-10 phút để xác nhận."
+  → Trả về người dùng: "Hệ thống thanh toán đang chậm. Vui lòng kiểm tra email trong 5-10 phút để xác nhận."
   → Webhook từ VNPay sẽ đến sau → cập nhật booking status
 
 Bước 4: Recovery qua Webhook
@@ -768,8 +762,7 @@ Bước 5: Slot timeout
 
 ### Lỗi 5: Số lượng người dùng tăng đột biến
 
-**Tình huống:**
-SmartBooking chạy campaign khuyến mãi → 10x traffic trong vòng 1 giờ (thay vì 1,000 users/giờ bình thường, đột ngột 10,000 users/giờ). Database connection pool cạn, API trả về lỗi.
+**Tình huống:** SmartBooking chạy campaign khuyến mãi → 10x traffic trong vòng 1 giờ (thay vì 1,000 users/giờ bình thường, đột ngột 10,000 users/giờ). Database connection pool cạn, API trả về lỗi.
 
 **Giải pháp chi tiết:**
 
@@ -805,8 +798,7 @@ Giải pháp trung hạn (chuẩn bị trước):
 
 ### Lỗi 6: Báo cáo chưa cập nhật kịp
 
-**Tình huống:**
-Quản trị viên xem báo cáo ngay sau khi có booking mới. Do báo cáo được cập nhật async (qua event), có thể lag 1-5 giây → Admin thấy số liệu chưa cập nhật, tưởng hệ thống lỗi.
+**Tình huống:** Quản trị viên xem báo cáo ngay sau khi có booking mới. Do báo cáo được cập nhật async (qua event), có thể lag 1-5 giây → Admin thấy số liệu chưa cập nhật, tưởng hệ thống lỗi.
 
 **Giải pháp:**
 
