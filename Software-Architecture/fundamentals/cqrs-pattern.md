@@ -56,8 +56,7 @@ Trong hầu hết hệ thống, **read nhiều hơn write 10:1 đến 100:1**. T
 
 Ý tưởng cốt lõi rất đơn giản:
 
-> _"Use a different model to update information than the model you use to read information."_  
-> — Martin Fowler
+> _"Use a different model to update information than the model you use to read information."_ — Martin Fowler
 
 ## 2. Nền tảng lý thuyết: CQS → CQRS
 
@@ -67,8 +66,8 @@ Bertrand Meyer (tác giả của "Object-Oriented Software Construction") đề 
 
 > **Mỗi method của một object nên là một trong hai loại — không bao giờ cả hai:**
 >
-> - **Command**: Thay đổi state, không trả về giá trị
-> - **Query**: Trả về giá trị, không thay đổi state
+> - **Command:** Thay đổi state, không trả về giá trị
+> - **Query:** Trả về giá trị, không thay đổi state
 
 **Ví dụ vi phạm CQS (Anti-pattern):**
 
@@ -148,11 +147,11 @@ ProcessPaymentCommand  → Xử lý thanh toán
 
 **Đặc điểm:**
 
-- **Idempotent**: gọi 10 lần kết quả như gọi 1 lần
+- **Idempotent:** gọi 10 lần kết quả như gọi 1 lần
 - **Không thay đổi state** của hệ thống
 - Tối ưu hoá cho **tốc độ đọc**
 - Có thể trả về **DTO riêng** không cần là domain entity
-- Đặt tên theo **noun/question**: `GetOrderQuery`, `SearchProductsQuery`, `GetOrderHistoryQuery`
+- Đặt tên theo **noun/question:** `GetOrderQuery`, `SearchProductsQuery`, `GetOrderHistoryQuery`
 
 **Ví dụ E-Commerce:**
 
@@ -396,12 +395,10 @@ graph TB
 
 Nhiều người nhầm lẫn CQRS và Event Sourcing là một, nhưng thực tế:
 
-```
-CQRS     ≠  Event Sourcing
-CQRS     có thể  kết hợp với  Event Sourcing
-CQRS     có thể  KHÔNG dùng  Event Sourcing
-Event Sourcing  có thể  KHÔNG dùng  CQRS
-```
+- CQRS ≠ Event Sourcing
+- CQRS có thể kết hợp với Event Sourcing
+- CQRS có thể KHÔNG dùng Event Sourcing
+- Event Sourcing có thể KHÔNG dùng CQRS
 
 ### 6.2 Event Sourcing là gì?
 
@@ -413,9 +410,9 @@ CRUD: Lưu trạng thái hiện tại
 
 Event Sourcing: Lưu chuỗi events dẫn đến trạng thái đó
   events: [
-    OrderPlaced    {orderId: "123", total: 500, at: "09:00"}
+    OrderPlaced      {orderId: "123", total: 500, at: "09:00"}
     PaymentConfirmed {orderId: "123", paymentId: "P1", at: "09:05"}
-    OrderShipped   {orderId: "123", trackingNo: "TK1", at: "10:30"}
+    OrderShipped     {orderId: "123", trackingNo: "TK1", at: "10:30"}
   ]
 ```
 
@@ -539,7 +536,7 @@ public class MonthlyRevenueReport {
     private int totalOrders;
     private BigDecimal avgOrderValue;
     private List<CategoryRevenue> byCategory;  // Đã aggregated sẵn
-    private List<TopProduct> topProducts;       // Đã ranked sẵn
+    private List<TopProduct> topProducts;      // Đã ranked sẵn
     // Updated incrementally khi có Order event mới
 }
 ```
@@ -653,7 +650,7 @@ public record CancelOrderCommand(
 public record OrderItemRequest(
     String productId,
     int quantity,
-    BigDecimal unitPrice   // Lấy từ catalog service tại thời điểm order
+    BigDecimal unitPrice // Lấy từ catalog service tại thời điểm order
 ) {}
 ```
 
@@ -1438,7 +1435,7 @@ sequenceDiagram
 
 ### 9.2 Chiến lược xử lý Eventual Consistency
 
-**Strategy 1: Optimistic UI Update (Phổ biến nhất)**
+#### Strategy 1: Optimistic UI Update (Phổ biến nhất)
 
 Client không đợi Read Model cập nhật. Thay vào đó, UI tự cập nhật dựa trên command đã gửi.
 
@@ -1458,12 +1455,11 @@ async function placeOrder(orderData) {
 
   // Navigate đến trang order detail
   router.push(`/orders/${orderId}`);
-  // Trang này sẽ hiển thị optimistic data ngay,
-  // và poll/refetch từ Read Model sau 1-2 giây
+  // Trang này sẽ hiển thị optimistic data ngay, và poll/refetch từ Read Model sau 1-2 giây
 }
 ```
 
-**Strategy 2: Polling với Retry**
+#### Strategy 2: Polling với Retry
 
 ```java
 // Client poll Read Model cho đến khi thấy data
@@ -1500,7 +1496,7 @@ private ResponseEntity<OrderDetailDto> waitForReadModel(String orderId, Duration
 }
 ```
 
-**Strategy 3: Read-after-Write Consistency (cho các use case critical)**
+#### Strategy 3: Read-after-Write Consistency (cho các use case critical)
 
 ```java
 // Sau khi PlaceOrder, query TRỰC TIẾP từ Write DB (một lần duy nhất)
@@ -1571,7 +1567,7 @@ public class ProjectionLagMonitor {
 
 ## 10. Khi nào NÊN và KHÔNG NÊN dùng CQRS
 
-### 10.1 NÊN dùng CQRS khi:
+### 10.1 NÊN dùng CQRS khi
 
 **1. Read/Write có sự bất đối xứng lớn:**
 
@@ -1597,7 +1593,7 @@ public class ProjectionLagMonitor {
 - Social platforms (post, feed, notification)
 - Logistics (tracking, reporting)
 
-### 10.2 KHÔNG NÊN dùng CQRS khi:
+### 10.2 KHÔNG NÊN dùng CQRS khi
 
 **1. CRUD đơn giản:**
 
@@ -1651,10 +1647,10 @@ Netflix xử lý hàng triệu viewing events mỗi giây. CQRS được áp d�
 
 **Read Side:** Nhiều Read Models được build từ các events đó:
 
-- **Viewing History Service**: Cassandra — lịch sử xem của user
-- **Recommendation Engine**: Pre-computed projections cho recommendation
-- **Analytics Pipeline**: Aggregated data cho business intelligence
-- **Continue Watching**: Redis cache cho quick lookup
+- **Viewing History Service:** Cassandra — lịch sử xem của user
+- **Recommendation Engine:** Pre-computed projections cho recommendation
+- **Analytics Pipeline:** Aggregated data cho business intelligence
+- **Continue Watching:** Redis cache cho quick lookup
 
 **Key insight:** Khi Netflix muốn cải thiện thuật toán recommendation, họ chỉ cần **replay lại events** lịch sử qua algorithm mới — không cần migration database phức tạp.
 
@@ -1785,8 +1781,7 @@ public ResponseEntity<PlaceOrderResponse> placeOrder(...) {
 ### 12.4 Anti-Pattern 4: Không handle idempotency
 
 ```java
-// ❌ SAI: Command có thể được process hai lần
-// → Duplicate orders!
+// ❌ SAI: Command có thể được process hai lần → Duplicate orders!
 public void handle(PlaceOrderCommand command) {
     Order order = Order.place(...);
     orderRepository.save(order);
@@ -1917,24 +1912,24 @@ public class OrderQueryService {
 
 ### 13.3 Quick Reference — CQRS vs CRUD
 
-```
-Câu hỏi: Hệ thống này có cần CQRS không?
+**Câu hỏi:** Hệ thống này có cần CQRS không?
 
 Dùng CQRS khi:
-  ✅ Domain business logic phức tạp, nhiều invariants
-  ✅ Read:Write ratio cao (> 10:1)
-  ✅ Cần scale read và write độc lập
-  ✅ Query phức tạp (reporting, search, aggregation)
-  ✅ Cần audit trail hoặc temporal queries
-  ✅ Hệ thống microservices với event-driven architecture
+
+- ✅ Domain business logic phức tạp, nhiều invariants
+- ✅ Read:Write ratio cao (> 10:1)
+- ✅ Cần scale read và write độc lập
+- ✅ Query phức tạp (reporting, search, aggregation)
+- ✅ Cần audit trail hoặc temporal queries
+- ✅ Hệ thống microservices với event-driven architecture
 
 Dùng CRUD khi:
-  ✅ CRUD đơn giản, ít business rules
-  ✅ Team nhỏ, early-stage product
-  ✅ Cần strong consistency ở mọi nơi
-  ✅ Không có sự bất đối xứng read/write
-  ✅ Delivery speed quan trọng hơn scalability
-```
+
+- ✅ CRUD đơn giản, ít business rules
+- ✅ Team nhỏ, early-stage product
+- ✅ Cần strong consistency ở mọi nơi
+- ✅ Không có sự bất đối xứng read/write
+- ✅ Delivery speed quan trọng hơn scalability
 
 ## Tài liệu tham khảo
 
