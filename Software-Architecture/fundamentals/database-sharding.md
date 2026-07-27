@@ -1598,5 +1598,3 @@ mindmap
 ```
 
 > **Lời khuyên cuối:** Sharding là một commitment lâu dài. Một khi đã shard, việc thay đổi shard key hoặc merge shards lại là cực kỳ tốn kém. Hãy đầu tư thời gian thiết kế đúng ngay từ đầu, bao gồm cả data model, query patterns, và growth projections cho ít nhất 3-5 năm tới.
-
-_Tài liệu này được tổng hợp từ kinh nghiệm thực chiến và các engineering blog của Amazon, Netflix, Uber, Discord, Shopify, YouTube. Phiên bản 1.0 — 2026._
