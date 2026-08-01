@@ -1,0 +1,23 @@
+{
+  "name": "e2e",
+  "version": "1.0.0",
+  "description": "E2E tests for EShop SUT",
+  "main": "index.js",
+  "scripts": {
+    "test":           "playwright test",
+    "test:web":       "playwright test --project=web-chromium --project=web-firefox --project=web-webkit",
+    "test:admin":     "playwright test --project=admin-chromium --project=admin-firefox --project=admin-webkit",
+    "test:chromium":  "playwright test --project=web-chromium --project=admin-chromium",
+    "report":         "playwright show-report",
+    "codegen":        "playwright codegen"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.62.0",
+    "@types/node": "^26.1.2",
+    "dotenv": "^17.4.2"
+  }
+}
