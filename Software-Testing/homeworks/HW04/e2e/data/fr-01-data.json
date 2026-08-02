@@ -1,0 +1,256 @@
+[
+  {
+    "tc_id": "TC-FR01-001",
+    "description": "Register account with valid data at minimum password length",
+    "inputs": {
+      "fullName": "Nguyen Van A",
+      "email": "tcfr01001@example.com",
+      "password": "AbcD1!xy",
+      "confirmPassword": "AbcD1!xy"
+    },
+    "expected": {
+      "outcome": "success",
+      "message": "Account created successfully. Redirected to login page.",
+      "redirect": "/login"
+    }
+  },
+  {
+    "tc_id": "TC-FR01-002",
+    "description": "Register account with valid data and Unicode full name",
+    "inputs": {
+      "fullName": "Nguyễn Văn An",
+      "email": "tcfr01002@example.com",
+      "password": "ValidP@ss1",
+      "confirmPassword": "ValidP@ss1"
+    },
+    "expected": {
+      "outcome": "success",
+      "message": "Account created successfully. Redirected to login page.",
+      "redirect": "/login"
+    }
+  },
+  {
+    "tc_id": "TC-FR01-003",
+    "description": "Register account with empty Full Name field",
+    "inputs": {
+      "fullName": "",
+      "email": "tcfr01003@example.com",
+      "password": "ValidP@ss1",
+      "confirmPassword": "ValidP@ss1"
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Full name is required."
+    }
+  },
+  {
+    "tc_id": "TC-FR01-004",
+    "description": "Register account with empty Email field",
+    "inputs": {
+      "fullName": "Nguyen Van A",
+      "email": "",
+      "password": "ValidP@ss1",
+      "confirmPassword": "ValidP@ss1"
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Email is required."
+    }
+  },
+  {
+    "tc_id": "TC-FR01-005",
+    "description": "Register account with duplicate email address",
+    "inputs": {
+      "fullName": "Nguyen Van A",
+      "email": "test@eshop.com",
+      "password": "ValidP@ss1",
+      "confirmPassword": "ValidP@ss1"
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Email already registered."
+    }
+  },
+  {
+    "tc_id": "TC-FR01-006",
+    "description": "Register account with email missing @ symbol",
+    "inputs": {
+      "fullName": "Nguyen Van A",
+      "email": "invalidemail.com",
+      "password": "ValidP@ss1",
+      "confirmPassword": "ValidP@ss1"
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Invalid email format."
+    }
+  },
+  {
+    "tc_id": "TC-FR01-007",
+    "description": "Register account with email missing domain part",
+    "inputs": {
+      "fullName": "Nguyen Van A",
+      "email": "user@",
+      "password": "ValidP@ss1",
+      "confirmPassword": "ValidP@ss1"
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Invalid email format."
+    }
+  },
+  {
+    "tc_id": "TC-FR01-008",
+    "description": "Register account with email missing local part",
+    "inputs": {
+      "fullName": "Nguyen Van A",
+      "email": "@example.com",
+      "password": "ValidP@ss1",
+      "confirmPassword": "ValidP@ss1"
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Invalid email format."
+    }
+  },
+  {
+    "tc_id": "TC-FR01-009",
+    "description": "Register account with password shorter than 8 characters",
+    "inputs": {
+      "fullName": "Nguyen Van A",
+      "email": "tcfr01009@example.com",
+      "password": "Abc1!xy",
+      "confirmPassword": "Abc1!xy"
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Password must be at least 8 characters."
+    }
+  },
+  {
+    "tc_id": "TC-FR01-010",
+    "description": "Register account with password missing uppercase letter",
+    "inputs": {
+      "fullName": "Nguyen Van A",
+      "email": "tcfr01010@example.com",
+      "password": "validp@ss1",
+      "confirmPassword": "validp@ss1"
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Password must contain at least one uppercase letter."
+    }
+  },
+  {
+    "tc_id": "TC-FR01-011",
+    "description": "Register account with password missing lowercase letter",
+    "inputs": {
+      "fullName": "Nguyen Van A",
+      "email": "tcfr01011@example.com",
+      "password": "VALIDP@SS1",
+      "confirmPassword": "VALIDP@SS1"
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Password must contain at least one lowercase letter."
+    }
+  },
+  {
+    "tc_id": "TC-FR01-012",
+    "description": "Register account with password missing digit",
+    "inputs": {
+      "fullName": "Nguyen Van A",
+      "email": "tcfr01012@example.com",
+      "password": "ValidP@ssword",
+      "confirmPassword": "ValidP@ssword"
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Password must contain at least one digit."
+    }
+  },
+  {
+    "tc_id": "TC-FR01-013",
+    "description": "Register account with password missing any special character",
+    "inputs": {
+      "fullName": "Nguyen Van A",
+      "email": "tcfr01013@example.com",
+      "password": "ValidPass12",
+      "confirmPassword": "ValidPass12"
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Password must contain at least one special character (@$!%*?&)."
+    }
+  },
+  {
+    "tc_id": "TC-FR01-014",
+    "description": "Register account with password containing invalid special character",
+    "inputs": {
+      "fullName": "Nguyen Van A",
+      "email": "tcfr01014@example.com",
+      "password": "ValidP#ss1",
+      "confirmPassword": "ValidP#ss1"
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Password must contain at least one special character (@$!%*?&)."
+    }
+  },
+  {
+    "tc_id": "TC-FR01-015",
+    "description": "Register account with empty Password field",
+    "inputs": {
+      "fullName": "Nguyen Van A",
+      "email": "tcfr01015@example.com",
+      "password": "",
+      "confirmPassword": "ValidP@ss1"
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Password is required."
+    }
+  },
+  {
+    "tc_id": "TC-FR01-016",
+    "description": "Register account with mismatched Confirm Password",
+    "inputs": {
+      "fullName": "Nguyen Van A",
+      "email": "tcfr01016@example.com",
+      "password": "ValidP@ss1",
+      "confirmPassword": "DifferentP@ss1"
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Passwords do not match."
+    }
+  },
+  {
+    "tc_id": "TC-FR01-017",
+    "description": "Register account with empty Confirm Password field",
+    "inputs": {
+      "fullName": "Nguyen Van A",
+      "email": "tcfr01017@example.com",
+      "password": "ValidP@ss1",
+      "confirmPassword": ""
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Passwords do not match."
+    }
+  },
+  {
+    "tc_id": "TC-FR01-018",
+    "description": "Register account with email containing leading whitespace",
+    "inputs": {
+      "fullName": "Nguyen Van A",
+      "email": " tcfr01018@example.com",
+      "password": "ValidP@ss1",
+      "confirmPassword": "ValidP@ss1"
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Invalid email format."
+    }
+  }
+]
