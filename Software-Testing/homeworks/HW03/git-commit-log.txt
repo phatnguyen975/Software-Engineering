@@ -1,0 +1,558 @@
+* commit fcedd16e55bb88a6ba9835b2311ef99b64ea84d0
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Mon Aug 3 17:09:22 2026 +0700
+| 
+|     feat: add reports for submission
+| 
+|  README.md                      |  109 ++-
+|  docs/task01/A2/execution-A2.md |    4 +-
+|  reports/ai-audit-report.md     | 1893 ++++++++++++++++++++++++++++++++++++++
+|  reports/ai-audit-report.pdf    |  Bin 0 -> 1630421 bytes
+|  reports/ai-critique.md         |   18 +-
+|  reports/ai-critique.pdf        |  Bin 0 -> 45971 bytes
+|  reports/bug-report.pdf         |  Bin 0 -> 3261191 bytes
+|  reports/main-report.md         | 1082 ++++++++++++++++++++++
+|  reports/main-report.pdf        |  Bin 0 -> 1281614 bytes
+|  9 files changed, 3096 insertions(+), 10 deletions(-)
+| 
+* commit e45ceff7808d753ae93d3ff73ec0de35cb36825e
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Mon Aug 3 15:42:49 2026 +0700
+| 
+|     feat: add usability report for task 2
+| 
+|  docs/audit/ai/23127449-task02-2026-07.log.md |  76 ++++--
+|  docs/task02/metrics-summary.md               |  34 +++
+|  docs/task02/sus-scores-computed.md           |  36 +++
+|  docs/task02/usability-report.md              | 328 +++++++++++++++++++++++++
+|  reports/bug-report.md                        | 157 ++++++++++++
+|  5 files changed, 614 insertions(+), 17 deletions(-)
+| 
+* commit 86ca93f20e467aa37263176a7ed148e882024bca
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Mon Aug 3 15:22:27 2026 +0700
+| 
+|     feat: add session note for participant 5
+| 
+|  docs/task02/participant-table.md        |  14 ++--
+|  docs/task02/session-notes/P5-session.md | 130 +++++++++++++++---------------
+|  2 files changed, 72 insertions(+), 72 deletions(-)
+| 
+* commit 3522b7cf97e631e7532863247745e2b2d8bbd9d8
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Mon Aug 3 13:05:39 2026 +0700
+| 
+|     feat: add bug report
+| 
+|  README.md                  |    2 +-
+|  reports/ai-audit-report.md |    7 +
+|  reports/ai-critique.md     |    7 +
+|  reports/bug-report.md      | 1642 ++++++++++++++++++++++++++++++++++++++++++
+|  reports/main-report.md     |    7 +
+|  5 files changed, 1664 insertions(+), 1 deletion(-)
+| 
+* commit 8194e9bb3f1b1dd5a82430a5e763883439881b54
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Mon Aug 3 04:49:23 2026 +0700
+| 
+|     feat: add raw session for participant 4
+| 
+|  docs/task02/participant-table.md        |   4 +-
+|  docs/task02/session-notes/P2-session.md |   6 +-
+|  docs/task02/session-notes/P3-session.md |  48 +++++-----
+|  docs/task02/session-notes/P4-session.md | 154 +++++++++++++++---------------
+|  docs/task02/session-notes/P5-session.md |  31 +++---
+|  5 files changed, 121 insertions(+), 122 deletions(-)
+| 
+* commit 4d3cfe8ea77aaef2a70172c8978f25949599f760
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Mon Aug 3 03:48:26 2026 +0700
+| 
+|     feat: add raw session for participant 3
+| 
+|  docs/task02/participant-table.md        |  14 +--
+|  docs/task02/session-notes/P3-session.md | 145 +++++++++++++++---------------
+|  2 files changed, 81 insertions(+), 78 deletions(-)
+| 
+* commit fe3fce6a80351f7228cf2c308a81ce043058b8f8
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Mon Aug 3 02:56:37 2026 +0700
+| 
+|     feat: add raw session for participant 2
+| 
+|  docs/task02/observation-template.md     |   2 +-
+|  docs/task02/participant-table.md        |   4 +-
+|  docs/task02/session-notes/P1-session.md |  10 +-
+|  docs/task02/session-notes/P2-session.md | 146 +++++++++++++++---------------
+|  4 files changed, 83 insertions(+), 79 deletions(-)
+| 
+* commit f8801d8f784ce30a2e541eb3e5db78e50a0c6008
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Mon Aug 3 01:55:20 2026 +0700
+| 
+|     feat: add raw session for participant 1
+| 
+|  docs/task02/observation-template.md     |   6 +-
+|  docs/task02/participant-table.md        |  58 +++----------
+|  docs/task02/probe-questions-T1.md       |   3 +-
+|  docs/task02/session-notes/P1-session.md | 135 ++++++++++++++----------------
+|  4 files changed, 78 insertions(+), 124 deletions(-)
+| 
+* commit 056f456780bba186849440155308b4b307575b5c
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sun Aug 2 17:54:59 2026 +0700
+| 
+|     docs: add skills execution guide
+| 
+|  skills-execution-guide.md | 499 ++++++++++++++++++++++++++++++++++++++++++++
+|  1 file changed, 499 insertions(+)
+| 
+* commit cb018d5091b0f971283f2d7430e5a5a145b37328
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sun Aug 2 00:57:33 2026 +0700
+| 
+|     feat: add gui report for task 1
+| 
+|  docs/task01/gui-report.md | 1441 +++++++++++++++++++++++++++++++++++++++++++
+|  1 file changed, 1441 insertions(+)
+| 
+* commit 352fa8bae03db312126e772f31c11bc4221919a4
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sun Aug 2 00:46:36 2026 +0700
+| 
+|     feat: add compatibility report for task 3
+| 
+|  docs/audit/ai/23127449-task03-2026-08.log.md |  60 ++++--
+|  docs/task03/compatibility-report.md          | 267 +++++++++++++++++++++++++
+|  2 files changed, 311 insertions(+), 16 deletions(-)
+| 
+* commit f04806f04f62c4334ed06d57007406b9f509e6d6
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sun Aug 2 00:20:51 2026 +0700
+| 
+|     feat: update result for each cell of task 3
+| 
+|  docs/audit/ai/23127449-task03-2026-08.log.md      | 235 +++++++++++++++++++-
+|  docs/task03/matrix-results.md                     |  80 +++----
+|  .../task03/A1/android_chrome_phone_a1_fail.jpg    | Bin 0 -> 179918 bytes
+|  .../task03/A1/android_firefox_tablet_a1_fail.png  | Bin 0 -> 398351 bytes
+|  .../A1/android_samsung-internet_phone_a1_fail.jpg | Bin 0 -> 219242 bytes
+|  .../task03/A1/macos_safari_desktop_a1_fail.png    | Bin 0 -> 852813 bytes
+|  .../task03/A1/windows_edge_desktop_a1_pass.png    | Bin 0 -> 298680 bytes
+|  .../task03/A2/android_chrome_phone_a2_fail.jpg    | Bin 0 -> 340994 bytes
+|  .../task03/A2/android_firefox_tablet_a2_fail.png  | Bin 0 -> 377352 bytes
+|  .../A2/android_samsung-internet_phone_a2_fail.jpg | Bin 0 -> 335211 bytes
+|  .../task03/A2/macos_safari_desktop_a2_pass.png    | Bin 0 -> 480497 bytes
+|  .../task03/A2/windows_edge_desktop_a2_pass.png    | Bin 0 -> 243423 bytes
+|  .../task03/A4/android_chrome_phone_a4_fail.jpg    | Bin 0 -> 187090 bytes
+|  .../task03/A4/android_firefox_tablet_a4_fail.png  | Bin 0 -> 487226 bytes
+|  .../A4/android_samsung-internet_phone_a4_fail.jpg | Bin 0 -> 246331 bytes
+|  .../task03/A4/macos_safari_desktop_a4_fail.png    | Bin 0 -> 549800 bytes
+|  .../task03/A4/windows_edge_desktop_a4_pass.png    | Bin 0 -> 289695 bytes
+|  17 files changed, 264 insertions(+), 51 deletions(-)
+| 
+* commit 0d22623d5cbd2caa965aaa20b48108824002b49e
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sat Aug 1 21:17:29 2026 +0700
+| 
+|     chore: update template for compatibility testing
+| 
+|  docs/audit/ai/23127449-task02-2026-07.log.md |  2 +-
+|  docs/audit/ai/23127449-task03-2026-08.log.md | 84 ++++++++++++++++++++----
+|  docs/audit/ai/23127449-task1a-2026-07.log.md |  2 +-
+|  docs/audit/ai/23127449-task1b-2026-07.log.md |  2 +-
+|  docs/task03/matrix-results.md                | 48 +++++++-------
+|  docs/task03/matrix-template.md               | 88 +++++++++++++-------------
+|  docs/task03/priority-guide.md                | 22 +++----
+|  docs/task03/screenshot-naming.md             | 53 +++-------------
+|  8 files changed, 161 insertions(+), 140 deletions(-)
+| 
+* commit 08c2473e367ccbdc04e56a54f504a979047d7ad4
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sat Aug 1 20:16:23 2026 +0700
+| 
+|     feat: add template for compatibility testing
+| 
+|  docs/audit/ai/23127449-task03-2026-08.log.md | 239 +++++++++++++++++++++++++
+|  docs/task03/matrix-results.md                | 117 ++++++++++++
+|  docs/task03/matrix-template.md               | 151 ++++++++++++++++
+|  docs/task03/priority-guide.md                | 162 +++++++++++++++++
+|  docs/task03/screenshot-naming.md             | 198 ++++++++++++++++++++
+|  5 files changed, 867 insertions(+)
+| 
+* commit 88e833abc77faebc97d6763e89b7113955b12e99
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Jul 31 22:27:11 2026 +0700
+| 
+|     feat: add bug report for screen A4
+| 
+|  docs/audit/ai/23127449-task1b-2026-07.log.md |  77 +++++-
+|  docs/task01/A2/bug-report-A2.md              |   2 +-
+|  docs/task01/A4/bug-report-A4.md              | 344 +++++++++++++++++++++++++
+|  docs/task01/A4/execution-A4.md               |  34 +--
+|  screenshots/task01/A4/BUG-A4-002.png         | Bin 0 -> 263766 bytes
+|  screenshots/task01/A4/BUG-A4-003.png         | Bin 0 -> 253288 bytes
+|  screenshots/task01/A4/BUG-A4-004-01.png      | Bin 0 -> 155881 bytes
+|  screenshots/task01/A4/BUG-A4-004-02.png      | Bin 0 -> 177887 bytes
+|  screenshots/task01/A4/BUG-A4-005.png         | Bin 0 -> 164145 bytes
+|  screenshots/task01/A4/BUG-A4-007.png         | Bin 0 -> 173021 bytes
+|  10 files changed, 428 insertions(+), 29 deletions(-)
+| 
+* commit e3bc4a24c67e53bdeb06143938a6310b1b02c8c7
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Jul 31 21:00:26 2026 +0700
+| 
+|     feat: add result and notes for execution
+| 
+|  docs/audit/ai/23127449-task1b-2026-07.log.md |  58 +++++++++++---
+|  docs/audit/ai/update_log.py                  |  65 ---------------
+|  docs/task01/A4/execution-A4.md               | 106 ++++++++++++-------------
+|  3 files changed, 101 insertions(+), 128 deletions(-)
+| 
+* commit 5c41faf6a72ea1f38aed4b039bd6cff9059c0062
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Jul 31 12:58:24 2026 +0700
+| 
+|     feat: add result and notes for edge cases
+| 
+|  docs/audit/ai/23127449-task1b-2026-07.log.md |  55 ++++++++--
+|  docs/audit/ai/update_log.py                  |  65 ++++++++++++
+|  docs/task01/A4/edge-cases-A4.md              |  19 ++--
+|  docs/task01/A4/execution-A4.md               | 140 ++++++++++++-------------
+|  4 files changed, 189 insertions(+), 90 deletions(-)
+| 
+* commit fc3aeadaa4d99b870a12fdbc72982c74ec40db8b
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Jul 31 09:18:29 2026 +0700
+| 
+|     feat: add how to test for execution checklist
+| 
+|  docs/audit/ai/23127449-task1b-2026-07.log.md |  73 +++++++++----
+|  docs/task01/A4/edge-cases-A4.md              |  25 ++---
+|  docs/task01/A4/execution-A4.md               | 141 +++++++++++++------------
+|  3 files changed, 134 insertions(+), 105 deletions(-)
+| 
+* commit 0d23a10ef771c6d62157b85f1fc3c1d1359fab17
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Jul 31 00:25:21 2026 +0700
+| 
+|     feat: add template for screen A4
+| 
+|  docs/audit/ai/23127449-task1b-2026-07.log.md | 84 ++++++++++++++++++++----
+|  docs/task01/A4/edge-cases-A4.md              | 18 ++++++
+|  docs/task01/A4/execution-A4.md               | 88 ++++++++++++++++++++++++++
+|  3 files changed, 179 insertions(+), 11 deletions(-)
+| 
+* commit 8e96de67480d4b4e1088e2c3d1a81335a830589b
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Jul 30 22:26:48 2026 +0700
+| 
+|     feat: add template for task 2
+| 
+|  docs/audit/ai/23127449-task02-2026-07.log.md | 250 ++++++++++++++++++++++
+|  docs/task02/observation-template.md          | 280 +++++++++++++++++++++++++
+|  docs/task02/participant-table.md             |  55 +++++
+|  docs/task02/probe-questions-T1.md            | 108 ++++++++++
+|  docs/task02/session-notes/P1-session.md      | 244 +++++++++++++++++++++
+|  docs/task02/session-notes/P2-session.md      | 244 +++++++++++++++++++++
+|  docs/task02/session-notes/P3-session.md      | 244 +++++++++++++++++++++
+|  docs/task02/session-notes/P4-session.md      | 244 +++++++++++++++++++++
+|  docs/task02/session-notes/P5-session.md      | 244 +++++++++++++++++++++
+|  docs/task02/sus-instrument.md                |  83 ++++++++
+|  docs/task02/task-scenario-T1.md              |  61 ++++++
+|  docs/task02/test-plan.md                     | 184 ++++++++++++++++
+|  12 files changed, 2241 insertions(+)
+| 
+* commit fb3f707304abad821e0ed04434257b44f67fe2b2
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Jul 30 13:59:52 2026 +0700
+| 
+|     chore: update skill compatibility-matrix-runner
+| 
+|  .../skills/compatibility-matrix-runner/SKILL.md   | 376 ++++++++------------
+|  .../examples/example-matrix-output.md             | 364 ++++++++++---------
+|  .../resources/defect-taxonomy.md                  |  85 ++---
+|  .../resources/rendering-engines-guide.md          | 127 +++----
+|  4 files changed, 427 insertions(+), 525 deletions(-)
+| 
+* commit 326cdf2d25d184f3499acedd7a12db57328c33a4
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Jul 30 03:11:16 2026 +0700
+| 
+|     chore: update bug report for screen A2
+| 
+|  .../skills/compatibility-matrix-runner/SKILL.md   | 569 ++++++++++++++++++++
+|  .../examples/example-matrix-output.md             | 288 ++++++++++
+|  .../resources/defect-taxonomy.md                  |  81 +++
+|  .../resources/rendering-engines-guide.md          | 118 ++++
+|  docs/task01/A2/add/edge-cases-A2-add.md           |  40 --
+|  docs/task01/A2/bug-report-A2.md                   |  91 ++--
+|  docs/task01/A2/edge-cases-A2.md                   |  41 ++
+|  .../{add/execution-A2-add.md => execution-A2.md}  |   7 +-
+|  .../A2/{add/BUG-A2-ADD-002.png => BUG-A2-002.png} | Bin
+|  .../A2/{add/BUG-A2-ADD-003.png => BUG-A2-003.png} | Bin
+|  .../A2/{add/BUG-A2-ADD-007.png => BUG-A2-007.png} | Bin
+|  .../A2/{add/BUG-A2-ADD-008.png => BUG-A2-008.png} | Bin
+|  .../A2/{add/BUG-A2-ADD-009.png => BUG-A2-009.png} | Bin
+|  .../A2/{add/BUG-A2-ADD-010.png => BUG-A2-010.png} | Bin
+|  14 files changed, 1142 insertions(+), 93 deletions(-)
+| 
+* commit 49600fede0a7fffa49fca1bb8316baa66b4d97b3
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Jul 30 02:16:25 2026 +0700
+| 
+|     chore: add evidences for A2 add screen
+| 
+|  docs/task01/A2/add/execution-A2-add.md       |  36 +++----
+|  docs/task01/A2/bug-report-A2.md              | 141 +++++--------------------
+|  screenshots/task01/A2/add/BUG-A2-ADD-002.png | Bin 0 -> 135245 bytes
+|  screenshots/task01/A2/add/BUG-A2-ADD-003.png | Bin 0 -> 114054 bytes
+|  screenshots/task01/A2/add/BUG-A2-ADD-007.png | Bin 0 -> 135910 bytes
+|  screenshots/task01/A2/add/BUG-A2-ADD-008.png | Bin 0 -> 248148 bytes
+|  screenshots/task01/A2/add/BUG-A2-ADD-009.png | Bin 0 -> 246385 bytes
+|  screenshots/task01/A2/add/BUG-A2-ADD-010.png | Bin 0 -> 190874 bytes
+|  8 files changed, 47 insertions(+), 130 deletions(-)
+| 
+* commit 4e1f1e1df205af9be812387305cb69429d63c62e
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Wed Jul 29 23:59:35 2026 +0700
+| 
+|     feat: add bug report for A2 add
+| 
+|  docs/audit/ai/23127449-task1b-2026-07.log.md |  48 +-
+|  docs/task01/A1/bug-report-A1.md              |   2 +
+|  docs/task01/A2/bug-report-A2.md              | 625 +++++++++++++++++++++++++
+|  3 files changed, 665 insertions(+), 10 deletions(-)
+| 
+* commit 89debdbf8bf5c35ec6cfd4ed9f01255d8818d645
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Wed Jul 29 23:08:02 2026 +0700
+| 
+|     feat: add execution and edge case checklist for A2 add
+| 
+|  .../resources/edge-cases-reference.md             |  15 ++-
+|  docs/audit/ai/23127449-task1b-2026-07.log.md      | 131 ++++++++++++++++--
+|  docs/task01/A1/bug-report-A1.md                   |  81 +++--------
+|  docs/task01/A1/execution-A1.md                    |   4 +-
+|  docs/task01/A2/add/edge-cases-A2-add.md           |  98 +++-----------
+|  docs/task01/A2/add/execution-A2-add.md            | 142 ++++++++++----------
+|  screenshots/task01/A1/BUG-A1-005.png              | Bin 280506 -> 170560 bytes
+|  screenshots/task01/A1/BUG-A1-006.png              | Bin 170560 -> 201548 bytes
+|  screenshots/task01/A1/BUG-A1-007.png              | Bin 201548 -> 0 bytes
+|  .../task01/A1/{BUG-A1-009.png => BUG-A1-008.png}  | Bin
+|  10 files changed, 235 insertions(+), 236 deletions(-)
+| 
+* commit 7a26cbf6a39dfc1cb77970c74db44c36965e2941
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Wed Jul 29 05:36:36 2026 +0700
+| 
+|     feat(A2): add skeleton execution checklist for A2 add screen
+| 
+|  docs/audit/ai/23127449-task1b-2026-07.log.md |  61 ++++++++++++---
+|  docs/task01/A2/add/edge-cases-A2-add.md      | 102 +++++++++++++++++++++++++
+|  docs/task01/A2/add/execution-A2-add.md       |  90 ++++++++++++++++++++++
+|  3 files changed, 241 insertions(+), 12 deletions(-)
+| 
+* commit 385b749f0df9b779f4555eff7da916cd84d1d8fa
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Wed Jul 29 04:56:35 2026 +0700
+| 
+|     feat(skill): add usability-session-analyser
+| 
+|  .../skills/usability-session-analyser/SKILL.md    | 534 ++++++++++++++++++++
+|  .../examples/example-usability-report.md          | 251 +++++++++
+|  .../resources/metrics-aggregation-guide.md        |  97 ++++
+|  .../resources/pain-point-clustering-guide.md      | 130 +++++
+|  .../resources/severity-frequency-reference.md     |  70 +++
+|  .../resources/sus-scoring-reference.md            |  84 +++
+|  docs/task01/A1/bug-report-A1.md                   |  10 +-
+|  screenshots/task01/A1-overview.png                | Bin 206922 -> 0 bytes
+|  8 files changed, 1171 insertions(+), 5 deletions(-)
+| 
+* commit 968634ca974486240f6348fb6e7ca129e87c804d
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Jul 28 21:12:05 2026 +0700
+| 
+|     chore: add new bug of screen A1
+| 
+|  .../resources/edge-cases-reference.md             | 26 ++++++-----
+|  docs/task01/A1/bug-report-A1.md                   | 52 ++++++++++++++++++++-
+|  docs/task01/A1/edge-cases-A1.md                   | 15 +++---
+|  3 files changed, 72 insertions(+), 21 deletions(-)
+| 
+* commit b16edbccffdf63a41835110dd543edbc8876904e
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Jul 28 20:45:33 2026 +0700
+| 
+|     chore: review and update bug report of screen A1 with screenshot evidences
+| 
+|  docs/audit/ai/23127449-task1b-2026-07.log.md      | 126 +++++++++--
+|  docs/task01/A1/bug-report-A1.md                   | 222 +++++++++-----------
+|  docs/task01/A1/execution-A1.md                    |   8 +-
+|  screenshots/task01/A1/BUG-A1-002.png              | Bin 0 -> 293155 bytes
+|  ...A1-IA-01-015-fail-02.png => BUG-A1-003-01.png} | Bin
+|  ...A1-IA-01-015-fail-01.png => BUG-A1-003-02.png} | Bin
+|  screenshots/task01/A1/BUG-A1-005.png              | Bin 0 -> 280506 bytes
+|  screenshots/task01/A1/BUG-A1-006.png              | Bin 0 -> 170560 bytes
+|  screenshots/task01/A1/BUG-A1-007.png              | Bin 0 -> 201548 bytes
+|  screenshots/task01/A1/BUG-A1-009.png              | Bin 0 -> 170254 bytes
+|  10 files changed, 217 insertions(+), 139 deletions(-)
+| 
+* commit 8b1f3f5f29e9e403265219c647bd70d183f77aea
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Jul 28 09:26:17 2026 +0700
+| 
+|     docs: add draft artifacts for screen A1
+| 
+|  docs/audit/ai/23127449-task1b-2026-07.log.md   | 369 +++++++++++++++
+|  docs/requirements.md                           |   2 +-
+|  docs/task01/A1/bug-report-A1.md                | 567 +++++++++++++++++++++++
+|  docs/task01/A1/edge-cases-A1.md                |  35 ++
+|  docs/task01/A1/execution-A1.md                 |  90 ++++
+|  screenshots/task01/A1-overview.png             | Bin 0 -> 206922 bytes
+|  screenshots/task01/A1/A1-IA-01-015-fail-01.png | Bin 0 -> 153778 bytes
+|  screenshots/task01/A1/A1-IA-01-015-fail-02.png | Bin 0 -> 210616 bytes
+|  8 files changed, 1062 insertions(+), 1 deletion(-)
+| 
+* commit 7401d7fc1076132b480e35e3dd3bc5559da43952
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Jul 28 04:40:55 2026 +0700
+| 
+|     chore: update skills for task 1
+| 
+|  .agents/skills/gui-checklist-designer/SKILL.md    |  6 ++--
+|  .../examples/example-checklist-output.md          |  1 -
+|  .../resources/wcag22-key-criteria.md              |  7 -----
+|  .agents/skills/gui-checklist-executor/SKILL.md    | 12 ++++----
+|  .../examples/example-bug-report.md                | 16 +++++------
+|  .../examples/example-execution-output.md          |  2 +-
+|  .../resources/bug-report-format.md                |  6 +++-
+|  .../resources/need-human-triggers.md              | 31 ++++++++++-----------
+|  8 files changed, 38 insertions(+), 43 deletions(-)
+| 
+* commit ecf4aed2e8ad7ded0a0c396fa02ca33cee653a12
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Mon Jul 27 22:11:47 2026 +0700
+| 
+|     chore: update shared-gui-checklist.md
+| 
+|  docs/shared-gui-checklist.md | 172 +++++++++++++++++------------------------
+|  1 file changed, 72 insertions(+), 100 deletions(-)
+| 
+* commit de7bf80edb7f82fa9837e50d5ef2a24dcf0affa5
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Mon Jul 27 03:14:46 2026 +0700
+| 
+|     chore(skill): update gui-checklist-executor
+| 
+|  .agents/skills/gui-checklist-executor/SKILL.md    |   4 +-
+|  .../resources/edge-cases-reference.md             | 144 ++++++++++----------
+|  2 files changed, 73 insertions(+), 75 deletions(-)
+| 
+* commit 3d5f6804cc918b509f2f86c056078c091fc21e37
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sun Jul 26 23:05:55 2026 +0700
+| 
+|     feat(skill): add usability-test-designer
+| 
+|  .agents/skills/gui-checklist-designer/SKILL.md    |   2 +-
+|  .agents/skills/gui-checklist-executor/SKILL.md    |   2 +-
+|  .agents/skills/usability-test-designer/SKILL.md   | 656 ++++++++++++++++++++
+|  .../examples/example-session-template.md          | 347 +++++++++++
+|  .../examples/example-test-plan.md                 | 141 +++++
+|  .../resources/9part-plan-reference.md             | 116 ++++
+|  .../resources/probe-question-guide.md             |  96 +++
+|  .../resources/sus-reference.md                    |  72 +++
+|  .../resources/task-scenario-rules.md              | 124 ++++
+|  9 files changed, 1554 insertions(+), 2 deletions(-)
+| 
+* commit 340d917d206a5998d08297fa1bf0cc28d82bcc94
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sun Jul 26 12:11:38 2026 +0700
+| 
+|     feat: add selected screens and justification
+| 
+|  docs/audit/ai/23127449-task1a-2026-07.log.md |  43 +-
+|  docs/screen-selection.md                     | 212 ++++++
+|  docs/theory-foundation.md                    | 989 -------------------------
+|  3 files changed, 247 insertions(+), 997 deletions(-)
+| 
+* commit 8ca76c1eddb8bf54e8f8bda1e72b781748aaefac
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sat Jul 25 21:39:55 2026 +0700
+| 
+|     chore: update shared-gui-checklist.md
+| 
+|  docs/audit/ai/23127449-task1a-2026-07.log.md      | 77 +++++++++++++++++++--
+|  docs/{HW03-requirements.md => requirements.md}    |  0
+|  docs/{checklist => }/shared-gui-checklist.md      | 50 ++++++-------
+|  ...-theory-foundation.md => theory-foundation.md} |  0
+|  4 files changed, 96 insertions(+), 31 deletions(-)
+| 
+* commit 551b4b0e19756260fb52581d1e870821a1c13cb1
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sat Jul 25 15:21:26 2026 +0700
+| 
+|     feat: add shared gui checklist
+| 
+|  docs/audit/ai/23127449-task1a-2026-07.log.md | 262 +++++++++++++++++++++++++
+|  docs/checklist/shared-gui-checklist.md       | 132 +++++++++++++
+|  2 files changed, 394 insertions(+)
+| 
+* commit f766bb2e945f0f65770aceee358ca2aefab1752b
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sat Jul 25 11:31:14 2026 +0700
+| 
+|     feat: add gui-checklist-executor skill and browser mcp
+| 
+|  .agents/mcp_config.json                           |   8 +
+|  .agents/skills/gui-checklist-designer/SKILL.md    |  21 +-
+|  .agents/skills/gui-checklist-executor/SKILL.md    | 414 ++++++++++++++++++++
+|  .../examples/example-bug-report.md                | 220 +++++++++++
+|  .../examples/example-execution-output.md          |  70 ++++
+|  .../resources/bug-report-format.md                |  82 ++++
+|  .../resources/edge-cases-reference.md             | 126 ++++++
+|  .../resources/need-human-triggers.md              |  94 +++++
+|  8 files changed, 1023 insertions(+), 12 deletions(-)
+| 
+* commit bd88d93d8c78b5c5b2551298b974f62ff1dc4aca
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Jul 24 16:26:12 2026 +0700
+| 
+|     feat(skill): add gui-checklist-designer
+| 
+|  .agents/skills/gui-checklist-designer/SKILL.md    | 316 ++++++++++++++++++++
+|  .../examples/example-checklist-output.md          |  66 ++++
+|  .../resources/heuristics-reference.md             | 101 +++++++
+|  .../resources/ia-definitions.md                   |  87 ++++++
+|  .../resources/per-widget-guidelines.md            | 283 ++++++++++++++++++
+|  .../resources/wcag22-key-criteria.md              |  69 +++++
+|  6 files changed, 922 insertions(+)
+| 
+* commit 7dc43dc8181809ca883a45f6c6e4ab6bd79e016f
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Jul 23 12:44:57 2026 +0700
+| 
+|     feat(skill): add ai-audit-log
+| 
+|  .agents/skills/ai-audit-log/LICENSE               |  21 ++
+|  .agents/skills/ai-audit-log/README.md             |  81 ++++++
+|  .agents/skills/ai-audit-log/SKILL.md              | 136 +++++++++
+|  .../ai-audit-log/examples/example-session.md      | 290 ++++++++++++++++++++
+|  .../examples/sample-tan-phat-2026-07.log.md       | 184 +++++++++++++
+|  .../skills/ai-audit-log/resources/log-format.md   | 126 +++++++++
+|  .../ai-audit-log/resources/quality-checklist.md   |  36 +++
+|  .../ai-audit-log/resources/status-definitions.md  |  40 +++
+|  .../skills/ai-audit-log/resources/tag-taxonomy.md |  61 ++++
+|  9 files changed, 975 insertions(+)
+| 
+* commit d9c7a5dfb5bc3b47d2c230af473835e98a25040f
+  Author: Phat Nguyen <phatnguyen9725@gmail.com>
+  Date:   Wed Jul 22 21:50:50 2026 +0700
+  
+      chore: init project
+  
+   README.md                      |   7 +
+   docs/HW03-requirements.md      | 239 ++++++++++
+   docs/HW03-theory-foundation.md | 989 +++++++++++++++++++++++++++++++++++++++
+   3 files changed, 1235 insertions(+)

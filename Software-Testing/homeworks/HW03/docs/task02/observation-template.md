@@ -12,12 +12,12 @@
 | Field                  | Value                                    |
 | ---------------------- | ---------------------------------------- |
 | **Participant ID**     | P{n}                                     |
+| **Participant Name**   |                                          |
 | **Session Date**       | YYYY-MM-DD                               |
 | **Session Start Time** | HH:MM                                    |
 | **Session End Time**   | HH:MM                                    |
-| **Mode**               | Moderated / Unmoderated                  |
-| **Facilitator Name**   | _(your name)_                            |
-| **Observer Name**      | _(if separate)_                          |
+| **Facilitator Name**   |                                          |
+| **Observer Name**      |                                          |
 | **Device Used**        | Desktop / Laptop                         |
 | **OS / Browser**       | e.g. Windows 11 / Chrome                 |
 | **Recording Consent**  | ☐ Yes ☐ No                               |

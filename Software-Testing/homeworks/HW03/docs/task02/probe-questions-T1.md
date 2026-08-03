@@ -3,8 +3,7 @@
 > **Task:** T1 — Create, publish, and manage event registrations  
 > **Screens covered:** A1 · A2 · A4  
 > **When to ask:** After the participant completes the SUS questionnaire, in a conversational debrief.  
-> **Format:** Open-ended, non-leading. Allow the participant to answer fully before asking the next question.  
-> **Time:** ~5–7 minutes total.
+> **Format:** Open-ended, non-leading. Allow the participant to answer fully before asking the next question.
 
 ## Facilitation Notes
 

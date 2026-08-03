@@ -1,6 +1,6 @@
-# Execution Checklist — Add / Edit Event (A2)
+# Execution Checklist — Add / Edit Event Form (A2)
 
-> **Screen:** A2 — Add / Edit Event  
+> **Screen:** A2 — Add / Edit Event Form  
 > **Add Screen URL:** https://prod-dev.ems-fitus.cloud/dashboard/admin/events/create  
 > **Edit Screen URL:** https://prod-dev.ems-fitus.cloud/dashboard/admin/events/edit?id=39  
 > **Execution Mode:** Mode 1 — BrowserMCP (Live Browser)  
