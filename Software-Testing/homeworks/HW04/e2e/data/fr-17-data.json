@@ -1,0 +1,308 @@
+[
+  {
+    "tc_id": "TC-FR17-001",
+    "description": "Create coupon with valid data using percent type",
+    "mode": "create",
+    "inputs": {
+      "code": "SUMMER25",
+      "type": "percent",
+      "discountValue": 10,
+      "expiredAt": "2099-12-31",
+      "minOrderAmount": 300000,
+      "maxUsesPerUser": 2
+    },
+    "expected": {
+      "outcome": "success",
+      "message": "Coupon created successfully. SUMMER25 appears in the coupon list with type percent, discount_value 10%, min_order_amount 300000, max_uses_per_user 2."
+    }
+  },
+  {
+    "tc_id": "TC-FR17-002",
+    "description": "Create coupon with valid data using fixed type and zero min order",
+    "mode": "create",
+    "inputs": {
+      "code": "FIXEDJUL",
+      "type": "fixed",
+      "discountValue": 50000,
+      "expiredAt": "2099-12-31",
+      "minOrderAmount": 0,
+      "maxUsesPerUser": 1
+    },
+    "expected": {
+      "outcome": "success",
+      "message": "Coupon created successfully. FIXEDJUL appears in the coupon list with type fixed, discount_value 50000, min_order_amount 0, max_uses_per_user 1."
+    }
+  },
+  {
+    "tc_id": "TC-FR17-003",
+    "description": "Create coupon with discount_value at minimum boundary 0.01 for percent",
+    "mode": "create",
+    "inputs": {
+      "code": "MINVAL01",
+      "type": "percent",
+      "discountValue": 0.01,
+      "expiredAt": "2099-12-31",
+      "minOrderAmount": 100000,
+      "maxUsesPerUser": 1
+    },
+    "expected": {
+      "outcome": "success",
+      "message": "Coupon created successfully. MINVAL01 appears in the coupon list with discount_value 0.01."
+    }
+  },
+  {
+    "tc_id": "TC-FR17-004",
+    "description": "Create coupon with discount_value at maximum boundary 100 for percent",
+    "mode": "create",
+    "inputs": {
+      "code": "FULL100",
+      "type": "percent",
+      "discountValue": 100,
+      "expiredAt": "2099-12-31",
+      "minOrderAmount": 100000,
+      "maxUsesPerUser": 1
+    },
+    "expected": {
+      "outcome": "success",
+      "message": "Coupon created successfully. FULL100 appears in the coupon list with discount_value 100."
+    }
+  },
+  {
+    "tc_id": "TC-FR17-005",
+    "description": "View coupon list as authenticated admin",
+    "mode": "view",
+    "inputs": {
+      "code": "",
+      "type": "",
+      "discountValue": null,
+      "expiredAt": "",
+      "minOrderAmount": null,
+      "maxUsesPerUser": null
+    },
+    "expected": {
+      "outcome": "success",
+      "message": "Coupon management page displays a list of all existing coupons. Each entry shows: code, type, discount_value, expired_at, min_order_amount, max_uses_per_user."
+    }
+  },
+  {
+    "tc_id": "TC-FR17-006",
+    "description": "Delete coupon with confirmation dialog",
+    "mode": "delete",
+    "inputs": {
+      "code": "TODELETE",
+      "type": "fixed",
+      "discountValue": 10000,
+      "expiredAt": "2099-12-31",
+      "minOrderAmount": 0,
+      "maxUsesPerUser": 1
+    },
+    "expected": {
+      "outcome": "success",
+      "message": "Coupon TODELETE is removed and no longer appears in the coupon list."
+    }
+  },
+  {
+    "tc_id": "TC-FR17-007",
+    "description": "Create coupon with empty code field",
+    "mode": "create",
+    "inputs": {
+      "code": "",
+      "type": "percent",
+      "discountValue": 10,
+      "expiredAt": "2099-12-31",
+      "minOrderAmount": 100000,
+      "maxUsesPerUser": 1
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Validation error displayed on the code field indicating it is required. No coupon is created."
+    }
+  },
+  {
+    "tc_id": "TC-FR17-008",
+    "description": "Create coupon with duplicate coupon code",
+    "mode": "duplicate",
+    "inputs": {
+      "code": "SAVE10",
+      "type": "percent",
+      "discountValue": 10,
+      "expiredAt": "2099-12-31",
+      "minOrderAmount": 100000,
+      "maxUsesPerUser": 1
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Validation error displayed indicating the coupon code already exists. No new coupon is created."
+    }
+  },
+  {
+    "tc_id": "TC-FR17-009",
+    "description": "Create coupon with invalid type value",
+    "mode": "create",
+    "inputs": {
+      "code": "BADTYPE",
+      "type": "flat",
+      "discountValue": 10,
+      "expiredAt": "2099-12-31",
+      "minOrderAmount": 100000,
+      "maxUsesPerUser": 1
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Validation error displayed on the type field. No coupon is created."
+    }
+  },
+  {
+    "tc_id": "TC-FR17-010",
+    "description": "Create coupon with discount_value equal to zero",
+    "mode": "create",
+    "inputs": {
+      "code": "ZERODSC",
+      "type": "percent",
+      "discountValue": 0,
+      "expiredAt": "2099-12-31",
+      "minOrderAmount": 100000,
+      "maxUsesPerUser": 1
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Validation error displayed on the discount_value field indicating it must be greater than zero. No coupon is created."
+    }
+  },
+  {
+    "tc_id": "TC-FR17-011",
+    "description": "Create coupon with negative discount_value",
+    "mode": "create",
+    "inputs": {
+      "code": "NEGDISC",
+      "type": "percent",
+      "discountValue": -1,
+      "expiredAt": "2099-12-31",
+      "minOrderAmount": 100000,
+      "maxUsesPerUser": 1
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Validation error displayed on the discount_value field indicating it must be a positive number. No coupon is created."
+    }
+  },
+  {
+    "tc_id": "TC-FR17-012",
+    "description": "Create coupon with percent type and discount_value exceeding 100",
+    "mode": "create",
+    "inputs": {
+      "code": "OVER100",
+      "type": "percent",
+      "discountValue": 101,
+      "expiredAt": "2099-12-31",
+      "minOrderAmount": 100000,
+      "maxUsesPerUser": 1
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Validation error displayed on the discount_value field indicating it cannot exceed 100 for percent type. No coupon is created."
+    }
+  },
+  {
+    "tc_id": "TC-FR17-013",
+    "description": "Create coupon with empty expired_at field",
+    "mode": "create",
+    "inputs": {
+      "code": "NOEXPIRY",
+      "type": "percent",
+      "discountValue": 10,
+      "expiredAt": "",
+      "minOrderAmount": 100000,
+      "maxUsesPerUser": 1
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Validation error displayed on the expired_at field indicating it is required. No coupon is created."
+    }
+  },
+  {
+    "tc_id": "TC-FR17-014",
+    "description": "Create coupon with negative min_order_amount",
+    "mode": "create",
+    "inputs": {
+      "code": "NEGMIN",
+      "type": "percent",
+      "discountValue": 10,
+      "expiredAt": "2099-12-31",
+      "minOrderAmount": -1,
+      "maxUsesPerUser": 1
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Validation error displayed on the min_order_amount field indicating it must be >= 0. No coupon is created."
+    }
+  },
+  {
+    "tc_id": "TC-FR17-015",
+    "description": "Create coupon with max_uses_per_user equal to zero",
+    "mode": "create",
+    "inputs": {
+      "code": "ZEROUSE",
+      "type": "percent",
+      "discountValue": 10,
+      "expiredAt": "2099-12-31",
+      "minOrderAmount": 100000,
+      "maxUsesPerUser": 0
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Validation error displayed on the max_uses_per_user field indicating it must be >= 1. No coupon is created."
+    }
+  },
+  {
+    "tc_id": "TC-FR17-016",
+    "description": "Create coupon with code containing leading whitespace",
+    "mode": "create",
+    "inputs": {
+      "code": " NEWCODE",
+      "type": "percent",
+      "discountValue": 10,
+      "expiredAt": "2099-12-31",
+      "minOrderAmount": 100000,
+      "maxUsesPerUser": 1
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "System either trims whitespace and creates coupon with code NEWCODE, or rejects with a validation error. A coupon with a space-prefixed code must not be persisted."
+    }
+  },
+  {
+    "tc_id": "TC-FR17-017",
+    "description": "Create coupon with non-numeric discount_value",
+    "mode": "create",
+    "inputs": {
+      "code": "STRDISC",
+      "type": "percent",
+      "discountValue": "abc",
+      "expiredAt": "2099-12-31",
+      "minOrderAmount": 100000,
+      "maxUsesPerUser": 1
+    },
+    "expected": {
+      "outcome": "error",
+      "message": "Validation error displayed on the discount_value field indicating it must be a number. No coupon is created."
+    }
+  },
+  {
+    "tc_id": "TC-FR17-018",
+    "description": "Create coupon with SQL injection string in code field",
+    "mode": "create",
+    "inputs": {
+      "code": "'; DROP TABLE coupons; --",
+      "type": "percent",
+      "discountValue": 10,
+      "expiredAt": "2099-12-31",
+      "minOrderAmount": 100000,
+      "maxUsesPerUser": 1
+    },
+    "expected": {
+      "outcome": "success",
+      "message": "System safely handles the input — accepts it as a literal string or rejects with a validation error. The coupon table remains intact. No database error is exposed."
+    }
+  }
+]

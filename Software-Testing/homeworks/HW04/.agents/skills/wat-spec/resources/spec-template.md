@@ -78,7 +78,7 @@ Outcome: {observable error state — what the actor sees}
 <!-- One observable outcome per AC. -->
 <!-- Each AC maps to at least one BR or flow path. -->
 
-**AC-01:** {Short title}
+### AC-01: {Short title}
 
 ```
 Given  {pre-condition}
@@ -88,7 +88,7 @@ Then   {observable outcome}
 
 _Maps to: BR-01, SP-01_
 
-**AC-02:** {Short title}
+### AC-02: {Short title}
 
 ```
 Given  {pre-condition}

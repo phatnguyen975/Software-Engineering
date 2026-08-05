@@ -1,5 +1,10 @@
 import { test as base, expect } from "@playwright/test";
 import { authFixtures, type AuthFixtures } from "./auth.fixture";
+import {
+  registrationFixtures,
+  type RegistrationFixtures,
+} from "./registration.fixture";
+import { couponFixtures, type CouponApiFixture } from "./coupon.fixture";
 
 /**
  * Central fixture entry point for the entire test suite.
@@ -15,8 +20,12 @@ import { authFixtures, type AuthFixtures } from "./auth.fixture";
  *   2. Import and merge it into the `extend()` call below.
  *   3. Add the type to the generic parameter list.
  */
-export const test = base.extend<AuthFixtures>({
+export const test = base.extend<
+  AuthFixtures & RegistrationFixtures & CouponApiFixture
+>({
   ...authFixtures,
+  ...registrationFixtures,
+  ...couponFixtures,
 });
 
 export { expect };

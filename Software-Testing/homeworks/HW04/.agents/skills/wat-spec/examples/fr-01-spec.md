@@ -111,7 +111,7 @@ Outcome: No account is created; all errors are shown simultaneously
 
 ## 6. Acceptance Criteria
 
-**AC-01:** Successful registration redirects to login page
+### AC-01: Successful registration redirects to login page
 
 ```
 Given  a guest user is on /register
@@ -121,7 +121,7 @@ Then   the system creates a new user account, sends a verification email, and re
 
 _Maps to: BR-01, BR-02, BR-03, BR-04, BR-05, SP-01_
 
-**AC-02:** Duplicate email is rejected with field-level error
+### AC-02: Duplicate email is rejected with field-level error
 
 ```
 Given  a guest user is on /register and the email address they enter is already registered
@@ -131,7 +131,7 @@ Then   the system displays an inline error on the Email field and does not creat
 
 _Maps to: BR-01, FP-01_
 
-**AC-03:** Non-compliant password is rejected
+### AC-03: Non-compliant password is rejected
 
 ```
 Given  a guest user is on /register
@@ -141,7 +141,7 @@ Then   the system displays an inline error on the Password field describing the 
 
 _Maps to: BR-02, FP-02_
 
-**AC-04:** Mismatched passwords are rejected
+### AC-04: Mismatched passwords are rejected
 
 ```
 Given  a guest user is on /register
@@ -151,7 +151,7 @@ Then   the system displays an inline error on the Confirm Password field and doe
 
 _Maps to: BR-03, FP-03_
 
-**AC-05:** Empty required fields produce field-level errors
+### AC-05: Empty required fields produce field-level errors
 
 ```
 Given  a guest user is on /register

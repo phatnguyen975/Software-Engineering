@@ -17,11 +17,6 @@ const STUDENT_ID = process.env.STUDENT_ID ?? "UNKNOWN_STUDENT_ID";
  *   global-setup.ts authenticates both roles via API and saves storageState to
  *   .auth/user.json and .auth/admin.json before any test runs. Each project
  *   loads the appropriate file so individual tests skip the login step entirely.
- *
- * Report identity:
- *   The `metadata` block is rendered in the Playwright HTML report header.
- *   `revision.author`    → displayed as the author / run-by field
- *   `revision.timestamp` → displayed as the run timestamp (ISO 8601)
  */
 export default defineConfig({
   // Maximum time a single test may run before it is marked as timed out
@@ -42,16 +37,10 @@ export default defineConfig({
   // Controlled concurrency on CI; let Playwright decide locally
   workers: process.env.CI ? 4 : undefined,
 
-  // Metadata for HTML report header; includes student ID and run timestamp
-  metadata: {
-    "revision.author": `${STUDENT_ID}`,
-    "revision.email": `${STUDENT_ID}@student.hcmus.edu.vn`,
-    "revision.subject": "EShop Web Automation Testing",
-    "revision.timestamp": new Date().toISOString(),
-  },
-
   // HTML report locally; list on CI for clean log output
-  reporter: process.env.CI ? [["list"]] : [["html", { open: "on-failure" }]],
+  reporter: process.env.CI
+    ? [["list"]]
+    : [["html", { open: "never" }], ["./metadata-reporter.ts"]],
 
   // Global setup & teardown — run once before/after the entire test suite
   globalSetup: "./global-setup.ts",
