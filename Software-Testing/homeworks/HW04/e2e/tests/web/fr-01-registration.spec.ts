@@ -14,6 +14,8 @@ interface RegistrationTestData {
     outcome: "success" | "error";
     message: string;
     redirect?: string;
+    requiredField?: boolean;
+    requiredFieldName?: "fullName" | "email" | "password";
   };
 }
 
@@ -43,19 +45,13 @@ test.describe("FR-01: Account Registration", () => {
         await registrationPage.waitForURL(data.expected.redirect!);
         await expect(page).toHaveURL(new RegExp(data.expected.redirect!));
       } else {
-        const emptyFieldMessages = [
-          "Full name is required.",
-          "Email is required.",
-          "Password is required.",
-        ];
-
-        if (emptyFieldMessages.includes(data.expected.message)) {
+        if (data.expected.requiredField) {
           let targetField = null;
-          if (data.expected.message === "Full name is required.") {
+          if (data.expected.requiredFieldName === "fullName") {
             targetField = registrationPage.fullNameInput;
-          } else if (data.expected.message === "Email is required.") {
+          } else if (data.expected.requiredFieldName === "email") {
             targetField = registrationPage.emailInput;
-          } else if (data.expected.message === "Password is required.") {
+          } else if (data.expected.requiredFieldName === "password") {
             targetField = registrationPage.passwordInput;
           }
 

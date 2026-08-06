@@ -5,6 +5,10 @@ import {
   type RegistrationFixtures,
 } from "./registration.fixture";
 import { couponFixtures, type CouponApiFixture } from "./coupon.fixture";
+import {
+  forgotPasswordFixtures,
+  type ForgotPasswordFixtures,
+} from "./forgot-password.fixture";
 
 /**
  * Central fixture entry point for the entire test suite.
@@ -21,11 +25,15 @@ import { couponFixtures, type CouponApiFixture } from "./coupon.fixture";
  *   3. Add the type to the generic parameter list.
  */
 export const test = base.extend<
-  AuthFixtures & RegistrationFixtures & CouponApiFixture
+  AuthFixtures &
+    RegistrationFixtures &
+    CouponApiFixture &
+    ForgotPasswordFixtures
 >({
   ...authFixtures,
   ...registrationFixtures,
   ...couponFixtures,
+  ...forgotPasswordFixtures,
 });
 
 export { expect };

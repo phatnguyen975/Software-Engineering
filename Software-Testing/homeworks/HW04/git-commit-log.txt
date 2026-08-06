@@ -1,0 +1,748 @@
+* commit 09cce7b9b98d83d3a5c10051db3e41e0a42c18dd
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Aug 6 06:09:46 2026 +0700
+| 
+|     feat: add playwright report
+| 
+|  .../10b5063d9b869fdb74e9c407d01be5824030f7c2.png  | Bin 0 -> 129753 bytes
+|  .../13683f354876a68be5a62eb431f4db977d185202.md   | 144 ++++++++
+|  .../187262ac83847b3a8b67a42ce156feb482d176bc.md   | 110 +++++++
+|  .../1931ae750b25b886f0181e7f4c6d22480a7f6fde.png  | Bin 0 -> 45129 bytes
+|  .../1aa19933f852694012bcde0324f752e78131a7af.png  | Bin 0 -> 131114 bytes
+|  .../20655b3ab5a3ea248fabe74a5684a6aa5126c642.png  | Bin 0 -> 126607 bytes
+|  .../21a605fef0d7092237df94eb5e07bdeed4e2f4e1.png  | Bin 0 -> 52221 bytes
+|  .../26863dcca56f02bc9e887c0fd93bd26ca83d90bf.png  | Bin 0 -> 51315 bytes
+|  .../36ee95334dbf4a50e96575f780434511a196e538.png  | Bin 0 -> 52578 bytes
+|  .../3f573fe9a1fd86b8b2997c21b923908ff5893a36.png  | Bin 0 -> 40235 bytes
+|  .../4500aab3208bb2812a223ac9d83f2979c33679d7.png  | Bin 0 -> 47333 bytes
+|  .../4ed2c1d29bf93e9344a5a37029ce326762efe7b8.png  | Bin 0 -> 48029 bytes
+|  .../58257ab61a1db43e1ae2d3f1ec7791b6ecb82959.md   | 142 ++++++++
+|  .../5e25b34fc3adea213d42c84d92d9793c4ec5d337.md   | 110 +++++++
+|  .../5f3c8dbc8219af31a781dfe157d56aef6a2bfcbb.png  | Bin 0 -> 45761 bytes
+|  .../62a9034d507e4cbe853fad4f08f13f906ddbd748.png  | Bin 0 -> 53360 bytes
+|  .../63b99b2e4b34f7d68023c94b78dbf2c3c87f3192.png  | Bin 0 -> 47344 bytes
+|  .../6919c35211a3911f7f37b6696f742f8ea43bc4f7.png  | Bin 0 -> 118063 bytes
+|  .../761092b3277586b60e53d86591bae9e11011a1bd.png  | Bin 0 -> 51973 bytes
+|  .../788805070393ec800b8f224a713a0b90e6e0e913.md   | 142 ++++++++
+|  .../8366b75331c4bd1a424fdfa231092c8b1711e239.md   | 110 +++++++
+|  .../8dcc3e61c811e6bf904c42a4084ba49b86418621.png  | Bin 0 -> 46119 bytes
+|  .../937bfaada26d14619be3d5bc3bf78027cb34f01e.md   | 144 ++++++++
+|  .../9ab6d18881804258b87bd5d5b899eb26f33be9d8.md   | 144 ++++++++
+|  .../9e69136cf8e115c5da9e608b7bd49f24ed2ad1b4.png  | Bin 0 -> 125461 bytes
+|  .../a1ae742841d66c83e0cdc6dac9a96e2798aa7375.png  | Bin 0 -> 123828 bytes
+|  .../aa71dc9f0fad4d681da93d7c2fc121595c7e58b2.png  | Bin 0 -> 40323 bytes
+|  .../ae4aeeecd30d94cd55939da500d12bfa0f87c183.png  | Bin 0 -> 46424 bytes
+|  .../aec1be29ea7e6e6a02953d757b74b385ae5dcd35.md   | 110 +++++++
+|  .../bd8df233578aa13e76f74b4289b157f5e03f54bc.png  | Bin 0 -> 48100 bytes
+|  .../c7ca7518535fbc7f6332d5530eab0ce86c0243b2.md   | 144 ++++++++
+|  .../cd984340b62a483219330cce5b60472bb8b44750.png  | Bin 0 -> 126658 bytes
+|  .../d1cb26fc420a1f77451869a612524111a5db6a99.png  | Bin 0 -> 53138 bytes
+|  .../d1f6a084a5211d722af1f7d6d953cd97ceff2550.png  | Bin 0 -> 47092 bytes
+|  .../d6b1aa8795668c6a9f808bec4726fbff429021a9.png  | Bin 0 -> 129651 bytes
+|  .../d800f5cf6cec1a8b8eeb93c4fedf7b528a495d21.md   | 142 ++++++++
+|  .../dbbda4c3204bbcebf4bd0911dddc90d634564658.png  | Bin 0 -> 53338 bytes
+|  .../e959ee7f3fd2fe0d9bc60b8892ab92e034b7e257.png  | Bin 0 -> 117780 bytes
+|  .../f16573be47600c8667a4eaedfbf0e55830d6a530.md   | 142 ++++++++
+|  .../ff27bee8a13dd6075699eabab62ab5f7924bab51.md   | 142 ++++++++
+|  playwright-report/fr-01/index.html                | 151 +++++++++
+|  .../00648a57d9fc9bbeb5cfc0374fa02e29920e4efa.png  | Bin 0 -> 73113 bytes
+|  .../019aecf045738a9c296c6b56f19d989e2a50576e.png  | Bin 0 -> 96600 bytes
+|  .../04bbeedc0219f39d5b2069e8dbe568704ceff405.md   | 212 ++++++++++++
+|  .../055eea56c1f3ee4eb382061729fb9dcaa8653e5c.png  | Bin 0 -> 39869 bytes
+|  .../08f12b539544daa495c309f9e507c8186279d23c.png  | Bin 0 -> 31905 bytes
+|  .../09a72865b4a00643e09efedb592b1a5f88f31527.png  | Bin 0 -> 39675 bytes
+|  .../09e3758d79aaf68c835375beeb25291093896853.png  | Bin 0 -> 96009 bytes
+|  .../09f92cdfd171e3108a3bd131e1e58dec7dce755c.md   | 212 ++++++++++++
+|  .../12a27c0cd3e6ad0a52f714d1f0b006ec8e0ab4d2.png  | Bin 0 -> 94702 bytes
+|  .../14f7c98fca55981bcd31e57243aa89494aa9a144.png  | Bin 0 -> 34743 bytes
+|  .../1b0d4a58947e663a1ed09eecbea736a813ec58a9.png  | Bin 0 -> 40164 bytes
+|  .../1d4e1ef1a98028e2037cbb77c0e1260832753568.md   | 103 ++++++
+|  .../21a3f0d4d8f7a3ea3bf36846081ac7cbed8c46a9.png  | Bin 0 -> 40265 bytes
+|  .../25e3fb43c0180be27bd4c862d825734cd070adb3.md   | 142 ++++++++
+|  .../26dc6b41282bdb686370d2fa951f9b315d91a533.png  | Bin 0 -> 33634 bytes
+|  .../26f62bbd104fb4a9fe478d11fd39bd2449d57f0f.md   | 165 ++++++++++
+|  .../2f3c8d118be8c529f53c0256c407975c81f02154.md   | 103 ++++++
+|  .../32c61f595b67f878f47fef660135370170b47c8a.md   | 103 ++++++
+|  .../362f5931b74dd4134c1331eb819d39e989bdfcfb.md   | 142 ++++++++
+|  .../39e6ae31cf5b6cfc5a492f49802b92f1c8fe91e7.png  | Bin 0 -> 94720 bytes
+|  .../3c78d25cccd0b274c6293efa42742b86ed001a9e.md   | 165 ++++++++++
+|  .../3ca16c1eeb9fe920aa21457dd04cd7c1e2026d58.md   | 103 ++++++
+|  .../3e2a5ec9068978bd7505c42f743f3c84f72bf2df.png  | Bin 0 -> 40171 bytes
+|  .../406d80b9fc90b77744e9023e04530cf012f5f71a.md   | 165 ++++++++++
+|  .../46bbd333e0675ed9464db6393cc08bd78b45af2b.md   | 103 ++++++
+|  .../4c07177f4f8e0e0b03d59330735e965cfc4409e5.md   | 217 ++++++++++++
+|  .../50d0c2237858a6a3888983527e78eb5d47a7ce93.png  | Bin 0 -> 32007 bytes
+|  .../51c47531e41b49132019d8af86316f77b219fb42.md   | 212 ++++++++++++
+|  .../531085774763f17f1e8a0728807757526e70c45a.png  | Bin 0 -> 94238 bytes
+|  .../59069a261818fc2355928c6ec71f1ed41269833f.png  | Bin 0 -> 89835 bytes
+|  .../59f8339a1e7d6d830b2db63af75682abc78d6412.md   | 165 ++++++++++
+|  .../5c18378cc6020c6abb64db0d1f442ec81946455c.png  | Bin 0 -> 94032 bytes
+|  .../67f3bbe11f118b8d226392ad8a9e849883c252c6.png  | Bin 0 -> 32590 bytes
+|  .../6d17b9fca2a095f5bc50fc395866f393ac6fffd0.png  | Bin 0 -> 77099 bytes
+|  .../73f2ec1d990cb6650ae42527330f1c58d006653d.png  | Bin 0 -> 33951 bytes
+|  .../751e8b64ddcd6ca9fae381b3b465775e292fb18a.png  | Bin 0 -> 40024 bytes
+|  .../77221bae75f8d9ffdbc872eba29434d5e9466088.png  | Bin 0 -> 34009 bytes
+|  .../77f1f982ab30262267764a6774ff2f64e2921731.md   | 165 ++++++++++
+|  .../7898342d1b6d3210996473db26d1ba171c51dd07.png  | Bin 0 -> 34044 bytes
+|  .../83a55007322c54b22171325aa26f4eb09c780595.md   | 165 ++++++++++
+|  .../85038f35ff4304741c11c01a33bcb820a2aba13f.md   | 217 ++++++++++++
+|  .../88831807ff259f383a17ed5dea5a530471a70ddf.png  | Bin 0 -> 27875 bytes
+|  .../8a65e0f5a73922d29008d65b74c44f695c296b12.png  | Bin 0 -> 27959 bytes
+|  .../952529ecde77f0949f87368ddee47c3b891d58ed.png  | Bin 0 -> 94899 bytes
+|  .../982f2abc861f8fba80c7a5b97169aa2650f58675.png  | Bin 0 -> 78932 bytes
+|  .../98607f72f3dc38b6f3fe1402294a1526263fda7d.md   | 142 ++++++++
+|  .../98928eeecb16bd51162616e2b2f6380b3f9a57c1.md   | 212 ++++++++++++
+|  .../98da3e0c65ab0699e2665e8df92c9ccc60f19787.md   | 103 ++++++
+|  .../9d5470afe0b2205351155398862bb0d6911a4c94.png  | Bin 0 -> 30601 bytes
+|  .../a24473834751b1d724819786d719d45cad4a3344.md   | 213 ++++++++++++
+|  .../a374d222f7c7e7b0ebe765f9f087ea603066ad13.png  | Bin 0 -> 38449 bytes
+|  .../a411e42992912b9e9f2f711e6267d08937ab5dfe.md   | 165 ++++++++++
+|  .../a924452146b4e564210e7b62a6d561e501d45394.png  | Bin 0 -> 33947 bytes
+|  .../ab3ca31aa31525bc147cf87ddee0ef197b1ed5e9.png  | Bin 0 -> 34294 bytes
+|  .../acfc96a6bc95634bfceb9927877dc028e00394df.png  | Bin 0 -> 94393 bytes
+|  .../b1b4a23a65da0a491107378ca889defe5edca65e.md   | 165 ++++++++++
+|  .../c535710eaad28866fb185a828f544ed37b3b9921.png  | Bin 0 -> 27916 bytes
+|  .../c789442ee28fb93e8c704f4ae5f07a23f2a54bc7.md   | 103 ++++++
+|  .../c97491b76643a01196efe1f635217acde7ad2b02.md   | 103 ++++++
+|  .../ce24f3cfdfff24f68512bb1feb22cfbe113a4500.png  | Bin 0 -> 26671 bytes
+|  .../d0636c7d51a22165bbde8a6fcc4bc28900b3fc47.png  | Bin 0 -> 34548 bytes
+|  .../d34d547b178b9b58cdc1b9d614b5d7415f5ea560.md   | 212 ++++++++++++
+|  .../dda11a0fe54eb4cdebcfc30ae7942db8ee2ce193.md   | 213 ++++++++++++
+|  .../df9cbf716c5fcf6a6c6a93049d260291716457a8.md   | 165 ++++++++++
+|  .../e0df8c65edf3473ad5af92bda891d0558791f9d0.md   | 212 ++++++++++++
+|  .../e138ab1ab4b74532750256f6c2a6fb7a66a062bf.md   | 217 ++++++++++++
+|  .../e447f1f53bf60baf5a07b217641a0ba75059d7e5.md   | 212 ++++++++++++
+|  .../eb0edb5d125304d9c36d22915a38cf80825f9a4f.md   | 213 ++++++++++++
+|  .../f1c0a59e1dafcad78f8eb42dea75ae072f21b428.png  | Bin 0 -> 77122 bytes
+|  .../f6106f02357ce2698b3dc59f9ce5bc8e7d0d2e71.png  | Bin 0 -> 31819 bytes
+|  .../f8e7335be61006a8cd10efef075428caf61ae6ac.md   | 212 ++++++++++++
+|  .../fd13e09d2f1214209b21394f5372295488954216.png  | Bin 0 -> 40230 bytes
+|  .../fdfdf5516f1fe61e0d94d8ced35557a2f2ed8168.md   | 103 ++++++
+|  .../ff3aa2865b2b3a27aacdc9c4d59b5402edb2ca11.png  | Bin 0 -> 40309 bytes
+|  playwright-report/fr-03/index.html                | 151 +++++++++
+|  .../0efa58b2462378ec1ef83e4892cc8b2e4d231a7d.md   | 348 ++++++++++++++++++++
+|  .../10c41108d7b1defe718c0fbf67082445ff62dca1.png  | Bin 0 -> 94299 bytes
+|  .../11b350b7826e19443f22a1721a82053679a40291.md   | 321 ++++++++++++++++++
+|  .../1bd5517511c944b92678d7e4262a0c0bf5ae44c8.png  | Bin 0 -> 98572 bytes
+|  .../1e4e9572153ebf96dd2228d7f003fa34fd88f97a.png  | Bin 0 -> 193195 bytes
+|  .../24e7342fb980a2e2799f0e97667eab5455dd7ae1.md   | 339 +++++++++++++++++++
+|  .../24f602683d4f8868b1506e2b354e930e7492c09d.png  | Bin 0 -> 78522 bytes
+|  .../2c00bb14ff47ed2b998f566562c80a62ba140c24.md   | 330 +++++++++++++++++++
+|  .../30e89c64cb3e07c2a765b37639a7ecce364fe028.png  | Bin 0 -> 86785 bytes
+|  .../370559ceb6202681af9a52a07c54055919f9f313.md   | 312 ++++++++++++++++++
+|  .../397097066c7aa350fe069d6f71371a888d058d7b.png  | Bin 0 -> 87179 bytes
+|  .../4419333503f3f6cc34c1fd46428bcfa8c16be138.md   | 312 ++++++++++++++++++
+|  .../480343378a4ea5121b20d50aa13e15c90c9f1e8e.png  | Bin 0 -> 209941 bytes
+|  .../4871814585b79cecc6f222d01ecbfce1fdbc70e9.md   | 312 ++++++++++++++++++
+|  .../49d094fee6968a6178edd8ab03f60c11d2cdb9ac.md   | 330 +++++++++++++++++++
+|  .../5e516063a886179704db5a3000e963a2f1940753.md   | 312 ++++++++++++++++++
+|  .../5f9ab32a98c959a4adc29703041e1c26a9cecc07.md   | 321 ++++++++++++++++++
+|  .../76ba92954a35f14a7121988d3669c12c4808aae3.md   | 330 +++++++++++++++++++
+|  .../85ee69bdc07a6c9abba86894d83c363918b04324.md   | 303 +++++++++++++++++
+|  .../95e05d51d739cd4a22ac104d66a08bcd4d82f93c.md   | 330 +++++++++++++++++++
+|  .../b480b4a0328ae94b3560a7dc0f27ec80221252c2.png  | Bin 0 -> 81253 bytes
+|  .../b7cf1797612662ff5cb6e05603f6d3375729055f.md   | 330 +++++++++++++++++++
+|  .../bc0e04597039eea73a80c9eb866b82848b874737.png  | Bin 0 -> 99058 bytes
+|  .../c41166f69e4ecfc79b7bfac8e96f9f69c4365b7e.png  | Bin 0 -> 78703 bytes
+|  .../d3f6716aa6d0501d08381af63ca755800fac94e6.png  | Bin 0 -> 231343 bytes
+|  .../de5961b5a2c7425cadc473fee517fb30c6c85754.md   | 303 +++++++++++++++++
+|  .../e02601c220bcbf03828b6ae4b26034db09ee21fb.png  | Bin 0 -> 86183 bytes
+|  .../ecbd1988c70f1643bb01c124c5fd7a3213dc5945.png  | Bin 0 -> 84633 bytes
+|  .../f04017a978498504b45bdd2a7de3f22b41bf7f5f.md   | 339 +++++++++++++++++++
+|  .../f3db99414ff9cc409d9ef75b0371105b59a17013.png  | Bin 0 -> 98932 bytes
+|  playwright-report/fr-17/index.html                | 151 +++++++++
+|  147 files changed, 13175 insertions(+)
+| 
+* commit 4d6a5f17c5df38053e8b4b232f81206b6535939f
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Aug 6 05:36:08 2026 +0700
+| 
+|     feat: add main report
+| 
+|  reports/main-report.md | 63 ++++++++++++++++++++++++++++++++++++++++++++++++
+|  1 file changed, 63 insertions(+)
+| 
+* commit 4df6aa2c65e141a147d43ecc85130bcefb64a3d4
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Aug 6 05:05:45 2026 +0700
+| 
+|     feat: add README for summarization
+| 
+|  README.md | 62 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+|  1 file changed, 61 insertions(+), 1 deletion(-)
+| 
+* commit 0279dffe62160b007f0bf81cc1c9ec76ce35d26b
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Aug 6 04:37:58 2026 +0700
+| 
+|     feat: add bug report
+| 
+|  reports/bug-report.md | 747 ++++++++++++++++++++++++++++++++++++++++++++++++
+|  1 file changed, 747 insertions(+)
+| 
+* commit 32ea89f23303e288084732e0b761f9e7faa89da1
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Aug 6 04:34:46 2026 +0700
+| 
+|     feat: add ai critique and ai audit report
+| 
+|  reports/ai-audit-report.md | 2045 ++++++++++++++++++++++++++++++++++++++++++
+|  reports/ai-critique.md     |   15 +
+|  reports/bug-report.md      |    7 +
+|  reports/main-report.md     |    7 +
+|  4 files changed, 2074 insertions(+)
+| 
+* commit 997d56826bce1eff9c8a6df1c6f4307920111ec6
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Aug 6 03:52:32 2026 +0700
+| 
+|     feat(fr03): add bug report
+| 
+|  docs/audit/ai/23127449-fr03-2026-08.log.md |  53 ++++-
+|  docs/fr-03/fr-03-bug-report.md             | 307 +++++++++++++++++++++++++++
+|  screenshots/fr-03/BUG-FR03-001-01.png      | Bin 0 -> 103241 bytes
+|  screenshots/fr-03/BUG-FR03-001-02.png      | Bin 0 -> 134649 bytes
+|  screenshots/fr-03/BUG-FR03-002.png         | Bin 0 -> 106385 bytes
+|  screenshots/fr-03/BUG-FR03-003.png         | Bin 0 -> 134702 bytes
+|  screenshots/fr-03/BUG-FR03-004.png         | Bin 0 -> 105699 bytes
+|  screenshots/fr-03/BUG-FR03-005.png         | Bin 0 -> 121382 bytes
+|  8 files changed, 349 insertions(+), 11 deletions(-)
+| 
+* commit 3247146b4f8076b9f48c21d53ac8ad3298c7b6a8
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Aug 6 03:16:21 2026 +0700
+| 
+|     chore(fr03): update actual results for test cases
+| 
+|  docs/audit/ai/23127449-fr03-2026-08.log.md | 110 ++++++++++++++++++++++++---
+|  docs/fr-03/fr-03-test-cases.md             |  51 +++++++------
+|  2 files changed, 125 insertions(+), 36 deletions(-)
+| 
+* commit 3ba9bdba58befa0ab6c4f651a5c9bbc94d416f68
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Aug 6 03:07:33 2026 +0700
+| 
+|     chore(fr03): update setup and fixture
+| 
+|  docs/audit/ai/23127449-fr03-2026-08.log.md  | 79 +++++++++++++++++++++++----
+|  e2e/fixtures/forgot-password.fixture.ts     | 20 +++++--
+|  e2e/tests/web/fr-03-forgot-password.spec.ts | 49 ++++++++++-------
+|  3 files changed, 113 insertions(+), 35 deletions(-)
+| 
+* commit 7a848e27590277f5d8cd9244090df14747b76533
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Aug 6 01:00:36 2026 +0700
+| 
+|     feat(fr17): add test scripts
+| 
+|  README.md                                   |   6 +-
+|  docs/audit/ai/23127449-fr03-2026-08.log.md  | 212 +++++++++++++++++++++++---
+|  docs/fr-03/fr-03-test-cases.md              |  34 ++---
+|  e2e/data/fr-03-data.json                    | 111 +++++++-------
+|  e2e/fixtures/base.fixture.ts                |  10 +-
+|  e2e/fixtures/forgot-password.fixture.ts     |  64 ++++++++
+|  e2e/pages/web/forgot-password.page.ts       |  82 ++++++++++
+|  e2e/tests/web/fr-03-forgot-password.spec.ts | 151 ++++++++++++++++++
+|  8 files changed, 576 insertions(+), 94 deletions(-)
+| 
+* commit 8d328beb6f54c983c95bdee075ac4881dfc84188
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Wed Aug 5 13:43:35 2026 +0700
+| 
+|     feat(fr03): add test cases and test data
+| 
+|  docs/audit/ai/23127449-fr03-2026-08.log.md  |  83 ++++++-
+|  docs/fr-03/fr-03-test-cases.md              | 142 ++++++++++++
+|  docs/fr-17/fr-17-test-cases.md              |   4 +-
+|  e2e/data/fr-03-data.json                    | 315 +++++++++++++++++++++++++++
+|  e2e/tests/web/fr-03-forgot-password.spec.ts |  22 ++
+|  5 files changed, 552 insertions(+), 14 deletions(-)
+| 
+* commit 8cd9480fbace01b44f683aad1d9c80a7cdb15c18
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Wed Aug 5 13:03:12 2026 +0700
+| 
+|     feat(fr17): add bug report
+| 
+|  docs/audit/ai/23127449-fr17-2026-08.log.md |  51 +++--
+|  docs/fr-17/fr-17-bug-report.md             | 281 +++++++++++++++++++++++++++
+|  docs/fr-17/fr-17-test-cases.md             |  40 ++--
+|  screenshots/fr-17/BUG-FR17-001.png         | Bin 0 -> 164450 bytes
+|  screenshots/fr-17/BUG-FR17-002.png         | Bin 0 -> 1265521 bytes
+|  screenshots/fr-17/BUG-FR17-003.png         | Bin 0 -> 163991 bytes
+|  screenshots/fr-17/BUG-FR17-004.png         | Bin 0 -> 164083 bytes
+|  7 files changed, 341 insertions(+), 31 deletions(-)
+| 
+* commit 2b78d5547ad2baf4aa32f6226a43e105ed6f670c
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Wed Aug 5 12:19:58 2026 +0700
+| 
+|     chore(fr17): update actual results for test cases
+| 
+|  docs/audit/ai/23127449-fr17-2026-08.log.md      | 109 ++++++++++++++++++----
+|  docs/fr-17/fr-17-test-cases.md                  |  43 +++++----
+|  e2e/data/fr-17-data.json                        |   4 +-
+|  e2e/tests/admin/fr-17-coupon-management.spec.ts |   4 +
+|  4 files changed, 119 insertions(+), 41 deletions(-)
+| 
+* commit 9217209b187257fd7848291fc52283bb677abeec
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Wed Aug 5 10:45:32 2026 +0700
+| 
+|     chore(fr17): update test scripts
+| 
+|  docs/audit/ai/23127449-fr17-2026-08.log.md      | 79 +++++++++++++++---
+|  e2e/data/fr-17-data.json                        | 12 +--
+|  e2e/tests/admin/fr-17-coupon-management.spec.ts | 99 ++++++++++++++++++++---
+|  3 files changed, 161 insertions(+), 29 deletions(-)
+| 
+* commit 685feeaea544204f02eda25ac6156dd013836c54
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Wed Aug 5 06:21:46 2026 +0700
+| 
+|     fix(fr01): fix setup and teardown
+| 
+|  docs/audit/ai/23127449-fr17-2026-08.log.md      | 53 +++++++++++++----
+|  e2e/data/fr-17-data.json                        |  8 +--
+|  e2e/fixtures/coupon.fixture.ts                  | 71 +++++++++++++++--------
+|  e2e/pages/admin/coupon-management.page.ts       | 34 +++++++++--
+|  e2e/tests/admin/fr-17-coupon-management.spec.ts | 69 +++++++++++++++-------
+|  5 files changed, 168 insertions(+), 67 deletions(-)
+| 
+* commit 6741757fa6dda1e2809a1dff6bdc04059dabc550
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Aug 4 21:05:38 2026 +0700
+| 
+|     refactor(fr17): add fixture for setup and teardown
+| 
+|  docs/audit/ai/23127449-fr17-2026-08.log.md      | 126 ++++++++++++++++++----
+|  e2e/fixtures/base.fixture.ts                    |   6 +-
+|  e2e/fixtures/coupon.fixture.ts                  |  51 +++++++++
+|  e2e/pages/admin/coupon-management.page.ts       |  10 +-
+|  e2e/tests/admin/fr-17-coupon-management.spec.ts |  22 ++--
+|  5 files changed, 180 insertions(+), 35 deletions(-)
+| 
+* commit ab0d7b690d661f1742904c2294030350ebc1530a
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Aug 4 15:42:27 2026 +0700
+| 
+|     chore(fr17): remove auth check test case
+| 
+|  docs/audit/ai/23127449-fr17-2026-08.log.md      | 85 +++++++++++++++++++----
+|  docs/fr-17/fr-17-test-cases.md                  | 11 ++-
+|  e2e/data/fr-17-data.json                        | 38 +++++-----
+|  e2e/package.json                                | 35 +++++-----
+|  e2e/pages/admin/coupon-management.page.ts       |  6 +-
+|  e2e/tests/admin/fr-17-coupon-management.spec.ts | 43 +++---------
+|  6 files changed, 124 insertions(+), 94 deletions(-)
+| 
+* commit 0020404a06c5a5f50f1b8adca9d1312f4c07e634
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Aug 4 14:18:43 2026 +0700
+| 
+|     feat(fr17): add raw test scripts
+| 
+|  e2e/pages/admin/coupon-management.page.ts       |  73 ++++++++++++++
+|  e2e/tests/admin/fr-17-coupon-management.spec.ts | 113 ++++++++++++++++++++++
+|  2 files changed, 186 insertions(+)
+| 
+* commit 616265b07aeb35aec87faeee38671edb5f382222
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Aug 4 13:30:45 2026 +0700
+| 
+|     feat(fr01): add bug report
+| 
+|  docs/audit/ai/23127449-fr01-2026-08.log.md |  81 +++++++++++---
+|  docs/fr-01/fr-01-bug-report.md             | 156 +++++++++++++++++++++++++++
+|  screenshots/fr-01/BUG-FR01-001-01.png      | Bin 0 -> 128407 bytes
+|  screenshots/fr-01/BUG-FR01-001-02.png      | Bin 0 -> 124014 bytes
+|  screenshots/fr-01/BUG-FR01-002.png         | Bin 0 -> 106204 bytes
+|  5 files changed, 225 insertions(+), 12 deletions(-)
+| 
+* commit a1b0de9ea76837f371c39511d665a23326dc7afb
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Aug 4 09:39:50 2026 +0700
+| 
+|     feat(fr01): add actual results for test cases
+| 
+|  docs/audit/ai/23127449-fr01-2026-08.log.md | 73 +++++++++++++++++++++++-----
+|  docs/fr-01/fr-01-test-cases.md             | 43 ++++++++--------
+|  2 files changed, 85 insertions(+), 31 deletions(-)
+| 
+* commit 249db3b4e16c30d46f6143149d248b0bc990db7e
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Aug 4 08:41:28 2026 +0700
+| 
+|     chore: update template for report metadata
+| 
+|  e2e/.env.example         |   5 +-
+|  e2e/metadata-reporter.ts | 137 +++++++++++++++++++++++++++++++++++++++++++++
+|  e2e/playwright.config.ts |  17 +-----
+|  3 files changed, 143 insertions(+), 16 deletions(-)
+| 
+* commit 6eea902d67cbd2628b7e10ad73ee6007ffd52e6e
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Aug 4 03:01:29 2026 +0700
+| 
+|     fix(fr01): fix test scripts again
+| 
+|  docs/audit/ai/23127449-fr01-2026-08.log.md | 118 ++++++++++++++++++++++++---
+|  e2e/data/fr-01-data.json                   |   2 +-
+|  e2e/pages/web/registration.page.ts         |   8 +-
+|  e2e/tests/web/fr-01-registration.spec.ts   |  54 ++++++------
+|  4 files changed, 135 insertions(+), 47 deletions(-)
+| 
+* commit 6678586daf855642b5de2c780eadb5e2a6d03c3b
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Aug 4 01:55:49 2026 +0700
+| 
+|     fix(fr01): fix test scripts
+| 
+|  docs/audit/ai/23127449-fr01-2026-08.log.md | 95 ++++++++++++++++++++++++----
+|  e2e/data/fr-01-data.json                   | 10 +--
+|  e2e/pages/web/registration.page.ts         |  5 ++
+|  e2e/tests/web/fr-01-registration.spec.ts   | 16 +++--
+|  4 files changed, 102 insertions(+), 24 deletions(-)
+| 
+* commit 9ca278e439057675c3cd5d84824271814c550ce4
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Aug 4 01:19:07 2026 +0700
+| 
+|     feat(fr01): add test scripts
+| 
+|  docs/audit/ai/23127449-fr01-2026-08.log.md | 308 +++++++++++++++++++++++++--
+|  e2e/fixtures/base.fixture.ts               |   7 +-
+|  e2e/fixtures/registration.fixture.ts       |  11 +
+|  e2e/pages/web/registration.page.ts         |  69 ++++++
+|  e2e/tests/web/fr-01-registration.spec.ts   |  86 ++++++++
+|  5 files changed, 458 insertions(+), 23 deletions(-)
+| 
+* commit 95bf89332e0e4f45cc2cb79e45e363f3ea15b4b3
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Mon Aug 3 21:34:28 2026 +0700
+| 
+|     feat(fr17): add test cases and test data
+| 
+|  docs/audit/ai/23127449-fr17-2026-08.log.md      |  82 +++++--
+|  docs/fr-01/fr-01-test-cases.md                  |   4 +-
+|  docs/fr-17/fr-17-test-cases.md                  | 147 +++++++++++++
+|  e2e/data/fr-17-data.json                        | 306 +++++++++++++++++++++++++++
+|  e2e/tests/admin/fr-17-coupon-management.spec.ts |  23 ++
+|  5 files changed, 548 insertions(+), 14 deletions(-)
+| 
+* commit 894244b354edccafd62612886a0059a317a74035
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sun Aug 2 13:48:17 2026 +0700
+| 
+|     feat(fr01): add test cases and test data
+| 
+|  docs/audit/ai/23127449-fr01-2026-08.log.md |  81 +++++++--
+|  docs/fr-01/fr-01-test-cases.md             | 123 +++++++++++++
+|  e2e/data/fr-01-data.json                   | 256 +++++++++++++++++++++++++++
+|  e2e/tests/web/fr-01-registration.spec.ts   |  27 +++
+|  4 files changed, 476 insertions(+), 11 deletions(-)
+| 
+* commit 98076d57dae61fe3f1affc30aa8bbbd2b6156a93
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sun Aug 2 06:59:53 2026 +0700
+| 
+|     feat(fr17): add specification
+| 
+|  docs/audit/ai/23127449-fr03-2026-08.log.md |   2 +-
+|  docs/audit/ai/23127449-fr17-2026-08.log.md | 168 ++++++++++++
+|  docs/fr-17/fr-17-spec.md                   | 385 +++++++++++++++++++++++++++
+|  3 files changed, 554 insertions(+), 1 deletion(-)
+| 
+* commit ac080ee4d51d777c50a23025998828f66cbed553
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sun Aug 2 06:29:33 2026 +0700
+| 
+|     feat(fr03): add specification
+| 
+|  docs/audit/ai/23127449-fr03-2026-08.log.md | 176 ++++++++++++++
+|  docs/fr-03/fr-03-spec.md                   | 341 +++++++++++++++++++++++++++
+|  2 files changed, 517 insertions(+)
+| 
+* commit 654b0869b21b73a9fba0414462ce5e1b2cf0b27a
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sun Aug 2 06:04:26 2026 +0700
+| 
+|     feat(fr01): add specification
+| 
+|  .agents/skills/wat-spec/examples/fr-01-spec.md    |  10 +-
+|  .../skills/wat-spec/resources/spec-template.md    |   4 +-
+|  docs/audit/ai/23127449-fr01-2026-08.log.md        | 295 +++++++++++++++++
+|  docs/fr-01/fr-01-spec.md                          | 334 ++++++++++++++++++++
+|  4 files changed, 636 insertions(+), 7 deletions(-)
+| 
+* commit a457b83cea7cf8e072b7e4744d94d1b51e506dab
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sun Aug 2 05:29:56 2026 +0700
+| 
+|     docs: add skills execution guide
+| 
+|  e2e/package.json          |  26 ++-
+|  skills-execution-guide.md | 505 ++++++++++++++++++++++++++++++++++++++++++++
+|  2 files changed, 524 insertions(+), 7 deletions(-)
+| 
+* commit 5f7842819b106a6cb2488743ce941bd35f7d4634
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sat Aug 1 12:32:49 2026 +0700
+| 
+|     feat: setup mcp and subagent for playwright mcp
+| 
+|  .agents/agents/ui-explorer.md     | 177 +++++++++++++++++
+|  .agents/mcp_config.json           |   8 +
+|  .agents/skills/wat-build/SKILL.md |  32 ++-
+|  AGENTS.md                         | 387 ++++++++++++++++++++++++++++++++++++
+|  4 files changed, 597 insertions(+), 7 deletions(-)
+| 
+* commit 2e9b8cae2eb623a7a9db4289d5db5b409b544b88
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sat Aug 1 05:08:35 2026 +0700
+| 
+|     feat(skill): add wat-report
+| 
+|  .agents/skills/wat-report/SKILL.md                | 167 ++++++++++++++++++++
+|  .../wat-report/examples/fr-01-bug-report.md       | 144 +++++++++++++++++
+|  .../wat-report/resources/bug-report-template.md   | 100 ++++++++++++
+|  .../wat-report/resources/root-cause-guide.md      | 116 ++++++++++++++
+|  4 files changed, 527 insertions(+)
+| 
+* commit cb4b40aed7506aedf9b2b0a6891c9dbf28135811
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sat Aug 1 04:21:14 2026 +0700
+| 
+|     feat(skill): add wat-build
+| 
+|  .agents/skills/wat-build/SKILL.md                 | 320 +++++++++++++++++++
+|  .agents/skills/wat-build/examples/examples.md     | 328 ++++++++++++++++++++
+|  .../wat-build/examples/tc-doc-after-record.md     |  19 ++
+|  .../skills/wat-build/resources/coding-rules.md    | 232 ++++++++++++++
+|  .../wat-build/resources/file-conventions.md       |  76 +++++
+|  .../resources/playwright-guide-routing.md         |  51 +++
+|  e2e/tests/example.spec.ts                         |  20 --
+|  7 files changed, 1026 insertions(+), 20 deletions(-)
+| 
+* commit 338399fe4e1b686e1452332a85e01198bb6fe5f7
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sat Aug 1 03:36:55 2026 +0700
+| 
+|     feat(skill): add wat-design
+| 
+|  .agents/skills/wat-design/SKILL.md                | 210 ++++++++++++++
+|  .../skills/wat-design/examples/fr-01-data.json    | 290 ++++++++++++++++++++
+|  .../wat-design/examples/fr-01-test-cases.md       | 136 +++++++++
+|  .../skills/wat-design/resources/data-schema.md    |  73 +++++
+|  .../skills/wat-design/resources/tc-template.md    |  47 ++++
+|  .../wat-design/resources/test-design-guide.md     | 161 +++++++++++
+|  e2e/.env.example                                  |   3 +
+|  e2e/playwright.config.ts                          |  41 ++-
+|  8 files changed, 948 insertions(+), 13 deletions(-)
+| 
+* commit 158855366e5ce6232503b92f95a5fb90cc3f4a8c
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Wed Jul 29 15:24:35 2026 +0700
+| 
+|     feat(skill): add playwright-skill
+| 
+|  .agents/skills/playwright-skill/LICENSE           |   21 +
+|  .agents/skills/playwright-skill/README.md         |  216 +++
+|  .agents/skills/playwright-skill/SKILL.md          |  152 ++
+|  .agents/skills/playwright-skill/ci/SKILL.md       |   47 +
+|  .../playwright-skill/ci/ci-github-actions.md      |  620 ++++++
+|  .agents/skills/playwright-skill/ci/ci-gitlab.md   |  422 ++++
+|  .agents/skills/playwright-skill/ci/ci-other.md    |  582 ++++++
+|  .../playwright-skill/ci/docker-and-containers.md  |  470 +++++
+|  .../playwright-skill/ci/global-setup-teardown.md  |  534 +++++
+|  .../playwright-skill/ci/parallel-and-sharding.md  |  427 ++++
+|  .../ci/projects-and-dependencies.md               |  650 +++++++
+|  .../ci/reporting-and-artifacts.md                 |  563 ++++++
+|  .../skills/playwright-skill/ci/test-coverage.md   |  481 +++++
+|  .agents/skills/playwright-skill/core/SKILL.md     |  100 +
+|  .../skills/playwright-skill/core/accessibility.md | 1675 ++++++++++++++++
+|  .agents/skills/playwright-skill/core/angular.md   | 1149 +++++++++++
+|  .../skills/playwright-skill/core/api-testing.md   | 1672 ++++++++++++++++
+|  .../core/assertions-and-waiting.md                |  770 ++++++++
+|  .../skills/playwright-skill/core/auth-flows.md    | 1175 +++++++++++
+|  .../playwright-skill/core/authentication.md       | 1515 +++++++++++++++
+|  .../skills/playwright-skill/core/browser-apis.md  |  738 +++++++
+|  .../playwright-skill/core/browser-extensions.md   |  368 ++++
+|  .../playwright-skill/core/canvas-and-webgl.md     |  545 ++++++
+|  .../core/clock-and-time-mocking.md                |  470 +++++
+|  .../playwright-skill/core/common-pitfalls.md      | 1391 +++++++++++++
+|  .../playwright-skill/core/component-testing.md    | 1257 ++++++++++++
+|  .../skills/playwright-skill/core/configuration.md |  731 +++++++
+|  .../skills/playwright-skill/core/crud-testing.md  | 1050 ++++++++++
+|  .agents/skills/playwright-skill/core/debugging.md |  867 +++++++++
+|  .../skills/playwright-skill/core/drag-and-drop.md | 1032 ++++++++++
+|  .../playwright-skill/core/electron-testing.md     |  684 +++++++
+|  .../playwright-skill/core/error-and-edge-cases.md | 1243 ++++++++++++
+|  .../skills/playwright-skill/core/error-index.md   | 1941 +++++++++++++++++++
+|  .../playwright-skill/core/file-operations.md      |  793 ++++++++
+|  .../playwright-skill/core/file-upload-download.md | 1103 +++++++++++
+|  .../playwright-skill/core/fixtures-and-hooks.md   | 1134 +++++++++++
+|  .../skills/playwright-skill/core/flaky-tests.md   |  909 +++++++++
+|  .../playwright-skill/core/forms-and-validation.md | 1108 +++++++++++
+|  .../core/i18n-and-localization.md                 |  697 +++++++
+|  .../core/iframes-and-shadow-dom.md                |  540 ++++++
+|  .../playwright-skill/core/locator-strategy.md     |  654 +++++++
+|  .agents/skills/playwright-skill/core/locators.md  |  799 ++++++++
+|  .../core/mobile-and-responsive.md                 | 1728 +++++++++++++++++
+|  .../core/multi-context-and-popups.md              |  617 ++++++
+|  .../core/multi-user-and-collaboration.md          |  566 ++++++
+|  .../playwright-skill/core/network-mocking.md      | 1423 ++++++++++++++
+|  .agents/skills/playwright-skill/core/nextjs.md    | 1075 ++++++++++
+|  .../playwright-skill/core/performance-testing.md  |  664 +++++++
+|  .agents/skills/playwright-skill/core/react.md     | 1172 +++++++++++
+|  .../playwright-skill/core/search-and-filter.md    | 1505 ++++++++++++++
+|  .../playwright-skill/core/security-testing.md     |  652 +++++++
+|  .../core/service-workers-and-pwa.md               |  569 ++++++
+|  .../playwright-skill/core/test-architecture.md    |  595 ++++++
+|  .../playwright-skill/core/test-data-management.md | 1242 ++++++++++++
+|  .../playwright-skill/core/test-organization.md    |  993 ++++++++++
+|  .../core/third-party-integrations.md              |  818 ++++++++
+|  .../playwright-skill/core/trace-analysis.md       |  161 ++
+|  .../playwright-skill/core/visual-regression.md    | 1080 +++++++++++
+|  .agents/skills/playwright-skill/core/vue.md       | 1250 ++++++++++++
+|  .../core/websockets-and-realtime.md               |  675 +++++++
+|  .../skills/playwright-skill/core/when-to-mock.md  |  865 +++++++++
+|  .../skills/playwright-skill/migration/SKILL.md    |   17 +
+|  .../playwright-skill/migration/from-cypress.md    | 1267 ++++++++++++
+|  .../playwright-skill/migration/from-selenium.md   |  981 ++++++++++
+|  .../playwright-skill/playwright-cli/SKILL.md      |  220 +++
+|  .../playwright-cli/advanced-workflows.md          |  679 +++++++
+|  .../playwright-cli/core-commands.md               |  375 ++++
+|  .../playwright-cli/device-emulation.md            |  481 +++++
+|  .../playwright-cli/request-mocking.md             |  373 ++++
+|  .../playwright-cli/running-custom-code.md         |  553 ++++++
+|  .../playwright-cli/screenshots-and-media.md       |  457 +++++
+|  .../playwright-cli/session-management.md          |  425 ++++
+|  .../playwright-cli/storage-and-auth.md            |  487 +++++
+|  .../playwright-cli/test-generation.md             |  336 ++++
+|  .../playwright-cli/tracing-and-debugging.md       |  505 +++++
+|  .agents/skills/playwright-skill/pom/SKILL.md      |   17 +
+|  .../playwright-skill/pom/page-object-model.md     |  950 +++++++++
+|  .../pom/pom-vs-fixtures-vs-helpers.md             | 1009 ++++++++++
+|  78 files changed, 60077 insertions(+)
+| 
+* commit 2f971ff5dd70e34a469bb210a6ec17a831f5b5bb
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Wed Jul 29 15:23:50 2026 +0700
+| 
+|     feat(skill): add functional-test-design
+| 
+|  .agents/skills/functional-test-design/LICENSE     |  21 +
+|  .agents/skills/functional-test-design/README.md   | 139 +++++++
+|  .agents/skills/functional-test-design/SKILL.md    | 419 +++++++++++++++++++
+|  .../decision-table-testing/SKILL.md               | 262 ++++++++++++
+|  .../examples/discount-rules.md                    | 198 +++++++++
+|  .../examples/loan-eligibility.md                  | 287 +++++++++++++
+|  .../resources/anti-patterns.md                    | 132 ++++++
+|  .../resources/best-practices.md                   | 176 ++++++++
+|  .../resources/conditions-actions-guide.md         | 204 +++++++++
+|  .../resources/output-template.md                  | 116 ++++++
+|  .../resources/quality-checklist.md                |  88 ++++
+|  .../resources/reduction-guide.md                  | 116 ++++++
+|  .../resources/table-construction.md               | 126 ++++++
+|  .../decision-table-testing/resources/theory.md    | 171 ++++++++
+|  .../domain-testing/SKILL.md                       | 220 ++++++++++
+|  .../domain-testing/examples/login-form.md         | 157 +++++++
+|  .../domain-testing/examples/product-code.md       | 198 +++++++++
+|  .../domain-testing/resources/anti-patterns.md     | 111 +++++
+|  .../domain-testing/resources/best-practices.md    | 138 +++++++
+|  .../domain-testing/resources/bva-reference.md     | 152 +++++++
+|  .../domain-testing/resources/ep-guidelines.md     | 162 ++++++++
+|  .../domain-testing/resources/output-template.md   |  53 +++
+|  .../domain-testing/resources/quality-checklist.md |  96 +++++
+|  .../domain-testing/resources/theory.md            | 135 ++++++
+|  .../error-guessing/SKILL.md                       | 243 +++++++++++
+|  .../examples/user-registration-api.md             | 199 +++++++++
+|  .../error-guessing/resources/anti-patterns.md     |  92 +++++
+|  .../error-guessing/resources/best-practices.md    | 112 +++++
+|  .../error-guessing/resources/error-taxonomy.md    | 254 ++++++++++++
+|  .../resources/fault-attack-guide.md               | 115 ++++++
+|  .../error-guessing/resources/output-template.md   | 102 +++++
+|  .../error-guessing/resources/quality-checklist.md |  74 ++++
+|  .../error-guessing/resources/theory.md            | 119 ++++++
+|  .../state-transition-testing/SKILL.md             | 264 ++++++++++++
+|  .../examples/order-lifecycle.md                   | 435 ++++++++++++++++++++
+|  .../resources/anti-patterns.md                    |  93 +++++
+|  .../resources/best-practices.md                   |  53 +++
+|  .../resources/coverage-guide.md                   | 151 +++++++
+|  .../resources/fsm-components-guide.md             | 182 ++++++++
+|  .../resources/output-template.md                  | 125 ++++++
+|  .../resources/quality-checklist.md                |  92 +++++
+|  .../resources/std-stt-guide.md                    | 154 +++++++
+|  .../state-transition-testing/resources/theory.md  | 231 +++++++++++
+|  .../use-case-testing/SKILL.md                     | 290 +++++++++++++
+|  .../use-case-testing/examples/online-purchase.md  | 421 +++++++++++++++++++
+|  .../use-case-testing/resources/anti-patterns.md   |  65 +++
+|  .../use-case-testing/resources/best-practices.md  |  39 ++
+|  .../use-case-testing/resources/output-template.md | 104 +++++
+|  .../resources/quality-checklist.md                |  79 ++++
+|  .../resources/scenario-matrix-guide.md            | 108 +++++
+|  .../resources/spec-and-flow-guide.md              | 173 ++++++++
+|  .../use-case-testing/resources/theory.md          | 195 +++++++++
+|  52 files changed, 8441 insertions(+)
+| 
+* commit 80910ab142981513b22df0e0e0645c0710853bb3
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Wed Jul 29 15:22:49 2026 +0700
+| 
+|     feat(skill): add ai-audit-log
+| 
+|  .agents/skills/ai-audit-log/LICENSE               |  21 ++
+|  .agents/skills/ai-audit-log/README.md             |  81 ++++++
+|  .agents/skills/ai-audit-log/SKILL.md              | 136 +++++++++
+|  .../ai-audit-log/examples/example-session.md      | 290 ++++++++++++++++++++
+|  .../examples/sample-tan-phat-2026-07.log.md       | 184 +++++++++++++
+|  .../skills/ai-audit-log/resources/log-format.md   | 126 +++++++++
+|  .../ai-audit-log/resources/quality-checklist.md   |  36 +++
+|  .../ai-audit-log/resources/status-definitions.md  |  40 +++
+|  .../skills/ai-audit-log/resources/tag-taxonomy.md |  61 ++++
+|  9 files changed, 975 insertions(+)
+| 
+* commit f2c7f60c137bcc93d0fdefc327be2baaa0b73cba
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Wed Jul 29 15:21:46 2026 +0700
+| 
+|     feat(skill): add wat-spec
+| 
+|  .agents/skills/wat-spec/SKILL.md                  | 155 ++++++++++++++++
+|  .agents/skills/wat-spec/examples/fr-01-spec.md    | 186 ++++++++++++++++++++
+|  .../skills/wat-spec/resources/analysis-guide.md   | 163 +++++++++++++++++
+|  .../skills/wat-spec/resources/spec-template.md    | 124 +++++++++++++
+|  4 files changed, 628 insertions(+)
+| 
+* commit d2472ebed312219140a324591e2e46d56eda782a
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Wed Jul 29 06:18:03 2026 +0700
+| 
+|     feat: setup base for e2e automation testing
+| 
+|  e2e/.env.example             |  21 +++++++
+|  e2e/.gitignore               |   7 +++
+|  e2e/fixtures/auth.fixture.ts |  51 +++++++++++++++++
+|  e2e/fixtures/base.fixture.ts |  22 ++++++++
+|  e2e/global-setup.ts          | 125 +++++++++++++++++++++++++++++++++++++++++
+|  e2e/global-teardown.ts       |  19 +++++++
+|  e2e/helpers/data-loader.ts   |  35 ++++++++++++
+|  e2e/package-lock.json        | 111 ++++++++++++++++++++++++++++++++++++
+|  e2e/package.json             |  23 ++++++++
+|  e2e/pages/base.page.ts       |  43 ++++++++++++++
+|  e2e/playwright.config.ts     | 123 ++++++++++++++++++++++++++++++++++++++++
+|  e2e/tests/example.spec.ts    |  20 +++++++
+|  e2e/tsconfig.json            |  22 ++++++++
+|  13 files changed, 622 insertions(+)
+| 
+* commit de586ad8a97b36684993339a9526a1e0f19c6a86
+  Author: Phat Nguyen <phatnguyen9725@gmail.com>
+  Date:   Mon Jul 27 21:57:04 2026 +0700
+  
+      chore: init project
+  
+   README.md                                 |   7 +
+   docs/requirements.md                      | 183 ++++++++++++++++++
+   docs/system-requirements-specification.md | 288 ++++++++++++++++++++++++++++
+   3 files changed, 478 insertions(+)
