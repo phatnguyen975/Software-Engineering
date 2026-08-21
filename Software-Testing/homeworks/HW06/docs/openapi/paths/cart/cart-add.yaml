@@ -1,0 +1,72 @@
+post:
+  summary: "Adds a product to the shopping cart"
+  description: |
+    Adds a product to the authenticated user's shopping cart.
+
+    **Business Rules:**
+    - Requires a valid JWT token. (BR-01)
+    - `id` must correspond to a product that exists. (BR-02)
+    - Adding an existing product increments its quantity rather than creating a new entry. (BR-03)
+    - `quantity` must be positive integer (1-99). (BR-04, BR-09)
+    - `price` must be a positive number. (BR-05)
+    - `name` must be a non-empty string. (BR-06)
+    - Cart state is scoped to the authenticated user. (BR-07)
+    - Extra fields in the request body are ignored. (BR-08)
+
+    **State Transitions:**
+    - **HTTP Response State:**
+      - `200 OK` — Item added (or merged per BR-03)
+      - `400 Bad Request` — Validation failed (e.g., quantity <= 0, price <= 0, invalid name, malformed JSON)
+      - `401 Unauthorized` — Missing token
+      - `403 Forbidden` — Invalid / tampered / expired token
+      - `404 Not Found` — Product ID not found
+    - **System Data State:**
+      - If product not in cart: Cart contains one new item.
+      - If product already in cart: Quantity of existing entry is incremented.
+    - **Field-Level Preconditions:**
+      - Any authenticated user can proceed; unauthenticated blocked.
+
+    **Security Rules:**
+    - **SEC-02 / SEC-02a / SEC-02b:** Requires valid, untampered JWT. Malformed or wrong-secret tokens must be rejected.
+    - **SEC-05 / SEC-05a:** Cart resources strictly scoped to the authenticated user. IDOR via token reuse or body `userId` injection must not affect other users' carts.
+    - **SEC-06:** Mass assignment — extra fields in body must not be stored.
+    - **SEC-05b:** Prototype pollution via `__proto__` must be rejected.
+    - **SEC-04:** XSS payloads in string fields must be escaped/stored safely.
+    - **SEC-RL:** Rate limiting on cart operations.
+
+    **Idempotency:**
+    - Not idempotent — repeated calls will continue to increment the cart quantity.
+  operationId: "addCartItem"
+  tags:
+    - "Cart"
+  security:
+    - BearerAuth: []
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/CartItemInput.yaml"
+  responses:
+    "200":
+      description: "Item Added Successfully"
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - message
+            properties:
+              message:
+                type: string
+                example: "Added to cart"
+    "400":
+      $ref: "../../components/responses/BadRequest.yaml"
+    "401":
+      $ref: "../../components/responses/Unauthorized.yaml"
+    "403":
+      $ref: "../../components/responses/Forbidden.yaml"
+    "404":
+      $ref: "../../components/responses/NotFound.yaml"
+    "500":
+      $ref: "../../components/responses/InternalServerError.yaml"

@@ -1,0 +1,7 @@
+description: "Authentication token is missing or invalid"
+content:
+  application/json:
+    schema:
+      $ref: "../schemas/ErrorResponse.yaml"
+    example:
+      error: "Unauthorized"

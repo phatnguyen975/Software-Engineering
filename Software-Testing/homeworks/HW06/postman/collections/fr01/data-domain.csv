@@ -1,0 +1,23 @@
+tc_id,name,email,password,expected_status,expected_message
+TC-FR01-FR-001,Nguyen Van A,test_new@domain.com,Password123!,200,User registered successfully
+TC-FR01-FR-002,A,min1@domain.com,Password123!,200,User registered successfully
+TC-FR01-FR-003,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,max100@domain.com,Password123!,200,User registered successfully
+TC-FR01-FR-004,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,over100@domain.com,Password123!,400,validation error
+TC-FR01-FR-005,,empty-name@domain.com,Password123!,400,validation error
+TC-FR01-FR-006,   ,ws-name@domain.com,Password123!,400,validation error
+TC-FR01-FR-007,Nguyễn Văn An,vn-name@domain.com,Password123!,200,User registered successfully
+TC-FR01-FR-008,Test User,invalidemail.com,Password123!,400,validation error
+TC-FR01-FR-009,Test User,user@,Password123!,400,validation error
+TC-FR01-FR-010,Test User,@domain.com,Password123!,400,validation error
+TC-FR01-FR-011,Test User,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@domain.com,Password123!,200,User registered successfully
+TC-FR01-FR-012,Test User,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@domain.com,Password123!,400,validation error
+TC-FR01-FR-013,Test User,pass-min8@domain.com,Pass1!aB,200,User registered successfully
+TC-FR01-FR-014,Test User,pass-min7@domain.com,Pa1!aBc,400,validation error
+TC-FR01-FR-015,Test User,pass-max128@domain.com,Password1!aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,200,User registered successfully
+TC-FR01-FR-016,Test User,pass-max129@domain.com,Password1!aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,400,validation error
+TC-FR01-FR-017,Test User,no-upper@domain.com,password1!,400,validation error
+TC-FR01-FR-018,Test User,no-lower@domain.com,PASSWORD1!,400,validation error
+TC-FR01-FR-019,Test User,no-digit@domain.com,Password!,400,validation error
+TC-FR01-FR-020,Test User,no-special@domain.com,Password1,400,validation error
+TC-FR01-FR-021,Other User,test@eshop.com,Password123!,409,Email already registered
+TC-FR01-FR-022,Other User,TEST@ESHOP.COM,Password123!,409,Email already registered

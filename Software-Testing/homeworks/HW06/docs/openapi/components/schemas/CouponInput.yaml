@@ -1,0 +1,45 @@
+type: object
+required:
+  - code
+  - type
+  - discount_value
+  - min_order_amount
+  - expired_at
+properties:
+  code:
+    type: string
+    minLength: 3
+    maxLength: 20
+    pattern: "^[A-Za-z0-9-]+$"
+    description: "Must be unique across all coupons. Case-insensitive uniqueness check."
+    example: "TET2026"
+  type:
+    type: string
+    enum:
+      - percent
+      - fixed
+    description: "Allowed values: 'percent' or 'fixed' only."
+    example: "percent"
+  discount_value:
+    type: integer
+    minimum: 1
+    description: "Must be a positive integer (> 0). When type = 'percent': must be in range 1-100."
+    example: 15
+  min_order_amount:
+    type: integer
+    minimum: 0
+    default: 0
+    description: "Represents the minimum cart total (in VND) required to apply this coupon."
+    example: 200000
+  expired_at:
+    type: string
+    format: date
+    description: "ISO 8601 date format: YYYY-MM-DD. Must be a future date relative to the time of creation."
+    example: "2026-12-31"
+  max_uses_per_user:
+    type: integer
+    minimum: 1
+    default: 1
+    description: "Defines how many times a single user may apply this coupon."
+    example: 1
+additionalProperties: false

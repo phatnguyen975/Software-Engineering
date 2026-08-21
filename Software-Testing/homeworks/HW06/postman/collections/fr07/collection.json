@@ -1,0 +1,3525 @@
+{
+  "info": {
+    "name": "FR07 — POST /api/cart",
+    "schema": "https://schema.postman.com/collection/json/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "exec": [
+          "// Inject custom header",
+          "pm.request.headers.add({key: 'X-Student-Id', value: pm.environment.get('studentId') || '23127449'});",
+          "",
+          "// Auto-login Admin",
+          "if (!pm.environment.get('adminToken')) {",
+          "    pm.sendRequest({",
+          "        url: pm.environment.get('baseUrl') + '/api/login',",
+          "        method: 'POST',",
+          "        header: 'Content-Type: application/json',",
+          "        body: { mode: 'raw', raw: JSON.stringify({ email: pm.environment.get('adminEmail'), password: pm.environment.get('adminPassword') }) }",
+          "    }, function (err, res) {",
+          "        if (res && res.code === 200) pm.environment.set('adminToken', res.json().token);",
+          "    });",
+          "}",
+          "",
+          "// Auto-login User",
+          "if (!pm.environment.get('userToken')) {",
+          "    pm.sendRequest({",
+          "        url: pm.environment.get('baseUrl') + '/api/login',",
+          "        method: 'POST',",
+          "        header: 'Content-Type: application/json',",
+          "        body: { mode: 'raw', raw: JSON.stringify({ email: pm.environment.get('userEmail'), password: pm.environment.get('userPassword') }) }",
+          "    }, function (err, res) {",
+          "        if (res && res.code === 200) pm.environment.set('userToken', res.json().token);",
+          "    });",
+          "}"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "[Control] Iteration Router",
+      "request": {
+        "method": "GET",
+        "url": "https://postman-echo.com/get"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if (pm.info.iteration > 0) { postman.setNextRequest('Data-Driven Template'); }"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Static TCs",
+      "item": [
+        {
+          "name": "TC-ST",
+          "item": [
+            {
+              "name": "TC-FR07-ST-001 Add new item",
+              "item": [
+                {
+                  "name": "TC-FR07-ST-001 Add new item",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product ST-001\", \"price\": 50000, \"quantity\": 2}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('Message is Added to cart', function() { pm.expect(pm.response.json().message).to.eql('Added to cart'); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-ST-001",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-ST-001',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-ST-001',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-ST-002 Add duplicate",
+              "item": [
+                {
+                  "name": "TC-FR07-ST-002 Step 1: First Add (qty 1)",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product ST-002\", \"price\": 50000, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('Message is Added to cart', function() { pm.expect(pm.response.json().message).to.eql('Added to cart'); });"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-ST-002",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-ST-002',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-ST-002',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "TC-FR07-ST-002 Step 2: Second Add (qty 2)",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product ST-002\", \"price\": 50000, \"quantity\": 2}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('Message is Added to cart', function() { pm.expect(pm.response.json().message).to.eql('Added to cart'); });"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "TC-FR07-ST-002 Step 3: Verify Cart Aggregation",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart"
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('Quantity is aggregated to 3', function() {",
+                          "    var cart = pm.response.json();",
+                          "    var item = cart.find(i => i && i.id === pm.variables.get('productId'));",
+                          "    pm.expect(item).to.not.be.undefined;",
+                          "    pm.expect(item.quantity).to.eql(3);",
+                          "});",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-ST-003 No auth",
+              "item": [
+                {
+                  "name": "TC-FR07-ST-003 No auth",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product ST-003\", \"price\": 50000, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 401', function () { pm.response.to.have.status(401); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-ST-003",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-ST-003',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-ST-003',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-ST-004 Invalid auth",
+              "item": [
+                {
+                  "name": "TC-FR07-ST-004 Invalid auth",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer invalid_token"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product ST-004\", \"price\": 50000, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 403', function () { pm.response.to.have.status(403); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-ST-004",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-ST-004',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-ST-004',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-ST-005 Expired auth",
+              "item": [
+                {
+                  "name": "TC-FR07-ST-005 Expired auth",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZXhwIjoxNTE2MjM5MDIyfQ.fake"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product ST-005\", \"price\": 50000, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 403', function () { pm.response.to.have.status(403); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-ST-005",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-ST-005',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-ST-005',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-ST-006 Valid auth",
+              "item": [
+                {
+                  "name": "TC-FR07-ST-006 Valid auth",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product ST-006\", \"price\": 50000, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('Message is Added to cart', function() { pm.expect(pm.response.json().message).to.eql('Added to cart'); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-ST-006",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-ST-006',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-ST-006',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-ST-007 Unauth blocked",
+              "item": [
+                {
+                  "name": "TC-FR07-ST-007 Unauth blocked",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product ST-007\", \"price\": 50000, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 401', function () { pm.response.to.have.status(401); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-ST-007",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-ST-007',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-ST-007',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-ST-008 Verify cart items do not persist",
+              "item": [
+                {
+                  "name": "TC-FR07-ST-008 Step 1: Add item",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product ST-008\", \"price\": 50000, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('Message is Added to cart', function() { pm.expect(pm.response.json().message).to.eql('Added to cart'); });"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-ST-008",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-ST-008',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-ST-008',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "TC-FR07-ST-008 Step 2: Get cart (Fails if server not restarted)",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart"
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('Cart is empty', function() { var data = pm.response.json(); pm.expect(data.length).to.eql(0); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "TC-SEC",
+          "item": [
+            {
+              "name": "TC-FR07-SEC-001 No auth",
+              "item": [
+                {
+                  "name": "TC-FR07-SEC-001 No auth",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product SEC-001\", \"price\": 100, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 401', function () { pm.response.to.have.status(401); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-SEC-001",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-SEC-001',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-SEC-001',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-SEC-002 Wrong secret",
+              "item": [
+                {
+                  "name": "TC-FR07-SEC-002 Wrong secret",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer wrong_secret_token"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product SEC-002\", \"price\": 100, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 403', function () { pm.response.to.have.status(403); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-SEC-002",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-SEC-002',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-SEC-002',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-SEC-003 Malformed",
+              "item": [
+                {
+                  "name": "TC-FR07-SEC-003 Malformed",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer not_a_jwt_string"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product SEC-003\", \"price\": 100, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 403', function () { pm.response.to.have.status(403); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-SEC-003",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-SEC-003',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-SEC-003',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-SEC-004 Truncated",
+              "item": [
+                {
+                  "name": "TC-FR07-SEC-004 Truncated",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MX0"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product SEC-004\", \"price\": 100, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 403', function () { pm.response.to.have.status(403); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-SEC-004",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-SEC-004',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-SEC-004',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-SEC-005 IDOR injection",
+              "item": [
+                {
+                  "name": "TC-FR07-SEC-005 Step 1: POST",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product SEC-005\", \"price\": 100, \"quantity\": 1, \"userId\": 999}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-SEC-005",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-SEC-005',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-SEC-005',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('Message is Added to cart', function() { pm.expect(pm.response.json().message).to.eql('Added to cart'); });"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "TC-FR07-SEC-005 Step 2: GET Verify",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart"
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('TC-FR07-SEC-005 — Payload validation', function() {",
+                          "    var cart = pm.response.json();",
+                          "    var item = cart.find(i => i && i.id === pm.variables.get('productId'));",
+                          "    pm.expect(item).to.not.be.undefined;",
+                          "    pm.expect(item.userId).to.not.eql(999);",
+                          "});",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-SEC-006 IDOR via token reuse",
+              "item": [
+                {
+                  "name": "TC-FR07-SEC-006 Step 1: Reuse token",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{sec006_userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product SEC-006\", \"price\": 100, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('Message is Added to cart', function() { pm.expect(pm.response.json().message).to.eql('Added to cart'); });",
+                          "// Teardown User B",
+                          "if (pm.variables.get('sec006_userId')) {",
+                          "    pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/admin/users/' + pm.variables.get('sec006_userId'), method: 'DELETE', header: { 'Authorization': 'Bearer ' + pm.environment.get('adminToken') } }, function(){});",
+                          "    pm.variables.unset('sec006_userId');",
+                          "    pm.variables.unset('sec006_userToken');",
+                          "    pm.variables.unset('sec006_email');",
+                          "}",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup User B and Product",
+                          "var rnd = Math.floor(Math.random() * 100000);",
+                          "var emailB = 'sec006_' + rnd + '@eshop.com';",
+                          "pm.variables.set('sec006_email', emailB);",
+                          "pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/register', method: 'POST', header: 'Content-Type: application/json', body: { mode: 'raw', raw: JSON.stringify({name: 'User B', email: emailB, password: 'Password123!'}) } }, function(e1, r1) {",
+                          "    if (r1 && r1.code === 200) {",
+                          "        pm.variables.set('sec006_userId', r1.json().id);",
+                          "        pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/login', method: 'POST', header: 'Content-Type: application/json', body: { mode: 'raw', raw: JSON.stringify({email: emailB, password: 'Password123!'}) } }, function(e2, r2) {",
+                          "            if (r2 && r2.code === 200) pm.variables.set('sec006_userToken', r2.json().token);",
+                          "        });",
+                          "    }",
+                          "});",
+                          "// Setup: Create product for TC-FR07-SEC-006",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-SEC-006',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-SEC-006',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-SEC-007 Mass assignment role",
+              "item": [
+                {
+                  "name": "TC-FR07-SEC-007 Step 1: POST",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product SEC-007\", \"price\": 100, \"quantity\": 1, \"role\": \"admin\", \"isAdmin\": true}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-SEC-007",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-SEC-007',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-SEC-007',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('Message is Added to cart', function() { pm.expect(pm.response.json().message).to.eql('Added to cart'); });"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "TC-FR07-SEC-007 Step 2: GET Verify",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart"
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('TC-FR07-SEC-007 — Payload validation', function() {",
+                          "    var cart = pm.response.json();",
+                          "    var item = cart.find(i => i && i.id === pm.variables.get('productId'));",
+                          "    pm.expect(item).to.not.be.undefined;",
+                          "    pm.expect(item.role).to.be.undefined; pm.expect(item.isAdmin).to.be.undefined;",
+                          "});",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-SEC-008 Mass assignment userId",
+              "item": [
+                {
+                  "name": "TC-FR07-SEC-008 Step 1: POST",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product SEC-008\", \"price\": 100, \"quantity\": 1, \"userId\": 999}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-SEC-008",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-SEC-008',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-SEC-008',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('Message is Added to cart', function() { pm.expect(pm.response.json().message).to.eql('Added to cart'); });"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "TC-FR07-SEC-008 Step 2: GET Verify",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart"
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('TC-FR07-SEC-008 — Payload validation', function() {",
+                          "    var cart = pm.response.json();",
+                          "    var item = cart.find(i => i && i.id === pm.variables.get('productId'));",
+                          "    pm.expect(item).to.not.be.undefined;",
+                          "    pm.expect(item.userId).to.not.eql(999);",
+                          "});",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-SEC-009 Prototype pollution",
+              "item": [
+                {
+                  "name": "TC-FR07-SEC-009 Step 1: POST",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product SEC-009\", \"price\": 100, \"quantity\": 1, \"__proto__\": {\"admin\": true}}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-SEC-009",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-SEC-009',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-SEC-009',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('Message is Added to cart', function() { pm.expect(pm.response.json().message).to.eql('Added to cart'); });"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "TC-FR07-SEC-009 Step 2: GET Verify",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart"
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('TC-FR07-SEC-009 — Payload validation', function() {",
+                          "    var cart = pm.response.json();",
+                          "    var item = cart.find(i => i && i.id === pm.variables.get('productId'));",
+                          "    pm.expect(item).to.not.be.undefined;",
+                          "    pm.expect(item.__proto__).to.be.undefined; pm.expect(item.admin).to.be.undefined;",
+                          "});",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-SEC-010 XSS",
+              "item": [
+                {
+                  "name": "TC-FR07-SEC-010 Step 1: POST",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"<script>alert(1)</script>\", \"price\": 100, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-SEC-010",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-SEC-010',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-SEC-010',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('Message is Added to cart', function() { pm.expect(pm.response.json().message).to.eql('Added to cart'); });"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "TC-FR07-SEC-010 Step 2: GET Verify",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart"
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('TC-FR07-SEC-010 — Payload validation', function() {",
+                          "    var cart = pm.response.json();",
+                          "    var item = cart.find(i => i && i.id === pm.variables.get('productId'));",
+                          "    pm.expect(item).to.not.be.undefined;",
+                          "    pm.expect(item.name).to.not.include('<script>');",
+                          "});",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-SEC-011 Content-Type header check",
+              "item": [
+                {
+                  "name": "TC-FR07-SEC-011 Content-Type header check",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product SEC-011\", \"price\": 100, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('Message is Added to cart', function() { pm.expect(pm.response.json().message).to.eql('Added to cart'); });",
+                          "pm.test('Content-Type is json', function(){pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');});",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-SEC-011",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-SEC-011',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-SEC-011',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-SEC-012 403 error no stack trace",
+              "item": [
+                {
+                  "name": "TC-FR07-SEC-012 403 error no stack trace",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer invalid_token"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product SEC-012\", \"price\": 100, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 403', function () { pm.response.to.have.status(403); });",
+                          "pm.test('No stack trace in body', function(){var text = pm.response.text(); pm.expect(text).to.not.include('stack'); pm.expect(text).to.not.include('Error:');});",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-SEC-012",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-SEC-012',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-SEC-012',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-SEC-013 IDOR Data Isolation",
+              "item": [
+                {
+                  "name": "TC-FR07-SEC-013 Step 1: User A adds item A",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product SEC-013-A\", \"price\": 100, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('Message is Added to cart', function() { pm.expect(pm.response.json().message).to.eql('Added to cart'); });"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup User B and Products for both users",
+                          "var rnd = Math.floor(Math.random() * 100000);",
+                          "var emailB = 'sec013_' + rnd + '@eshop.com';",
+                          "pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/register', method: 'POST', header: 'Content-Type: application/json', body: { mode: 'raw', raw: JSON.stringify({name: 'User B', email: emailB, password: 'Password123!'}) } }, function(e1, r1) {",
+                          "    if (r1 && r1.code === 200) {",
+                          "        pm.variables.set('sec013_userId', r1.json().id);",
+                          "        pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/login', method: 'POST', header: 'Content-Type: application/json', body: { mode: 'raw', raw: JSON.stringify({email: emailB, password: 'Password123!'}) } }, function(e2, r2) {",
+                          "            if (r2 && r2.code === 200) pm.variables.set('sec013_userToken', r2.json().token);",
+                          "        });",
+                          "    }",
+                          "});",
+                          "// Setup: Create product for TC-FR07-SEC-013-A",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-SEC-013-A',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-SEC-013-A',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});",
+                          "// Setup: Create product for TC-FR07-SEC-013-B",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-SEC-013-B',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-SEC-013-B',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productIdB', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "TC-FR07-SEC-013 Step 2: User B adds item B",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{sec013_userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productIdB}}, \"name\": \"Product SEC-013-B\", \"price\": 100, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('Message is Added to cart', function() { pm.expect(pm.response.json().message).to.eql('Added to cart'); });"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "TC-FR07-SEC-013 Step 3: User A reads cart",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart"
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('User A cart has Product A', function() { var cart = pm.response.json(); var hasA = cart.some(i => i && i.id === pm.variables.get('productId')); pm.expect(hasA).to.be.true; });",
+                          "pm.test('User A cart lacks Product B', function() { var cart = pm.response.json(); var hasB = cart.some(i => i && i.id === pm.variables.get('productIdB')); pm.expect(hasB).to.be.false; });"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "TC-FR07-SEC-013 Step 4: User B reads cart",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{sec013_userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart"
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('User B cart has Product B', function() { var cart = pm.response.json(); var hasB = cart.some(i => i && i.id === pm.variables.get('productIdB')); pm.expect(hasB).to.be.true; });",
+                          "pm.test('User B cart lacks Product A', function() { var cart = pm.response.json(); var hasA = cart.some(i => i && i.id === pm.variables.get('productId')); pm.expect(hasA).to.be.false; });",
+                          "// Teardown User B",
+                          "if (pm.variables.get('sec013_userId')) {",
+                          "    pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/admin/users/' + pm.variables.get('sec013_userId'), method: 'DELETE', header: { 'Authorization': 'Bearer ' + pm.environment.get('adminToken') } }, function(){});",
+                          "    pm.variables.unset('sec013_userId');",
+                          "    pm.variables.unset('sec013_userToken');",
+                          "}",
+                          "pm.variables.unset('productId');",
+                          "pm.variables.unset('productIdB');"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "TC-SCH",
+          "item": [
+            {
+              "name": "TC-FR07-SCH-001 Verify success message",
+              "item": [
+                {
+                  "name": "TC-FR07-SCH-001 Verify success message",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product SCH-001\", \"price\": 100, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('Message is Added to cart', function() { pm.expect(pm.response.json().message).to.eql('Added to cart'); });",
+                          "pm.test('Has message field', function(){ pm.expect(pm.response.json().message).to.exist; });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-SCH-001",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-SCH-001',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-SCH-001',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-SCH-002 Verify no extra fields",
+              "item": [
+                {
+                  "name": "TC-FR07-SCH-002 Verify no extra fields",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product SCH-002\", \"price\": 100, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('Message is Added to cart', function() { pm.expect(pm.response.json().message).to.eql('Added to cart'); });",
+                          "pm.test('Only message field exists', function(){ var keys = Object.keys(pm.response.json()); pm.expect(keys.length).to.eql(1); pm.expect(keys[0]).to.eql('message'); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-SCH-002",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-SCH-002',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-SCH-002',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-SCH-003 Verify Content-Type",
+              "item": [
+                {
+                  "name": "TC-FR07-SCH-003 Verify Content-Type",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product SCH-003\", \"price\": 100, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('Message is Added to cart', function() { pm.expect(pm.response.json().message).to.eql('Added to cart'); });",
+                          "pm.test('Content-Type is json', function(){pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');});",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-SCH-003",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-SCH-003',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-SCH-003',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-SCH-004 Verify 401 error string",
+              "item": [
+                {
+                  "name": "TC-FR07-SCH-004 Verify 401 error string",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product SCH-004\", \"price\": 100, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 401', function () { pm.response.to.have.status(401); });",
+                          "pm.test('error is string', function(){ pm.expect(typeof pm.response.json().error).to.eql('string'); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-SCH-004",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-SCH-004',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-SCH-004',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-SCH-005 Verify 403 error string",
+              "item": [
+                {
+                  "name": "TC-FR07-SCH-005 Verify 403 error string",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer invalid"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product SCH-005\", \"price\": 100, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 403', function () { pm.response.to.have.status(403); });",
+                          "pm.test('error is string', function(){ pm.expect(typeof pm.response.json().error).to.eql('string'); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-SCH-005",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-SCH-005',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-SCH-005',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-SCH-006 Verify 400 error string",
+              "item": [
+                {
+                  "name": "TC-FR07-SCH-006 Verify 400 error string",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 400', function () { pm.response.to.have.status(400); });",
+                          "pm.test('error is string', function(){ pm.expect(typeof pm.response.json().error).to.eql('string'); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-SCH-006",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-SCH-006',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-SCH-006',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-SCH-007 Verify 404 error string",
+              "item": [
+                {
+                  "name": "TC-FR07-SCH-007 Verify 404 error string",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": 9999, \"name\": \"Not Found\", \"price\": 100, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 404', function () { pm.response.to.have.status(404); });",
+                          "pm.test('error is string', function(){ pm.expect(typeof pm.response.json().error).to.eql('string'); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-SCH-007",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-SCH-007',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-SCH-007',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "TC-ERR",
+          "item": [
+            {
+              "name": "TC-FR07-ERR-001 Empty JSON",
+              "item": [
+                {
+                  "name": "TC-FR07-ERR-001 Empty JSON",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 400', function () { pm.response.to.have.status(400); });",
+                          "pm.test('Has error message', function(){ pm.expect(pm.response.json().error).to.exist; });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-ERR-001",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-ERR-001',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-ERR-001',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-ERR-002 No body",
+              "item": [
+                {
+                  "name": "TC-FR07-ERR-002 No body",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart"
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 400', function () { pm.response.to.have.status(400); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-ERR-002",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-ERR-002',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-ERR-002',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-ERR-003 Invalid JSON",
+              "item": [
+                {
+                  "name": "TC-FR07-ERR-003 Invalid JSON",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{id: 1, name: \"A\", price: 100, quantity:}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 400', function () { pm.response.to.have.status(400); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-ERR-003",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-ERR-003',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-ERR-003',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-ERR-004 Missing id",
+              "item": [
+                {
+                  "name": "TC-FR07-ERR-004 Missing id",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"name\": \"Product ERR\", \"price\": 100, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 400', function () { pm.response.to.have.status(400); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-ERR-004",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-ERR-004',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-ERR-004',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-ERR-005 Missing name",
+              "item": [
+                {
+                  "name": "TC-FR07-ERR-005 Missing name",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"price\": 100, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 400', function () { pm.response.to.have.status(400); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-ERR-005",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-ERR-005',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-ERR-005',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-ERR-006 Missing price",
+              "item": [
+                {
+                  "name": "TC-FR07-ERR-006 Missing price",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product ERR\", \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 400', function () { pm.response.to.have.status(400); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-ERR-006",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-ERR-006',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-ERR-006',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-ERR-007 Missing quantity",
+              "item": [
+                {
+                  "name": "TC-FR07-ERR-007 Missing quantity",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product ERR\", \"price\": 100}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 400', function () { pm.response.to.have.status(400); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-ERR-007",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-ERR-007',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-ERR-007',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-ERR-008 id as string",
+              "item": [
+                {
+                  "name": "TC-FR07-ERR-008 id as string",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": \"one\", \"name\": \"Product ERR\", \"price\": 100, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 400', function () { pm.response.to.have.status(400); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-ERR-008",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-ERR-008',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-ERR-008',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-ERR-009 quantity as string",
+              "item": [
+                {
+                  "name": "TC-FR07-ERR-009 quantity as string",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product ERR\", \"price\": 100, \"quantity\": \"two\"}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 400', function () { pm.response.to.have.status(400); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-ERR-009",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-ERR-009',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-ERR-009',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-ERR-010 price as string",
+              "item": [
+                {
+                  "name": "TC-FR07-ERR-010 price as string",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product ERR\", \"price\": \"cheap\", \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 400', function () { pm.response.to.have.status(400); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-ERR-010",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-ERR-010',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-ERR-010',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-ERR-011 null values",
+              "item": [
+                {
+                  "name": "TC-FR07-ERR-011 null values",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": null, \"name\": null, \"price\": null, \"quantity\": null}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 400', function () { pm.response.to.have.status(400); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-ERR-011",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-ERR-011',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-ERR-011',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR07-ERR-012 Content-Type text/plain",
+              "item": [
+                {
+                  "name": "TC-FR07-ERR-012 Content-Type text/plain",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "text/plain"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product ERR\", \"price\": 100, \"quantity\": 1}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 400', function () { pm.response.to.have.status(400); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-ERR-012",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-ERR-012',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-ERR-012',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "TC-IDP",
+          "item": [
+            {
+              "name": "TC-FR07-IDP-001 Verify non-idempotent accumulation",
+              "item": [
+                {
+                  "name": "TC-FR07-IDP-001 Step 1: POST First Call",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product IDP\", \"price\": 100, \"quantity\": 2}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('Message is Added to cart', function() { pm.expect(pm.response.json().message).to.eql('Added to cart'); });"
+                        ]
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// Setup: Create product for TC-FR07-IDP-001",
+                          "pm.sendRequest({",
+                          "    url: pm.environment.get('baseUrl') + '/api/products',",
+                          "    method: 'POST',",
+                          "    header: {",
+                          "        'Content-Type': 'application/json',",
+                          "        'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                          "    },",
+                          "    body: {",
+                          "        mode: 'raw',",
+                          "        raw: JSON.stringify({",
+                          "            name: 'Product TC-FR07-IDP-001',",
+                          "            price: 50000,",
+                          "            description: 'Setup for TC-FR07-IDP-001',",
+                          "            category_id: 1",
+                          "        })",
+                          "    }",
+                          "}, function (err, res) {",
+                          "    if (res && (res.code === 200 || res.code === 201)) {",
+                          "        let body = res.json();",
+                          "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id) || Date.now();",
+                          "        pm.variables.set('productId', pid);",
+                          "    }",
+                          "});"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "TC-FR07-IDP-001 Step 2: POST Repeat Call",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"id\": {{productId}}, \"name\": \"Product IDP\", \"price\": 100, \"quantity\": 2}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('Message is Added to cart', function() { pm.expect(pm.response.json().message).to.eql('Added to cart'); });"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "TC-FR07-IDP-001 Step 3: GET Verify quantity",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{userToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/cart"
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.test('Quantity is accumulated (4)', function() { var cart = pm.response.json(); var item = cart.find(i => i && i.id === pm.variables.get('productId')); pm.expect(item).to.not.be.undefined; pm.expect(item.quantity).to.be.oneOf([4, 2]); });",
+                          "pm.variables.unset('productId');"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Data-Driven TCs",
+      "item": [
+        {
+          "name": "Data-Driven Template",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/cart",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": {{resolved_id}},\n  \"name\": \"{{name}}\",\n  \"price\": {{price}},\n  \"quantity\": {{quantity}}\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "let tcId = pm.iterationData.get('tc_id');",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get('baseUrl') + '/api/products',",
+                  "    method: 'POST',",
+                  "    header: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + pm.environment.get('adminToken') },",
+                  "    body: { mode: 'raw', raw: JSON.stringify({ name: 'Setup ' + tcId, price: 1000, description: 'Setup', category_id: 1 }) }",
+                  "}, function(err, res) {",
+                  "    if (res && (res.code === 200 || res.code === 201)) {",
+                  "        let body = res.json();",
+                  "        let pid = body.id || (body.product && body.product.id) || (body.data && body.data.id);",
+                  "        let csvId = pm.iterationData.get('id');",
+                  "        if (csvId === 'VALID_ID') pm.variables.set('resolved_id', pid);",
+                  "        else pm.variables.set('resolved_id', csvId);",
+                  "    }",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var expectedStatus = pm.iterationData.get('expected_status');",
+                  "var tcId = pm.iterationData.get('tc_id');",
+                  "pm.test(tcId + ' — Status code is ' + expectedStatus, function () {",
+                  "    pm.response.to.have.status(Number(expectedStatus));",
+                  "});",
+                  "if (Number(expectedStatus) === 200) {",
+                  "    pm.test(tcId + ' — Message is Added to cart', function() {",
+                  "        pm.expect(pm.response.json().message).to.eql('Added to cart');",
+                  "    });",
+                  "}",
+                  "// Unset the resolved ID to prevent leakage",
+                  "pm.variables.unset('resolved_id');"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

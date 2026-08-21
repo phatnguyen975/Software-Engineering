@@ -1,0 +1,7 @@
+description: "Unexpected server error"
+content:
+  application/json:
+    schema:
+      $ref: "../schemas/ErrorResponse.yaml"
+    example:
+      error: "Internal server error"

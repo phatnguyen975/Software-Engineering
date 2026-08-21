@@ -1,0 +1,7 @@
+description: "Client does not have permission to access this resource"
+content:
+  application/json:
+    schema:
+      $ref: "../schemas/ErrorResponse.yaml"
+    example:
+      error: "Forbidden"

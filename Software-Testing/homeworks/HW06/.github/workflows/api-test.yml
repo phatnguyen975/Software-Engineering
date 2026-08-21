@@ -1,0 +1,79 @@
+name: API Testing
+
+on:
+  push:
+    paths:
+      - "backend/**"
+      - "postman/collections/**"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "backend/**"
+      - "postman/collections/**"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    # Run only one pipeline per branch at a time
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          # Fetch depth needed to determine changed files correctly
+          fetch-depth: 2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Install Backend Dependencies
+        working-directory: ./backend
+        run: npm install
+
+      - name: Start SUT (Backend)
+        working-directory: ./backend
+        run: node server.js &
+        env:
+          PORT: 3000
+
+      - name: Wait for SUT to be ready
+        run: |
+          echo "Waiting for API server..."
+          npx wait-on http://localhost:3000/api-docs -t 30000
+          echo "API Server is up!"
+
+      - name: Determine Changed Files
+        id: changed-files
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            # Compare against the base branch
+            git fetch origin ${{ github.base_ref }}
+            CHANGED=$(git diff --name-only origin/${{ github.base_ref }}...${{ github.sha }} | tr '\n' ' ')
+          else
+            # Compare against the previous commit
+            CHANGED=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | tr '\n' ' ' || echo "")
+          fi
+          echo "CHANGED_FILES=$CHANGED" >> $GITHUB_ENV
+          echo "Files changed: $CHANGED"
+
+      - name: Run API Tests
+        run: npm run test:ci
+
+      - name: Upload Test Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: newman-reports
+          path: postman/reports/
+          retention-days: 14

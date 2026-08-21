@@ -1,0 +1,56 @@
+openapi: "3.0.3"
+
+info:
+  title: "EShop API Docs"
+  version: "1.0.0"
+  description: "API Specification for EShop — A Vietnamese e-commerce demo application"
+
+servers:
+  - url: "http://localhost:3000"
+    description: "Local development server"
+
+tags:
+  - name: "Admin"
+    description: "Administrator operations including product, category, and coupon management"
+  - name: "Authentication"
+    description: "User registration, login, and password management"
+  - name: "Cart"
+    description: "Shopping cart operations"
+
+security:
+  - BearerAuth: []
+
+components:
+  securitySchemes:
+    BearerAuth:
+      $ref: "./components/securitySchemes/BearerAuth.yaml"
+
+  schemas:
+    ErrorResponse:
+      $ref: "./components/schemas/ErrorResponse.yaml"
+
+  responses:
+    BadRequest:
+      $ref: "./components/responses/BadRequest.yaml"
+    Unauthorized:
+      $ref: "./components/responses/Unauthorized.yaml"
+    Forbidden:
+      $ref: "./components/responses/Forbidden.yaml"
+    NotFound:
+      $ref: "./components/responses/NotFound.yaml"
+    Conflict:
+      $ref: "./components/responses/Conflict.yaml"
+    InternalServerError:
+      $ref: "./components/responses/InternalServerError.yaml"
+
+  parameters: {}
+
+  requestBodies: {}
+
+paths:
+  /api/register:
+    $ref: "./paths/auth/register.yaml"
+  /api/cart:
+    $ref: "./paths/cart/cart-add.yaml"
+  /api/admin/coupons:
+    $ref: "./paths/admin/coupon-create.yaml"

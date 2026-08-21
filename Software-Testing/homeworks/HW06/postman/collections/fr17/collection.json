@@ -1,0 +1,1741 @@
+{
+  "info": {
+    "name": "FR17 — POST /api/admin/coupons",
+    "schema": "https://schema.postman.com/collection/json/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "pm.request.headers.add({key: 'X-Student-Id', value: pm.environment.get('studentId') || '23127449'});",
+          "",
+          "if (!pm.environment.get('adminToken')) {",
+          "    const loginReq = {",
+          "        url: pm.environment.get('baseUrl') + '/api/login',",
+          "        method: 'POST',",
+          "        header: 'Content-Type: application/json',",
+          "        body: { mode: 'raw', raw: JSON.stringify({ email: pm.environment.get('adminEmail'), password: pm.environment.get('adminPassword') }) }",
+          "    };",
+          "    pm.sendRequest(loginReq, function (err, res) {",
+          "        if (!err && res.code === 200) {",
+          "            pm.environment.set('adminToken', res.json().token);",
+          "        }",
+          "    });",
+          "}",
+          "",
+          "if (!pm.environment.get('userToken')) {",
+          "    const loginReq = {",
+          "        url: pm.environment.get('baseUrl') + '/api/login',",
+          "        method: 'POST',",
+          "        header: 'Content-Type: application/json',",
+          "        body: { mode: 'raw', raw: JSON.stringify({ email: pm.environment.get('userEmail'), password: pm.environment.get('userPassword') }) }",
+          "    };",
+          "    pm.sendRequest(loginReq, function (err, res) {",
+          "        if (!err && res.code === 200) {",
+          "            pm.environment.set('userToken', res.json().token);",
+          "        }",
+          "    });",
+          "}"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "[Control] Iteration Router",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://postman-echo.com/get",
+          "host": ["https://postman-echo.com"],
+          "path": ["get"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "if (pm.info.iteration > 0) { postman.setNextRequest('Data-Driven Template'); }"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Static TCs",
+      "item": [
+        {
+          "name": "TC-FR",
+          "item": [
+            {
+              "name": "TC-FR17-FR-003 — Create coupon omitting optional max_uses_per_user field",
+              "item": [
+                {
+                  "name": "TC-FR17-FR-003 — Step 1: Create omitting max_uses_per_user",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{adminToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/admin/coupons",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"code\": \"NOMAX01\", \"type\": \"percent\", \"discount_value\": 10, \"min_order_amount\": 0, \"expired_at\": \"2027-12-31\"}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
+                          "if (pm.response.code === 200) {",
+                          "    pm.environment.set('fr003_id', pm.response.json().id);",
+                          "}"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "TC-FR17-FR-003 — Step 2: Verify max_uses_per_user defaults to 1 & teardown",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{adminToken}}"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/coupons",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "coupons"]
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
+                          "if (pm.response.code === 200) {",
+                          "    let list = pm.response.json();",
+                          "    let found = list.find(c => c.id === pm.environment.get('fr003_id'));",
+                          "    pm.test('Coupon found', function() { pm.expect(found).to.not.be.undefined; });",
+                          "    if (found) {",
+                          "        pm.test('max_uses_per_user is 1', function() { pm.expect(found.max_uses_per_user).to.eql(1); });",
+                          "    }",
+                          "    let req = { url: pm.environment.get('baseUrl') + '/api/admin/coupons/' + pm.environment.get('fr003_id'), method: 'DELETE', header: { 'Authorization': 'Bearer ' + pm.environment.get('adminToken') } };",
+                          "    pm.sendRequest(req, function(){});",
+                          "    pm.environment.unset('fr003_id');",
+                          "}"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "TC-ST",
+          "item": [
+            {
+              "name": "TC-FR17-ST-001 — Create coupon and verify in list",
+              "item": [
+                {
+                  "name": "TC-FR17-ST-001 — Step 1: Create coupon",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{adminToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/admin/coupons",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "admin", "coupons"]
+                    },
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"code\": \"NEWCPN01\", \"type\": \"percent\", \"discount_value\": 20, \"min_order_amount\": 100000, \"expired_at\": \"2027-12-31\"}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.environment.set('st001_id', pm.response.json().id);"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "TC-FR17-ST-001 — Step 2: Verify in list & teardown",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{adminToken}}"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/coupons",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "coupons"]
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
+                          "let list = pm.response.json();",
+                          "let found = list.find(c => c.id === pm.environment.get('st001_id'));",
+                          "pm.test('Coupon found in list', function() { pm.expect(found).to.not.be.undefined; });",
+                          "let req = { url: pm.environment.get('baseUrl') + '/api/admin/coupons/' + pm.environment.get('st001_id'), method: 'DELETE', header: { 'Authorization': 'Bearer ' + pm.environment.get('adminToken') } };",
+                          "pm.sendRequest(req, function(){});",
+                          "pm.environment.unset('st001_id');"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-ST-002 — Request without token",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\": \"NOTOKCPN\", \"type\": \"percent\", \"discount_value\": 10, \"min_order_amount\": 0, \"expired_at\": \"2027-12-31\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 401', function () { pm.response.to.have.status(401); });"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-ST-003 — User token leaves DB unchanged",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\": \"USERTKCPN\", \"type\": \"percent\", \"discount_value\": 10, \"min_order_amount\": 0, \"expired_at\": \"2027-12-31\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 403', function () { pm.response.to.have.status(403); });"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-ST-004 — Duplicate code",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\": \"SAVE10\", \"type\": \"fixed\", \"discount_value\": 20000, \"min_order_amount\": 0, \"expired_at\": \"2027-12-31\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 409', function () { pm.response.to.have.status(409); });"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-ST-005 — Newly created coupon has is_active = 1 by server",
+              "item": [
+                {
+                  "name": "TC-FR17-ST-005 — Step 1: Create with is_active=0",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{adminToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/admin/coupons",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "admin", "coupons"]
+                    },
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"code\": \"ACTIVETEST\", \"type\": \"percent\", \"discount_value\": 10, \"min_order_amount\": 0, \"expired_at\": \"2027-12-31\", \"is_active\": 0}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.environment.set('st005_id', pm.response.json().id);"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "TC-FR17-ST-005 — Step 2: Verify is_active=1 & teardown",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{adminToken}}"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/coupons",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "coupons"]
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
+                          "let list = pm.response.json();",
+                          "let found = list.find(c => c.id === pm.environment.get('st005_id'));",
+                          "pm.test('Coupon is_active is 1', function() { pm.expect(found.is_active).to.eql(1); });",
+                          "let req = { url: pm.environment.get('baseUrl') + '/api/admin/coupons/' + pm.environment.get('st005_id'), method: 'DELETE', header: { 'Authorization': 'Bearer ' + pm.environment.get('adminToken') } };",
+                          "pm.sendRequest(req, function(){});",
+                          "pm.environment.unset(\"st005_id\");"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-ST-006 — Invalid field leaves DB unchanged",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\": \"INVALCPN\", \"type\": \"percent\", \"discount_value\": -5, \"min_order_amount\": 0, \"expired_at\": \"2027-12-31\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 400', function () { pm.response.to.have.status(400); });"
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "TC-SEC",
+          "item": [
+            {
+              "name": "TC-FR17-SEC-001 — No Auth Header",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\": \"NOCPN01\", \"type\": \"percent\", \"discount_value\": 10, \"min_order_amount\": 0, \"expired_at\": \"2027-12-31\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 401', function () { pm.response.to.have.status(401); });"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-SEC-002 — Wrong secret",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImFkbWluIiwiZXhwIjoxNTc3ODM2ODAwfQ.invalid_sig"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\": \"NOCPN02\", \"type\": \"percent\", \"discount_value\": 10, \"min_order_amount\": 0, \"expired_at\": \"2027-12-31\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 403', function () { pm.response.to.have.status(403); });"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-SEC-003 — Malformed token",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer not_a_jwt_string"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\": \"NOCPN03\", \"type\": \"percent\", \"discount_value\": 10, \"min_order_amount\": 0, \"expired_at\": \"2027-12-31\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 403', function () { pm.response.to.have.status(403); });"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-SEC-004 — Expired token",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImFkbWluIiwiZXhwIjoxNTc3ODM2ODAwfQ.invalid_sig"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\": \"NOCPN04\", \"type\": \"percent\", \"discount_value\": 10, \"min_order_amount\": 0, \"expired_at\": \"2027-12-31\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 403', function () { pm.response.to.have.status(403); });"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-SEC-005 — User role",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\": \"ROLETEST\", \"type\": \"percent\", \"discount_value\": 10, \"min_order_amount\": 0, \"expired_at\": \"2027-12-31\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 403', function () { pm.response.to.have.status(403); });"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-SEC-006 — Forged admin token",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImFkbWluIn0.JWeg22RWpZVbmli4L8Cm0gSAsQKKbfpKHiszog0dzAc"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\": \"FORGED\", \"type\": \"percent\", \"discount_value\": 10, \"min_order_amount\": 0, \"expired_at\": \"2027-12-31\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
+                      "",
+                      "if (pm.response.code === 200) {",
+                      "    let jsonData = pm.response.json();",
+                      "    if (jsonData && jsonData.id) {",
+                      "        let req = {",
+                      "            url: pm.environment.get(\"baseUrl\") + \"/api/admin/coupons/\" + jsonData.id,",
+                      "            method: 'DELETE',",
+                      "            header: {",
+                      "                'Authorization': 'Bearer ' + pm.environment.get(\"adminToken\")",
+                      "            }",
+                      "        };",
+                      "        pm.sendRequest(req, function (err, res) {",
+                      "            console.log(\"Teardown delete: \" + jsonData.id);",
+                      "        });",
+                      "    }",
+                      "}",
+                      ""
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-SEC-007 — SQLi code",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\": \"'; DROP TABLE coupons; --\", \"type\": \"percent\", \"discount_value\": 10, \"min_order_amount\": 0, \"expired_at\": \"2027-12-31\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 400', function () { pm.response.to.have.status(400); });"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-SEC-008 — SQLi type",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\": \"SQLINJ01\", \"type\": \"' OR '1'='1\", \"discount_value\": 10, \"min_order_amount\": 0, \"expired_at\": \"2027-12-31\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 400', function () { pm.response.to.have.status(400); });"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-SEC-009 — XSS code",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\": \"<script>alert(1)</script>\", \"type\": \"percent\", \"discount_value\": 10, \"min_order_amount\": 0, \"expired_at\": \"2027-12-31\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 400', function () { pm.response.to.have.status(400); });"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-SEC-010 — Mass assignment is_active",
+              "item": [
+                {
+                  "name": "TC-FR17-SEC-010 — Step 1: Create with is_active=0",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{adminToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": "{{baseUrl}}/api/admin/coupons",
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"code\": \"MASSACT\", \"type\": \"percent\", \"discount_value\": 10, \"min_order_amount\": 0, \"expired_at\": \"2027-12-31\", \"is_active\": 0}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
+                          "if (pm.response.code === 200) {",
+                          "    pm.environment.set('sec010_id', pm.response.json().id);",
+                          "}"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "TC-FR17-SEC-010 — Step 2: Verify is_active=1 & teardown",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{adminToken}}"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/coupons",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "coupons"]
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
+                          "if (pm.response.code === 200) {",
+                          "    let list = pm.response.json();",
+                          "    let found = list.find(c => c.id === pm.environment.get('sec010_id'));",
+                          "    pm.test('Coupon found', function() { pm.expect(found).to.not.be.undefined; });",
+                          "    if (found) {",
+                          "        pm.test('is_active is 1', function() { pm.expect(found.is_active).to.eql(1); });",
+                          "    }",
+                          "    let req = { url: pm.environment.get('baseUrl') + '/api/admin/coupons/' + pm.environment.get('sec010_id'), method: 'DELETE', header: { 'Authorization': 'Bearer ' + pm.environment.get('adminToken') } };",
+                          "    pm.sendRequest(req, function(){});",
+                          "    pm.environment.unset('sec010_id');",
+                          "}"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-SEC-011 — Mass assignment id",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\": \"MASSID01\", \"type\": \"percent\", \"discount_value\": 10, \"min_order_amount\": 0, \"expired_at\": \"2027-12-31\", \"id\": 9999}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test('id is not 9999', function() { pm.expect(pm.response.json().id).to.not.eql(9999); });",
+                      "",
+                      "if (pm.response.code === 200) {",
+                      "    let jsonData = pm.response.json();",
+                      "    if (jsonData && jsonData.id) {",
+                      "        let req = {",
+                      "            url: pm.environment.get(\"baseUrl\") + \"/api/admin/coupons/\" + jsonData.id,",
+                      "            method: 'DELETE',",
+                      "            header: {",
+                      "                'Authorization': 'Bearer ' + pm.environment.get(\"adminToken\")",
+                      "            }",
+                      "        };",
+                      "        pm.sendRequest(req, function (err, res) {",
+                      "            console.log(\"Teardown delete: \" + jsonData.id);",
+                      "        });",
+                      "    }",
+                      "}",
+                      ""
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-SEC-012 — Error response leak",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer invalid"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\": \"NOCPN05\", \"type\": \"percent\", \"discount_value\": 10, \"min_order_amount\": 0, \"expired_at\": \"2027-12-31\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 403', function () { pm.response.to.have.status(403); });"
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "TC-SCH",
+          "item": [
+            {
+              "name": "TC-FR17-SCH-001 — Verify 200 response schema part 001",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\": \"SCH200A\", \"type\": \"percent\", \"discount_value\": 10, \"min_order_amount\": 0, \"expired_at\": \"2027-12-31\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test('Schema matches', function() { pm.response.to.have.jsonSchema({\"type\": \"object\", \"required\": [\"message\", \"id\"], \"properties\": {\"message\": {\"type\": \"string\", \"enum\": [\"Coupon created\"]}, \"id\": {\"type\": \"integer\"}}, \"additionalProperties\": false}); });",
+                      "",
+                      "if (pm.response.code === 200) {",
+                      "    let jsonData = pm.response.json();",
+                      "    if (jsonData && jsonData.id) {",
+                      "        let req = {",
+                      "            url: pm.environment.get(\"baseUrl\") + \"/api/admin/coupons/\" + jsonData.id,",
+                      "            method: 'DELETE',",
+                      "            header: {",
+                      "                'Authorization': 'Bearer ' + pm.environment.get(\"adminToken\")",
+                      "            }",
+                      "        };",
+                      "        pm.sendRequest(req, function (err, res) {",
+                      "            console.log(\"Teardown delete: \" + jsonData.id);",
+                      "        });",
+                      "    }",
+                      "}",
+                      ""
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-SCH-002 — Verify 200 response schema part 002",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\": \"SCH200A\", \"type\": \"percent\", \"discount_value\": 10, \"min_order_amount\": 0, \"expired_at\": \"2027-12-31\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test('Schema matches', function() { pm.response.to.have.jsonSchema({\"type\": \"object\", \"required\": [\"message\", \"id\"], \"properties\": {\"message\": {\"type\": \"string\", \"enum\": [\"Coupon created\"]}, \"id\": {\"type\": \"integer\"}}, \"additionalProperties\": false}); });",
+                      "",
+                      "if (pm.response.code === 200) {",
+                      "    let jsonData = pm.response.json();",
+                      "    if (jsonData && jsonData.id) {",
+                      "        let req = {",
+                      "            url: pm.environment.get(\"baseUrl\") + \"/api/admin/coupons/\" + jsonData.id,",
+                      "            method: 'DELETE',",
+                      "            header: {",
+                      "                'Authorization': 'Bearer ' + pm.environment.get(\"adminToken\")",
+                      "            }",
+                      "        };",
+                      "        pm.sendRequest(req, function (err, res) {",
+                      "            console.log(\"Teardown delete: \" + jsonData.id);",
+                      "        });",
+                      "    }",
+                      "}",
+                      ""
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-SCH-003 — Verify 200 response schema part 003",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\": \"SCH200A\", \"type\": \"percent\", \"discount_value\": 10, \"min_order_amount\": 0, \"expired_at\": \"2027-12-31\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test('Schema matches', function() { pm.response.to.have.jsonSchema({\"type\": \"object\", \"required\": [\"message\", \"id\"], \"properties\": {\"message\": {\"type\": \"string\", \"enum\": [\"Coupon created\"]}, \"id\": {\"type\": \"integer\"}}, \"additionalProperties\": false}); });",
+                      "",
+                      "if (pm.response.code === 200) {",
+                      "    let jsonData = pm.response.json();",
+                      "    if (jsonData && jsonData.id) {",
+                      "        let req = {",
+                      "            url: pm.environment.get(\"baseUrl\") + \"/api/admin/coupons/\" + jsonData.id,",
+                      "            method: 'DELETE',",
+                      "            header: {",
+                      "                'Authorization': 'Bearer ' + pm.environment.get(\"adminToken\")",
+                      "            }",
+                      "        };",
+                      "        pm.sendRequest(req, function (err, res) {",
+                      "            console.log(\"Teardown delete: \" + jsonData.id);",
+                      "        });",
+                      "    }",
+                      "}",
+                      ""
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-SCH-004 — Verify 200 Content-Type",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\": \"SCH200B\", \"type\": \"percent\", \"discount_value\": 10, \"min_order_amount\": 0, \"expired_at\": \"2027-12-31\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test('Content-Type is json', function() { pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json'); });",
+                      "",
+                      "if (pm.response.code === 200) {",
+                      "    let jsonData = pm.response.json();",
+                      "    if (jsonData && jsonData.id) {",
+                      "        let req = {",
+                      "            url: pm.environment.get(\"baseUrl\") + \"/api/admin/coupons/\" + jsonData.id,",
+                      "            method: 'DELETE',",
+                      "            header: {",
+                      "                'Authorization': 'Bearer ' + pm.environment.get(\"adminToken\")",
+                      "            }",
+                      "        };",
+                      "        pm.sendRequest(req, function (err, res) {",
+                      "            console.log(\"Teardown delete: \" + jsonData.id);",
+                      "        });",
+                      "    }",
+                      "}",
+                      ""
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-SCH-005 — Verify 400 schema",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\": \"SCH400\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 400', function () { pm.response.to.have.status(400); });",
+                      "pm.test('Error Schema matches', function() { pm.response.to.have.jsonSchema({\"type\": \"object\", \"required\": [\"error\"], \"properties\": {\"error\": {\"type\": \"string\", \"minLength\": 1}}}); });"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-SCH-006 — Verify 401 schema",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\": \"SCH401\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 401', function () { pm.response.to.have.status(401); });",
+                      "pm.test('Error Schema matches', function() { pm.response.to.have.jsonSchema({\"type\": \"object\", \"required\": [\"error\"], \"properties\": {\"error\": {\"type\": \"string\", \"minLength\": 1}}}); });"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-SCH-007 — Verify 403 schema",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\": \"SCH403\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 403', function () { pm.response.to.have.status(403); });",
+                      "pm.test('Error Schema matches', function() { pm.response.to.have.jsonSchema({\"type\": \"object\", \"required\": [\"error\"], \"properties\": {\"error\": {\"type\": \"string\", \"minLength\": 1}}}); });"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-SCH-008 — Verify 409 schema",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\": \"SAVE10\", \"type\": \"percent\", \"discount_value\": 10, \"min_order_amount\": 0, \"expired_at\": \"2027-12-31\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 409', function () { pm.response.to.have.status(409); });",
+                      "pm.test('Error Schema matches', function() { pm.response.to.have.jsonSchema({\"type\": \"object\", \"required\": [\"error\"], \"properties\": {\"error\": {\"type\": \"string\", \"minLength\": 1}}}); });"
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "TC-ERR",
+          "item": [
+            {
+              "name": "TC-FR17-ERR-001 — Empty JSON",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 400', function () { pm.response.to.have.status(400); });"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-ERR-002 — No body",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons"
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 400', function () { pm.response.to.have.status(400); });"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-ERR-003 — Invalid JSON",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\": \"ABC\", \"type\": \"percent\", \"discount_value\":}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 400', function () { pm.response.to.have.status(400); });"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-ERR-004 — Missing code",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"type\":\"percent\", \"discount_value\":10, \"min_order_amount\":0, \"expired_at\":\"2027-12-31\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 400', function () { pm.response.to.have.status(400); });"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-ERR-005 — Missing type",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\":\"MISSTYP\", \"discount_value\":10, \"min_order_amount\":0, \"expired_at\":\"2027-12-31\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 400', function () { pm.response.to.have.status(400); });"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-ERR-006 — Missing discount_value",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\":\"MISSDV\", \"type\":\"percent\", \"min_order_amount\":0, \"expired_at\":\"2027-12-31\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 400', function () { pm.response.to.have.status(400); });"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-ERR-007 — Missing min_order_amount",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\":\"MISSMOA\", \"type\":\"percent\", \"discount_value\":10, \"expired_at\":\"2027-12-31\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 400', function () { pm.response.to.have.status(400); });"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-ERR-008 — Missing expired_at",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\":\"MISSEXP\", \"type\":\"percent\", \"discount_value\":10, \"min_order_amount\":0}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 400', function () { pm.response.to.have.status(400); });"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-ERR-009 — String discount_value",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\":\"TYPEDV\", \"type\":\"percent\", \"discount_value\":\"ten\", \"min_order_amount\":0, \"expired_at\":\"2027-12-31\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 400', function () { pm.response.to.have.status(400); });"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-ERR-010 — Invalid date format",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\":\"FMTEXP\", \"type\":\"percent\", \"discount_value\":10, \"min_order_amount\":0, \"expired_at\":\"31-12-2027\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 400', function () { pm.response.to.have.status(400); });"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "TC-FR17-ERR-011 — Content-Type text/plain",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "text/plain"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/admin/coupons",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"code\":\"FMTEXP\", \"type\":\"percent\", \"discount_value\":10, \"min_order_amount\":0, \"expired_at\":\"2027-12-31\"}"
+                }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('Status is 400', function () { pm.response.to.have.status(400); });"
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "TC-IDP",
+          "item": [
+            {
+              "name": "TC-FR17-IDP-001 — Verify second identical request with same code returns 409 Conflict",
+              "item": [
+                {
+                  "name": "TC-FR17-IDP-001 — Step 1: Create coupon",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{adminToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/admin/coupons",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "admin", "coupons"]
+                    },
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"code\": \"IDP001\", \"type\": \"percent\", \"discount_value\": 10, \"min_order_amount\": 0, \"expired_at\": \"2027-12-31\"}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status is 200', function () { pm.response.to.have.status(200); });",
+                          "pm.environment.set('idp001_id', pm.response.json().id);"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "TC-FR17-IDP-001 — Step 2: Create duplicate & teardown",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{adminToken}}"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/admin/coupons",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "admin", "coupons"]
+                    },
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"code\": \"IDP001\", \"type\": \"percent\", \"discount_value\": 10, \"min_order_amount\": 0, \"expired_at\": \"2027-12-31\"}"
+                    }
+                  },
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test('Status is 409', function () { pm.response.to.have.status(409); });",
+                          "if (pm.response.code === 200) {",
+                          "    let req = { url: pm.environment.get('baseUrl') + '/api/admin/coupons/' + pm.environment.get('idp001_id'), method: 'DELETE', header: { 'Authorization': 'Bearer ' + pm.environment.get('adminToken') } };",
+                          "    pm.sendRequest(req, function(){});",
+                          "pm.environment.unset('idp001_id');",
+                          "}"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Data-Driven TCs",
+      "item": [
+        {
+          "name": "Data-Driven Template",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/admin/coupons",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"{{code}}\",\n  \"type\": \"{{type}}\",\n  \"discount_value\": {{discount_value}},\n  \"min_order_amount\": {{min_order_amount}},\n  \"expired_at\": \"{{expired_at}}\",\n  \"max_uses_per_user\": {{max_uses_per_user}}\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "let expectedStatus = parseInt(pm.iterationData.get('expected_status'));",
+                  "pm.test(pm.iterationData.get('tc_id') + ' — Status is ' + expectedStatus, function () {",
+                  "    pm.response.to.have.status(expectedStatus);",
+                  "});",
+                  "",
+                  "if (pm.response.code === 200) {",
+                  "    let jsonData = pm.response.json();",
+                  "    if (jsonData && jsonData.id) {",
+                  "        let req = {",
+                  "            url: pm.environment.get('baseUrl') + '/api/admin/coupons/' + jsonData.id,",
+                  "            method: 'DELETE',",
+                  "            header: {",
+                  "                'Authorization': 'Bearer ' + pm.environment.get('adminToken')",
+                  "            }",
+                  "        };",
+                  "        pm.sendRequest(req, function (err, res) {",
+                  "            console.log('Teardown delete: ' + jsonData.id);",
+                  "        });",
+                  "    }",
+                  "}",
+                  ""
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

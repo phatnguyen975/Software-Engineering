@@ -1,0 +1,17 @@
+{
+  "name": "learn-postman",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Learn, automate, and scale API testing with Postman, AI agents, and reusable workflows.",
+  "scripts": {
+    "test:fr01": "newman run postman/collections/fr01/collection.json -e postman/environments/local.json --iteration-data postman/collections/fr01/data-domain.csv --reporters cli,htmlextra,json --reporter-htmlextra-export postman/reports/fr01-report.html --reporter-json-export docs/apis/post-register/newman-summary.json",
+    "test:fr07": "newman run postman/collections/fr07/collection.json -e postman/environments/local.json --iteration-data postman/collections/fr07/data-domain.csv --reporters cli,htmlextra,json --reporter-htmlextra-export postman/reports/fr07-report.html --reporter-json-export docs/apis/post-cart/newman-summary.json",
+    "test:fr17": "newman run postman/collections/fr17/collection.json -e postman/environments/local.json --iteration-data postman/collections/fr17/data-domain.csv --reporters cli,htmlextra,json --reporter-htmlextra-export postman/reports/fr17-report.html --reporter-json-export docs/apis/post-admin-coupons/newman-summary.json",
+    "test:all": "npm run test:fr01 && npm run test:fr07 && npm run test:fr17",
+    "test:ci": "node scripts/ci-runner.js"
+  },
+  "devDependencies": {
+    "newman": "^6.2.2",
+    "newman-reporter-htmlextra": "^1.23.1"
+  }
+}

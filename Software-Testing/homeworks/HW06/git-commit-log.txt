@@ -1,0 +1,507 @@
+* commit 146e6e124f2b18bdcfcd84d39d22727106fa3ebe
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sat Aug 22 03:14:04 2026 +0700
+| 
+|     demo(ci-fail): update backend to add new endpoints
+| 
+|  backend/server.js | 4 ++++
+|  1 file changed, 4 insertions(+)
+|   
+| * commit a5f4c50c6dd9478154125a399c5449ac1f36501e
+|/  Author: Phat Nguyen <phatnguyen9725@gmail.com>
+|   Date:   Sat Aug 22 02:55:18 2026 +0700
+|   
+|       demo(ci-pass): update collections to add new test cases
+|   
+|    postman/collections/fr01/collection.json |  536 -------
+|    postman/collections/fr01/data-domain.csv |   15 -
+|    postman/collections/fr07/collection.json | 2130 +++-----------------------
+|    postman/collections/fr07/data-domain.csv |   13 -
+|    postman/collections/fr17/collection.json |  743 +--------
+|    postman/collections/fr17/data-domain.csv |   11 -
+|    6 files changed, 239 insertions(+), 3209 deletions(-)
+| 
+* commit 3c410810a3c223434de7da8ef208004b8ec22d0b
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sat Aug 22 02:32:23 2026 +0700
+| 
+|     feat: add tutorial for API testing with Postman
+| 
+|  README.md | 1835 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+|  1 file changed, 1835 insertions(+)
+| 
+* commit a1c74b8044fe48181e79dd0da88b092c8dc5e2f2
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Sat Aug 22 01:50:17 2026 +0700
+| 
+|     feat: add ai test generator design
+| 
+|  docs/ai-driven-test-generator.md | 192 +++++++++++++++++++++++++++++++++++++
+|  1 file changed, 192 insertions(+)
+| 
+* commit f58b90d1b282b72944ee904182abc4848a307fc6
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Aug 21 23:20:34 2026 +0700
+| 
+|     feat(ci): add CI workflow
+| 
+|  .github/workflows/api-test.yml |  79 +++++++++++++++++++++++++++++
+|  docs/ci-workflow.md            |  49 ++++++++++++++++++
+|  package.json                   |   3 +-
+|  scripts/ci-runner.js           | 104 +++++++++++++++++++++++++++++++++++++++
+|  4 files changed, 234 insertions(+), 1 deletion(-)
+| 
+* commit a05de1cc9b9822aed667eb07f7b5264b11554fbf
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Aug 21 22:20:20 2026 +0700
+| 
+|     feat(fr17): add bug report
+| 
+|  .gitignore                                        |     1 -
+|  docs/apis/post-admin-coupons/bug-report.md        |   272 +
+|  .../ai/23127449-post-admin-coupons-2026-08.log.md |    46 +-
+|  docs/screenshots/fr17/BUG-FR17-001.png            |   Bin 0 -> 325304 bytes
+|  docs/screenshots/fr17/BUG-FR17-002.png            |   Bin 0 -> 334808 bytes
+|  docs/screenshots/fr17/BUG-FR17-003.png            |   Bin 0 -> 326534 bytes
+|  docs/screenshots/fr17/BUG-FR17-004.png            |   Bin 0 -> 385966 bytes
+|  postman/reports/fr01-report.html                  | 20028 +++++++++++++
+|  postman/reports/fr07-report.html                  | 26839 ++++++++++++++++++
+|  postman/reports/fr17-report.html                  | 22503 +++++++++++++++
+|  10 files changed, 69680 insertions(+), 9 deletions(-)
+| 
+* commit d675bb3c232a94a003973b4952ca8d076659d8ba
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Aug 21 21:33:14 2026 +0700
+| 
+|     feat(fr17): add report and update test results
+| 
+|  docs/apis/post-admin-coupons/newman-summary.json  | 37488 ++++++++++++++++++
+|  docs/apis/post-admin-coupons/test-cases.md        |   143 +-
+|  docs/apis/post-cart/newman-summary.json           |  7768 ++--
+|  docs/apis/post-register/newman-summary.json       |  6800 ++--
+|  .../ai/23127449-post-admin-coupons-2026-08.log.md |    92 +-
+|  postman/collections/fr17/collection.json          |   182 +-
+|  6 files changed, 45080 insertions(+), 7393 deletions(-)
+| 
+* commit 7ab1976fc6816f994f79fa685180ee4570cdd775
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Aug 21 19:51:26 2026 +0700
+| 
+|     feat(fr17): add collection and test data
+| 
+|  .../ai/23127449-post-admin-coupons-2026-08.log.md |  151 +-
+|  postman/collections/fr01/data-domain.csv          |    2 +-
+|  postman/collections/fr17/collection.json          | 1639 +++++++++++++++++++
+|  postman/collections/fr17/data-domain.csv          |   21 +
+|  4 files changed, 1795 insertions(+), 18 deletions(-)
+| 
+* commit ef140c677ef0a6eeeb6b2589a36a066a906a0aae
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Aug 21 15:18:55 2026 +0700
+| 
+|     feat(fr17): add test cases
+| 
+|  docs/apis/post-admin-coupons/test-cases.md        | 193 ++++++++++++++++++++
+|  .../ai/23127449-post-admin-coupons-2026-08.log.md |  82 ++++++++-
+|  2 files changed, 265 insertions(+), 10 deletions(-)
+| 
+* commit 7f84a01d336906905db8768f304584727c44c6cb
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Aug 21 06:35:13 2026 +0700
+| 
+|     feat(fr17): add OpenAPI docs
+| 
+|  .../ai/23127449-post-admin-coupons-2026-08.log.md | 77 ++++++++++++++++++---
+|  .../components/schemas/CouponCreateResponse.yaml  |  8 +++
+|  docs/openapi/components/schemas/CouponInput.yaml  | 45 ++++++++++++
+|  docs/openapi/openapi.yaml                         |  4 ++
+|  docs/openapi/paths/admin/coupon-create.yaml       | 68 ++++++++++++++++++
+|  docs/openapi/paths/auth/register.yaml             |  2 +-
+|  docs/openapi/paths/cart/cart-add.yaml             |  2 +-
+|  7 files changed, 196 insertions(+), 10 deletions(-)
+| 
+* commit 17aeab455d6ae1d08d90cf8f77ca5be79b35ae09
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Aug 21 06:13:18 2026 +0700
+| 
+|     feat(fr17): add API contract
+| 
+|  docs/apis/post-admin-coupons/CONTRACT.md          | 280 ++++++++++++++++++++
+|  .../ai/23127449-post-admin-coupons-2026-08.log.md |  97 +++++++
+|  docs/audit/ai/23127449-post-cart-2026-08.log.md   |   2 +-
+|  .../ai/23127449-post-register-2026-08.log.md      |   2 +-
+|  4 files changed, 379 insertions(+), 2 deletions(-)
+| 
+* commit fcfb42d967f85d7b7de4a08ff17295910c68e775
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Aug 21 05:35:44 2026 +0700
+| 
+|     feat(fr07): add bug report
+| 
+|  docs/apis/post-cart/bug-report.md               | 466 ++++++++++++++++++++++
+|  docs/apis/post-register/bug-report.md           |   8 +-
+|  docs/audit/ai/23127449-post-cart-2026-08.log.md |  75 +++-
+|  docs/screenshots/{ => fr01}/BUG-FR01-001.png    | Bin
+|  docs/screenshots/{ => fr01}/BUG-FR01-002.png    | Bin
+|  docs/screenshots/{ => fr01}/BUG-FR01-003.png    | Bin
+|  docs/screenshots/{ => fr01}/BUG-FR01-004.png    | Bin
+|  docs/screenshots/fr07/BUG-FR07-001.png          | Bin 0 -> 319896 bytes
+|  docs/screenshots/fr07/BUG-FR07-002.png          | Bin 0 -> 319663 bytes
+|  docs/screenshots/fr07/BUG-FR07-003.png          | Bin 0 -> 400104 bytes
+|  docs/screenshots/fr07/BUG-FR07-004.png          | Bin 0 -> 391215 bytes
+|  docs/screenshots/fr07/BUG-FR07-005.png          | Bin 0 -> 373594 bytes
+|  docs/screenshots/fr07/BUG-FR07-006.png          | Bin 0 -> 361312 bytes
+|  postman/collections/fr07/collection.json        |  19 +-
+|  14 files changed, 551 insertions(+), 17 deletions(-)
+| 
+* commit de356626574c2783ba8dc528bebf1f2254f7048b
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Fri Aug 21 02:40:48 2026 +0700
+| 
+|     feat(fr07): add test report and update test results
+| 
+|  docs/apis/post-cart/newman-summary.json         | 47523 ++++++++++++++++++++
+|  docs/apis/post-cart/test-cases.md               |   150 +-
+|  docs/audit/ai/23127449-post-cart-2026-08.log.md |   143 +-
+|  postman/collections/fr07/collection.json        |   330 +-
+|  4 files changed, 47979 insertions(+), 167 deletions(-)
+| 
+* commit 1511c15a5266edb280f85dd95cd5c661d979310b
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Aug 20 23:45:35 2026 +0700
+| 
+|     feat(fr07): add collection and test data
+| 
+|  docs/audit/ai/23127449-post-cart-2026-08.log.md |  161 +-
+|  postman/collections/fr07/collection.json        | 3348 +++++++++++++++++++++
+|  postman/collections/fr07/data-domain.csv        |   22 +
+|  3 files changed, 3514 insertions(+), 17 deletions(-)
+| 
+* commit a321839bfe3f16619f05df8c2692dd0de46582fc
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Aug 20 20:02:06 2026 +0700
+| 
+|     feat(fr07): add test cases
+| 
+|  docs/apis/post-cart/test-cases.md               | 198 ++++++++++++++++++++++
+|  docs/audit/ai/23127449-post-cart-2026-08.log.md | 114 +++++++++++--
+|  2 files changed, 301 insertions(+), 11 deletions(-)
+| 
+* commit 329209f76454c5092feb8df0bedeaa92d4072358
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Aug 20 17:05:29 2026 +0700
+| 
+|     feat(fr07): add OpenAPI docs
+| 
+|  docs/audit/ai/23127449-post-cart-2026-08.log.md   | 79 ++++++++++++++++++---
+|  docs/openapi/components/responses/Forbidden.yaml  |  7 ++
+|  docs/openapi/components/responses/NotFound.yaml   |  7 ++
+|  .../components/responses/Unauthorized.yaml        |  7 ++
+|  .../openapi/components/schemas/CartItemInput.yaml | 31 ++++++++
+|  .../openapi/components/schemas/RegisterInput.yaml | 26 +++++++
+|  docs/openapi/openapi.yaml                         | 10 +++
+|  docs/openapi/paths/auth/register.yaml             | 27 +------
+|  docs/openapi/paths/cart/cart-add.yaml             | 72 +++++++++++++++++++
+|  9 files changed, 231 insertions(+), 35 deletions(-)
+| 
+* commit 562d7babe8c34e9c1375a7508b3d9ce5bcafb8fd
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Aug 20 16:31:55 2026 +0700
+| 
+|     feat(fr07): add API contract
+| 
+|  docs/apis/post-cart/CONTRACT.md                 | 207 ++++++++++++++++++++++
+|  docs/apis/post-register/CONTRACT.md             |  79 +++------
+|  docs/audit/ai/23127449-post-cart-2026-08.log.md |  94 ++++++++++
+|  3 files changed, 329 insertions(+), 51 deletions(-)
+| 
+* commit 24aa03121444090b41cdd46b7781ee0ba8ad638d
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Aug 20 06:43:17 2026 +0700
+| 
+|     feat(fr01): add screenshots and update bug report
+| 
+|  docs/apis/post-register/bug-report.md |  34 ++++++++++++++++++++------------
+|  docs/screenshots/BUG-FR01-001.png     | Bin 0 -> 320554 bytes
+|  docs/screenshots/BUG-FR01-002.png     | Bin 0 -> 269286 bytes
+|  docs/screenshots/BUG-FR01-003.png     | Bin 0 -> 1080478 bytes
+|  docs/screenshots/BUG-FR01-004.png     | Bin 0 -> 376478 bytes
+|  5 files changed, 21 insertions(+), 13 deletions(-)
+| 
+* commit 85796a61f37f57e6576e9f554fa989307216d486
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Aug 20 06:04:44 2026 +0700
+| 
+|     feat(fr01): add bug report
+| 
+|  .../assets/collection-skeleton.json               |    6 +-
+|  .../references/collection-structure.md            |    6 +-
+|  docs/apis/post-register/bug-report.md             |  425 ++
+|  docs/apis/post-register/newman-summary.json       | 6531 ++++++++++---------
+|  docs/apis/post-register/test-cases.md             |    9 +-
+|  .../ai/23127449-post-register-2026-08.log.md      |  105 +-
+|  postman/collections/fr01/collection.json          |  144 +-
+|  7 files changed, 3802 insertions(+), 3424 deletions(-)
+| 
+* commit 69232c187648304306dfa222494909c415b57ff5
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Aug 20 04:13:28 2026 +0700
+| 
+|     feat(fr01): add summary report and update test results
+| 
+|  .gitignore                                        |     1 +
+|  docs/apis/post-register/newman-summary.json       | 34962 ++++++++++++++++++
+|  docs/apis/post-register/test-cases.md             |   106 +-
+|  .../ai/23127449-post-register-2026-08.log.md      |    49 +-
+|  package.json                                      |     6 +-
+|  postman/collections/fr01/collection.json          |     9 +-
+|  postman/collections/fr01/data-domain.csv          |     2 +-
+|  7 files changed, 35070 insertions(+), 65 deletions(-)
+| 
+* commit 73021a0d5a6755b1fe3cf44d1a82119bd10ffa2c
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Thu Aug 20 02:27:53 2026 +0700
+| 
+|     feat(fr01): add collection scripts and test data
+| 
+|  .agents/skills/api-collection/SKILL.md            |  23 +-
+|  .../assets/collection-skeleton.json               | 290 ++++--
+|  .../references/collection-structure.md            |  72 +-
+|  .../api-collection/references/scripting-guide.md  |  26 +-
+|  .agents/skills/api-newman/SKILL.md                |   8 +-
+|  .../api-newman/references/summary-parsing.md      |  20 +-
+|  .../api-openapi/references/directory-structure.md |  10 +-
+|  .../api-openapi/references/mapping-guide.md       |   2 +-
+|  docs/apis/post-register/test-cases.md             | 227 ++---
+|  .../ai/23127449-post-register-2026-08.log.md      | 217 ++++-
+|  postman/collections/fr01/collection.json          | 987 ++++++++++++++++++++
+|  postman/collections/fr01/data-domain.csv          |  23 +
+|  12 files changed, 1585 insertions(+), 320 deletions(-)
+| 
+* commit 874d2f8e0857962a993d97352567178bb8b15e3e
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Wed Aug 19 19:01:09 2026 +0700
+| 
+|     feat(fr01): add test cases
+| 
+|  .agents/skills/api-collection/SKILL.md            |   4 +-
+|  .../api-test-design/assets/TEST_CASES_TEMPLATE.md |  26 +--
+|  docs/apis/post-register/test-cases.md             | 206 ++++++++++++++++++++
+|  .../ai/23127449-post-register-2026-08.log.md      | 142 ++++++++++++--
+|  4 files changed, 353 insertions(+), 25 deletions(-)
+| 
+* commit d65ac2522e1ffbd6827b95f4b4a8d818944001d2
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Wed Aug 19 15:29:40 2026 +0700
+| 
+|     feat(fr01): add OpenAPI docs
+| 
+|  backend/server.js                                 | 53 +++++------
+|  .../ai/23127449-post-register-2026-08.log.md      | 80 +++++++++++++++--
+|  docs/openapi/components/responses/BadRequest.yaml |  7 ++
+|  docs/openapi/components/responses/Conflict.yaml   |  7 ++
+|  .../components/responses/InternalServerError.yaml |  7 ++
+|  .../openapi/components/schemas/ErrorResponse.yaml |  8 ++
+|  .../components/securitySchemes/BearerAuth.yaml    |  4 +
+|  docs/openapi/openapi.yaml                         | 42 +++++++++
+|  docs/openapi/paths/auth/register.yaml             | 97 +++++++++++++++++++++
+|  9 files changed, 267 insertions(+), 38 deletions(-)
+| 
+* commit bc19084fe96a283eb11dda341c72f751d7f793e2
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Wed Aug 19 14:37:29 2026 +0700
+| 
+|     feat(fr01): add API contract
+| 
+|  docs/apis/post-register/CONTRACT.md               | 252 ++++++++++++++++++++
+|  .../ai/23127449-post-register-2026-08.log.md      |  95 ++++++++
+|  2 files changed, 347 insertions(+)
+| 
+* commit 0415f15903c7925d83bd3ca154851b3b357ce801
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Wed Aug 19 05:45:05 2026 +0700
+| 
+|     feat: add api-newman and api-postman skills
+| 
+|  .agents/agents/newman-executor/agent.md           | 161 ++++++++
+|  .agents/agents/postman-sync/agent.md              | 202 ++++++++++
+|  .agents/skills/api-newman/SKILL.md                | 184 +++++++++
+|  .../api-newman/references/summary-parsing.md      | 180 +++++++++
+|  .agents/skills/api-postman/SKILL.md               | 188 +++++++++
+|  .../api-postman/references/postman-mcp-guide.md   | 169 ++++++++
+|  AGENTS.md                                         | 407 ++++++++++++++++++++
+|  7 files changed, 1491 insertions(+)
+| 
+* commit 31458c2568dd68f7e6be7f956d7ce849c039c220
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Aug 18 18:58:38 2026 +0700
+| 
+|     feat: add api-bug-report skill
+| 
+|  .agents/skills/api-bug-report/SKILL.md            | 174 ++++++++++++++++++++
+|  .../api-bug-report/assets/BUG_REPORT_TEMPLATE.md  | 143 ++++++++++++++++
+|  .../api-bug-report/references/root-cause-guide.md | 154 +++++++++++++++++
+|  .../api-bug-report/references/severity-guide.md   | 124 ++++++++++++++
+|  4 files changed, 595 insertions(+)
+| 
+* commit 789878501d16e86fc54bb39fe2309720dcd6cb6a
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Aug 18 16:03:04 2026 +0700
+| 
+|     feat: add api-collection skill
+| 
+|  .agents/skills/api-collection/SKILL.md            | 228 +++++++++++++++++
+|  .../assets/collection-skeleton.json               | 190 ++++++++++++++
+|  .../references/collection-structure.md            | 205 +++++++++++++++
+|  .../api-collection/references/scripting-guide.md  | 265 ++++++++++++++++++++
+|  4 files changed, 888 insertions(+)
+| 
+* commit ca98b31bf46c894760110ddeb744b6c7157754dd
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Aug 18 14:31:37 2026 +0700
+| 
+|     feat: add api-test-design skill
+| 
+|  .agents/skills/api-test-design/SKILL.md           | 255 ++++++++++++++++++++
+|  .../api-test-design/assets/TEST_CASES_TEMPLATE.md |  90 +++++++
+|  .../api-test-design/references/domain-testing.md  |  63 +++++
+|  .../api-test-design/references/error-handling.md  |  73 ++++++
+|  .../references/idempotency-testing.md             |  47 ++++
+|  .../api-test-design/references/rate-limiting.md   |  62 +++++
+|  .../references/schema-validation.md               |  77 ++++++
+|  .../references/security-testing.md                | 137 +++++++++++
+|  .../references/state-transition-testing.md        |  85 +++++++
+|  9 files changed, 889 insertions(+)
+| 
+* commit 5087d44e9461fe8134ae43784221e53fd23f38c1
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Aug 18 09:52:04 2026 +0700
+| 
+|     feat: add api-openapi skill
+| 
+|  .agents/skills/api-openapi/SKILL.md               | 210 ++++++++++++
+|  .../assets/openapi-index-template.yaml            |  59 ++++
+|  .../api-openapi/references/directory-structure.md | 343 ++++++++++++++++++++
+|  .../api-openapi/references/mapping-guide.md       | 198 +++++++++++
+|  4 files changed, 810 insertions(+)
+| 
+* commit 4ba2b6936c5270aa5b54cc303844ce08ae6de343
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Tue Aug 18 03:24:52 2026 +0700
+| 
+|     feat: add api-contract skill
+| 
+|  .agents/skills/api-contract/SKILL.md              | 178 ++++++++++++++++++++
+|  .../api-contract/assets/CONTRACT_TEMPLATE.md      | 147 ++++++++++++++++
+|  .../api-contract/references/analysis-guide.md     | 101 +++++++++++
+|  .../api-contract/references/inference-guide.md    | 151 +++++++++++++++++
+|  4 files changed, 577 insertions(+)
+| 
+* commit 97840990afcfeb171a8de5e7747ec9c36b2bbbbd
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Mon Aug 17 18:46:00 2026 +0700
+| 
+|     feat: config swagger UI for API docs
+| 
+|  .gitignore                      |    5 +
+|  backend/package-lock.json       | 1733 +++++++++++++++++++++++++++
+|  backend/package.json            |    4 +-
+|  backend/server.js               |   73 ++
+|  package-lock.json               | 2393 +++++++++++++++++++++++++++++++++++++
+|  package.json                    |   16 +
+|  postman/environments/local.json |   57 +
+|  7 files changed, 4280 insertions(+), 1 deletion(-)
+| 
+* commit c2cdf16caa78d2cc6d85bcf5b9832bb93253b2ea
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Mon Aug 17 04:00:15 2026 +0700
+| 
+|     feat: add functional-test-design and ai-audit-log skills
+| 
+|  .agents/skills/ai-audit-log/LICENSE               |  21 +
+|  .agents/skills/ai-audit-log/README.md             |  81 ++++
+|  .agents/skills/ai-audit-log/SKILL.md              | 136 ++++++
+|  .../ai-audit-log/examples/example-session.md      | 290 +++++++++++++
+|  .../examples/sample-tan-phat-2026-07.log.md       | 184 +++++++++
+|  .../skills/ai-audit-log/resources/log-format.md   | 126 ++++++
+|  .../ai-audit-log/resources/quality-checklist.md   |  36 ++
+|  .../ai-audit-log/resources/status-definitions.md  |  40 ++
+|  .../skills/ai-audit-log/resources/tag-taxonomy.md |  61 +++
+|  .agents/skills/functional-test-design/LICENSE     |  21 +
+|  .agents/skills/functional-test-design/README.md   | 139 +++++++
+|  .agents/skills/functional-test-design/SKILL.md    | 419 +++++++++++++++++++
+|  .../decision-table-testing/SKILL.md               | 262 ++++++++++++
+|  .../examples/discount-rules.md                    | 198 +++++++++
+|  .../examples/loan-eligibility.md                  | 287 +++++++++++++
+|  .../resources/anti-patterns.md                    | 132 ++++++
+|  .../resources/best-practices.md                   | 176 ++++++++
+|  .../resources/conditions-actions-guide.md         | 204 +++++++++
+|  .../resources/output-template.md                  | 116 ++++++
+|  .../resources/quality-checklist.md                |  88 ++++
+|  .../resources/reduction-guide.md                  | 116 ++++++
+|  .../resources/table-construction.md               | 126 ++++++
+|  .../decision-table-testing/resources/theory.md    | 171 ++++++++
+|  .../domain-testing/SKILL.md                       | 220 ++++++++++
+|  .../domain-testing/examples/login-form.md         | 157 +++++++
+|  .../domain-testing/examples/product-code.md       | 198 +++++++++
+|  .../domain-testing/resources/anti-patterns.md     | 111 +++++
+|  .../domain-testing/resources/best-practices.md    | 138 +++++++
+|  .../domain-testing/resources/bva-reference.md     | 152 +++++++
+|  .../domain-testing/resources/ep-guidelines.md     | 162 ++++++++
+|  .../domain-testing/resources/output-template.md   |  53 +++
+|  .../domain-testing/resources/quality-checklist.md |  96 +++++
+|  .../domain-testing/resources/theory.md            | 135 ++++++
+|  .../error-guessing/SKILL.md                       | 243 +++++++++++
+|  .../examples/user-registration-api.md             | 199 +++++++++
+|  .../error-guessing/resources/anti-patterns.md     |  92 +++++
+|  .../error-guessing/resources/best-practices.md    | 112 +++++
+|  .../error-guessing/resources/error-taxonomy.md    | 254 ++++++++++++
+|  .../resources/fault-attack-guide.md               | 115 ++++++
+|  .../error-guessing/resources/output-template.md   | 102 +++++
+|  .../error-guessing/resources/quality-checklist.md |  74 ++++
+|  .../error-guessing/resources/theory.md            | 119 ++++++
+|  .../state-transition-testing/SKILL.md             | 264 ++++++++++++
+|  .../examples/order-lifecycle.md                   | 435 ++++++++++++++++++++
+|  .../resources/anti-patterns.md                    |  93 +++++
+|  .../resources/best-practices.md                   |  53 +++
+|  .../resources/coverage-guide.md                   | 151 +++++++
+|  .../resources/fsm-components-guide.md             | 182 ++++++++
+|  .../resources/output-template.md                  | 125 ++++++
+|  .../resources/quality-checklist.md                |  92 +++++
+|  .../resources/std-stt-guide.md                    | 154 +++++++
+|  .../state-transition-testing/resources/theory.md  | 231 +++++++++++
+|  .../use-case-testing/SKILL.md                     | 290 +++++++++++++
+|  .../use-case-testing/examples/online-purchase.md  | 421 +++++++++++++++++++
+|  .../use-case-testing/resources/anti-patterns.md   |  65 +++
+|  .../use-case-testing/resources/best-practices.md  |  39 ++
+|  .../use-case-testing/resources/output-template.md | 104 +++++
+|  .../resources/quality-checklist.md                |  79 ++++
+|  .../resources/scenario-matrix-guide.md            | 108 +++++
+|  .../resources/spec-and-flow-guide.md              | 173 ++++++++
+|  .../use-case-testing/resources/theory.md          | 195 +++++++++
+|  61 files changed, 9416 insertions(+)
+| 
+* commit 9bdc9c75d86ef69386146fb7c7fb77a3bfb153f9
+| Author: Phat Nguyen <phatnguyen9725@gmail.com>
+| Date:   Mon Aug 17 03:58:25 2026 +0700
+| 
+|     feat: add backend scripts and API docs
+| 
+|  .agents/mcp_config.example.json |  10 +
+|  .gitignore                      |   4 +
+|  backend/database.js             | 157 +++++++++++
+|  backend/package.json            |  20 ++
+|  backend/server.js               | 572 ++++++++++++++++++++++++++++++++++++++
+|  docs/requirements.md            | 186 +++++++++++++
+|  docs/sut/api-spec.md            | 224 +++++++++++++++
+|  docs/sut/srs.md                 | 266 ++++++++++++++++++
+|  8 files changed, 1439 insertions(+)
+| 
+* commit ce2a7dc654819e4122e0a2cebf152893282f9ff6
+  Author: Phat Nguyen <phatnguyen9725@gmail.com>
+  Date:   Sun Aug 16 18:40:58 2026 +0700
+  
+      chore: init project
+  
+   README.md | 7 +++++++
+   1 file changed, 7 insertions(+)

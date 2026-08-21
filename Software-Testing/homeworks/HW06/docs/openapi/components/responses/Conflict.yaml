@@ -1,0 +1,7 @@
+description: "Resource already exists or state conflict"
+content:
+  application/json:
+    schema:
+      $ref: "../schemas/ErrorResponse.yaml"
+    example:
+      error: "Resource already exists"

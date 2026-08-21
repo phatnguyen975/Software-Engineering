@@ -1,0 +1,31 @@
+type: object
+required:
+  - id
+  - name
+  - price
+  - quantity
+properties:
+  id:
+    type: integer
+    minimum: 1
+    description: "Must reference an existing product in the `products` table"
+    example: 1
+  name:
+    type: string
+    minLength: 1
+    maxLength: 255
+    description: "Display name of the product"
+    example: "Iphone 17 Pro Max"
+  price:
+    type: number
+    minimum: 0
+    exclusiveMinimum: true
+    description: "Unit price of the product in VND. Must be > 0 with up to 2 decimal places."
+    example: 30000000
+  quantity:
+    type: integer
+    minimum: 1
+    maximum: 99
+    description: "Number of units to add. Max per-line threshold is 99 units."
+    example: 2
+additionalProperties: false

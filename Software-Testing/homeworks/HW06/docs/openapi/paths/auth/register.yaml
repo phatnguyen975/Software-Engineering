@@ -1,0 +1,72 @@
+post:
+  summary: "Creates a new user account"
+  description: |
+    Creates a new user account.
+
+    **Business Rules:**
+    - **BR-01:** All three fields — `name`, `email`, `password` — are required.
+    - **BR-02:** The `email` field must conform to RFC 5322 email format.
+    - **BR-03:** The `email` address must be unique across all registered users (case-insensitive).
+    - **BR-04:** The `password` must satisfy the strong password policy (min 8 chars, 1 uppercase, 1 lowercase, 1 digit, 1 special char from `@$!%*?&`).
+    - **BR-05:** The `password` must be stored as a cryptographic hash.
+    - **BR-06:** The `name` field must not be empty or consist solely of whitespace characters.
+    - **BR-07:** The registered account's `role` is always set to `user` by default.
+    - **BR-08:** Initial fields default values assigned.
+    - **BR-09:** Success response returns `message` and `id`, not `password`.
+    - **BR-10:** Bad Request returned for malformed JSON.
+    - **BR-11:** Rate limited to 5 requests per IP per hour.
+
+    **State Transitions:**
+    - **HTTP Response State:**
+      - `200 OK` — Registration successful
+      - `400 Bad Request` — Validation failed
+      - `409 Conflict` — Duplicate email
+      - `500 Internal Server Error` — Unhandled DB error
+    - **System Data State:**
+      - Inserts a new user record.
+    - **Field-Level Preconditions:**
+      - Requires `email` to not exist in `users` table.
+
+    **Security Rules:**
+    - **SEC-01:** Passwords must not be stored as plaintext. Response body must not contain the password.
+    - **SEC-04:** Name stored in DB must be safely rendered.
+    - **SEC-05:** DB queries must use parameterized queries.
+    - **SEC-06:** Mass assignment — role field is ignored if present.
+    - **Rate Limiting:** Registration should be rate-limited.
+    - **Sensitive Data:** Error responses must not expose raw internal error details.
+
+    **Idempotency:**
+    - Not idempotent — second call with same email returns `409 Conflict`.
+  operationId: "registerUser"
+  tags:
+    - Authentication
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/RegisterInput.yaml"
+  security: []
+  responses:
+    "200":
+      description: "Registration successful"
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - message
+              - id
+            properties:
+              message:
+                type: string
+                example: "User registered successfully"
+              id:
+                type: integer
+                example: 1
+    "400":
+      $ref: "../../components/responses/BadRequest.yaml"
+    "409":
+      $ref: "../../components/responses/Conflict.yaml"
+    "500":
+      $ref: "../../components/responses/InternalServerError.yaml"

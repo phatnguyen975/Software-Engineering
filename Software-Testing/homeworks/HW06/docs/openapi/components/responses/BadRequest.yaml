@@ -1,0 +1,7 @@
+description: "Request validation failed"
+content:
+  application/json:
+    schema:
+      $ref: "../schemas/ErrorResponse.yaml"
+    example:
+      error: "Invalid input"

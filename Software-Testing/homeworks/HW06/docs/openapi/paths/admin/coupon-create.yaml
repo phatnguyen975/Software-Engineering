@@ -1,0 +1,68 @@
+post:
+  summary: Creates a new coupon
+  description: |
+    Creates a new discount coupon.
+    
+    **Business Rules:**
+    - **BR-01:** The `code` field must be unique across all coupons in the system.
+    - **BR-02:** The `type` field is a closed enumeration.
+    - **BR-03:** The `discount_value` must be strictly positive (> 0).
+    - **BR-04:** The `min_order_amount` must be a non-negative integer (>= 0).
+    - **BR-05:** The `expired_at` must represent a future date.
+    - **BR-06:** The `max_uses_per_user` must be a positive integer >= 1.
+    - **BR-07:** The fields `code`, `type`, `discount_value`, `min_order_amount`, and `expired_at` are strictly required.
+    - **BR-08:** This endpoint is accessible only to users with `role = 'admin'`.
+    - **BR-09:** A newly created coupon is activated immediately (`is_active = 1`).
+    - **BR-10:** Extra fields sent in the request body are silently ignored or explicitly rejected.
+    - **BR-11:** The request body must be valid JSON.
+
+    **State Transitions:**
+    - **HTTP Response State:**
+      - `200 OK` — Coupon created
+      - `400 Bad Request` — Validation failure
+      - `401 Unauthorized` — Missing token
+      - `403 Forbidden` — Insufficient role or invalid token
+      - `409 Conflict` — Uniqueness conflict
+      - `500 Internal Server Error` — Unhandled DB error
+    - **System Data State:**
+      - Inserts a new coupon row with provided values and `is_active = 1`.
+    - **Field-Level Preconditions:**
+      - Code does not yet exist in DB.
+
+    **Security Rules:**
+    - **SEC-02:** Requires valid, unexpired JWT.
+    - **SEC-03:** Requires `role = 'admin'`. Forged tokens or regular user tokens are blocked.
+    - **SEC-04:** Stored XSS via `code` must be safely escaped when displayed.
+    - **SEC-05:** SQL Injection via `code` and `type` must be prevented using parameterized queries.
+    - **SEC-06:** Mass assignment — caller must not be able to set `is_active` or `id`.
+
+    **Idempotency:**
+    - Not idempotent — repeated calls with the same `code` must conflict (409).
+  operationId: createCoupon
+  tags:
+    - Admin
+  security:
+    - BearerAuth: []
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/CouponInput.yaml"
+  responses:
+    "200":
+      description: Coupon Created Successfully
+      content:
+        application/json:
+          schema:
+            $ref: "../../components/schemas/CouponCreateResponse.yaml"
+    "400":
+      $ref: "../../components/responses/BadRequest.yaml"
+    "401":
+      $ref: "../../components/responses/Unauthorized.yaml"
+    "403":
+      $ref: "../../components/responses/Forbidden.yaml"
+    "409":
+      $ref: "../../components/responses/Conflict.yaml"
+    "500":
+      $ref: "../../components/responses/InternalServerError.yaml"
