@@ -1,0 +1,10 @@
+{
+  "position": 5,
+  "accounts": {
+    "account-alice": {
+      "balance": 150,
+      "ownerName": "Alice",
+      "status": "CLOSED"
+    }
+  }
+}

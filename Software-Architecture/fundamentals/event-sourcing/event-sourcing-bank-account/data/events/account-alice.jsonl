@@ -1,0 +1,6 @@
+{"eventId":"d65ccfd7-0b64-4e95-8a92-ed32da21fc9c","eventType":"AccountOpened","aggregateId":"account-alice","version":0,"timestamp":"2026-09-15T08:34:18.349Z","idempotencyKey":null,"data":{"ownerName":"Alice","initialBalance":100}}
+{"eventId":"c00ebdb0-ada8-4bd4-b328-c826c142537b","eventType":"MoneyDeposited","aggregateId":"account-alice","version":1,"timestamp":"2026-09-15T08:34:18.379Z","idempotencyKey":null,"data":{"amount":50}}
+{"eventId":"5d823091-e814-4cd4-b894-c9df86509738","eventType":"MoneyWithdrawn","aggregateId":"account-alice","version":2,"timestamp":"2026-09-15T08:34:18.397Z","idempotencyKey":null,"data":{"amount":30}}
+{"eventId":"2c911513-2f0a-4677-8055-75e8679c7273","eventType":"MoneyDeposited","aggregateId":"account-alice","version":3,"timestamp":"2026-09-15T08:34:18.426Z","idempotencyKey":null,"data":{"amount":10}}
+{"eventId":"55a94f9d-f97b-45ab-81a3-28f162fced1e","eventType":"MoneyDeposited","aggregateId":"account-alice","version":4,"timestamp":"2026-09-15T08:34:18.441Z","idempotencyKey":"client-retry-key-001","data":{"amount":20}}
+{"eventId":"37446b09-8ab7-4ce1-9cc1-eaf8042dee5f","eventType":"AccountClosed","aggregateId":"account-alice","version":5,"timestamp":"2026-09-15T08:34:18.463Z","idempotencyKey":null,"data":{}}

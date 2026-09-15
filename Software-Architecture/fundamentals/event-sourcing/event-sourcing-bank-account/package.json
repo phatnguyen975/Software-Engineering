@@ -1,0 +1,15 @@
+{
+  "name": "event-sourcing-bank-account",
+  "version": "1.0.0",
+  "description": "Production-style reference implementation of Event Sourcing (append-only event store, snapshots, projections, optimistic concurrency, idempotency) using a Bank Account domain. Zero external dependencies.",
+  "main": "scripts/run-demo.js",
+  "scripts": {
+    "demo": "node scripts/run-demo.js",
+    "replay": "node scripts/replay.js",
+    "reset": "node scripts/reset.js"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "license": "MIT"
+}

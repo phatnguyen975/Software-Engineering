@@ -1,0 +1,10 @@
+{
+  "version": 5,
+  "state": {
+    "id": "account-alice",
+    "ownerName": "Alice",
+    "balance": 150,
+    "status": "CLOSED"
+  },
+  "savedAt": "2026-09-15T08:34:18.465Z"
+}

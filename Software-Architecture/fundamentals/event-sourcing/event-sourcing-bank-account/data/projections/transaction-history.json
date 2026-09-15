@@ -1,0 +1,41 @@
+{
+  "position": 5,
+  "transactions": {
+    "account-alice": [
+      {
+        "type": "AccountOpened",
+        "timestamp": "2026-09-15T08:34:18.349Z",
+        "version": 0
+      },
+      {
+        "type": "MoneyDeposited",
+        "timestamp": "2026-09-15T08:34:18.379Z",
+        "version": 1,
+        "amount": 50
+      },
+      {
+        "type": "MoneyWithdrawn",
+        "timestamp": "2026-09-15T08:34:18.397Z",
+        "version": 2,
+        "amount": 30
+      },
+      {
+        "type": "MoneyDeposited",
+        "timestamp": "2026-09-15T08:34:18.426Z",
+        "version": 3,
+        "amount": 10
+      },
+      {
+        "type": "MoneyDeposited",
+        "timestamp": "2026-09-15T08:34:18.441Z",
+        "version": 4,
+        "amount": 20
+      },
+      {
+        "type": "AccountClosed",
+        "timestamp": "2026-09-15T08:34:18.463Z",
+        "version": 5
+      }
+    ]
+  }
+}
